@@ -1,4 +1,4 @@
-package com.team1.deal;
+package team1.deal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
