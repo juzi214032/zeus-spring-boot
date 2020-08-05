@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,18 +21,15 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("dept")
+@ApiModel(value="DeptPO对象", description="部门类")
 public class DeptPO implements Serializable {
 
 
-    /**
-     * 部门id
-     */
+    @ApiModelProperty(value = "部门id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 部门名
-     */
+    @ApiModelProperty(value = "部门名")
     @TableField("deptName")
     private String deptName;
 

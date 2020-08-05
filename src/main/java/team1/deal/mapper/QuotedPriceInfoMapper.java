@@ -1,6 +1,6 @@
 package team1.deal.mapper;
 
-import team1.deal.model.po.QuotedpriceinfoPO;
+import team1.deal.model.po.QuotedPriceInfoPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author team1
  * @since 2020-08-05
  */
-public interface QuotedpriceinfoMapper extends BaseMapper<QuotedpriceinfoPO> {
+public interface QuotedPriceInfoMapper extends BaseMapper<QuotedPriceInfoPO> {
 
 }

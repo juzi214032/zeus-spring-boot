@@ -1,6 +1,6 @@
 package team1.deal.mapper;
 
-import team1.deal.model.po.DemandorderPO;
+import team1.deal.model.po.DemandOrderPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author team1
  * @since 2020-08-05
  */
-public interface DemandorderMapper extends BaseMapper<DemandorderPO> {
+public interface DemandOrderMapper extends BaseMapper<DemandOrderPO> {
 
 }

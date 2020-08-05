@@ -1,6 +1,6 @@
 package team1.deal.service;
 
-import team1.deal.model.po.DemandorderPO;
+import team1.deal.model.po.QuotedPriceInfoPO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author team1
  * @since 2020-08-05
  */
-public interface DemandorderService extends IService<DemandorderPO> {
+public interface QuotedPriceInfoService extends IService<QuotedPriceInfoPO> {
 
 }

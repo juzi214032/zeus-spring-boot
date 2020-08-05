@@ -23,6 +23,7 @@ public class CodeGenerator {
         globalConfig.setOutputDir(projectPath + "/src/main/java");
         globalConfig
                 .setAuthor("team1")              //开发人员
+                .setSwagger2(true)              //生成api文档注解
                 .setOpen(false)                 //是否打开输出目录
                 .setFileOverride(false)         //是否覆盖已有文件，默认false
                 .setIdType(IdType.AUTO)         //指定生成的主键ID类型,IdType,Auto为数据库ID自增
