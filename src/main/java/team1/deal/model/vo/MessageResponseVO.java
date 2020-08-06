@@ -1,8 +1,7 @@
-package team1.deal.model.vo.response;
+package team1.deal.model.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import team1.deal.model.vo.response.ResponseVO;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

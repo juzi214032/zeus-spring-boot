@@ -1,4 +1,4 @@
-package team1.deal.model.vo.response;
+package team1.deal.model.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
