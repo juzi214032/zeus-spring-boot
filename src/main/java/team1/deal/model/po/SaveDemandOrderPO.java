@@ -18,13 +18,13 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author team1
- * @since 2020-08-05
+ * @since 2020-08-07
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("demand_order")
-@ApiModel(value="DemandOrderPO对象", description="需求订单类")
-public class DemandOrderPO implements Serializable {
+@TableName("save_demand_order")
+@ApiModel(value="SaveDemandOrderPO对象", description="")
+public class SaveDemandOrderPO implements Serializable {
 
 
     @ApiModelProperty(value = "需求订单id")

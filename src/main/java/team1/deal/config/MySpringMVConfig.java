@@ -5,13 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import team1.deal.common.Interceptor.MyInterceptor;
+import team1.deal.common.Interceptor.AuditInterceptor;
 
 @Configuration
 public class MySpringMVConfig implements WebMvcConfigurer {
 
     @Autowired
-    private MyInterceptor myInterceptor;
+    private AuditInterceptor myInterceptor;
+
+
+
 
     /**
      * 添加路径拦截
@@ -23,6 +26,10 @@ public class MySpringMVConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/helloword").setViewName("login");*/
     }
+
+
+
+
 
     /**
      * 注册拦截器，也就是使自己的拦截器生效

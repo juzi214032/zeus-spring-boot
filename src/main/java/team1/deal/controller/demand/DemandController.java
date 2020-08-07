@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team1.deal.model.po.DemandOrderPO;
+import team1.deal.model.vo.MessageResponseVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.DemandService;
 
@@ -26,10 +27,9 @@ public class DemandController {
      */
     @ApiOperation("需求审核通过")
     @PostMapping(value = "/auditAllow")
-    public ResponseVO<DemandOrderPO> auditAllow(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO auditAllow(@RequestBody DemandOrderPO demandOrderPO){
         demandService.auditAllow(demandOrderPO);
-
-        return new ResponseVO<>(demandOrderPO);
+        return new MessageResponseVO(20001);
     }
 
     /**
@@ -39,10 +39,9 @@ public class DemandController {
      */
     @ApiOperation("需求审核不通过")
     @PostMapping(value = "/auditFailure")
-    public ResponseVO<DemandOrderPO> auditFailure(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO auditFailure(@RequestBody DemandOrderPO demandOrderPO){
         demandService.auditFailure(demandOrderPO);
-
-        return new ResponseVO<>(demandOrderPO);
+        return new MessageResponseVO(20002);
     }
 
     /**
@@ -52,10 +51,9 @@ public class DemandController {
      */
     @ApiOperation("需求审批通过")
     @PostMapping(value = "/approvalAllow")
-    public ResponseVO<DemandOrderPO> approvalAllow(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO approvalAllow(@RequestBody DemandOrderPO demandOrderPO){
         demandService.approvalAllow(demandOrderPO);
-
-        return new ResponseVO<>(demandOrderPO);
+        return new MessageResponseVO(20003);
     }
 
     /**
@@ -65,10 +63,9 @@ public class DemandController {
      */
     @ApiOperation("需求审批不通过")
     @PostMapping(value = "/approvalFailure")
-    public ResponseVO<DemandOrderPO> approvalFailure(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO approvalFailure(@RequestBody DemandOrderPO demandOrderPO){
         demandService.approvalFailure(demandOrderPO);
-
-        return new ResponseVO<>(demandOrderPO);
+        return new MessageResponseVO(20004);
     }
 
 }
