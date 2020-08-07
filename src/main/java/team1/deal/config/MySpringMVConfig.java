@@ -25,7 +25,6 @@ public class MySpringMVConfig implements WebMvcConfigurer {
 
     @Autowired
     private AuditInterceptor myInterceptor;
-
     @Autowired
     private LocalDateTimeSerializer localDateTimeSerializer;
 

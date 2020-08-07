@@ -32,9 +32,17 @@ public class CreatQuotedPriceServiceImpl implements CreatQuotedPriceService {
     public void SaveQuotedPrice(SaveQuotedPriceInfoPO saveQuotedPriceInfoPO) {
         //设置报价订单的状态
         saveQuotedPriceInfoPO.setStatus(-2);
-        //将报价订单保存的id设置为null
-        saveQuotedPriceInfoPO.setId(null);
-
-        saveQuotedPriceInfoMapper.insert(saveQuotedPriceInfoPO);
+        /**
+         * 判断在数据库中该数据是否已经存在
+         * 存在则修改保存
+         * 不存在则创建新保存
+         */
+        if (saveQuotedPriceInfoMapper.selectById(saveQuotedPriceInfoPO.getId())!=null){
+            saveQuotedPriceInfoMapper.updateById(saveQuotedPriceInfoPO);
+        }else {
+            //将报价订单保存的id设置为null
+            saveQuotedPriceInfoPO.setId(null);
+            saveQuotedPriceInfoMapper.insert(saveQuotedPriceInfoPO);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package team1.deal.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team1.deal.mapper.DemandOrderMapper;
@@ -34,10 +35,19 @@ public class CreatDemandServiceImpl implements CreatDemandService {
     public void SaveDemand(SaveDemandOrderPO saveDemandOrderPO) {
         //设置需求订单的状态为-2代表没有
         saveDemandOrderPO.setStatus(-2);
-        //将需求订单保存的id设置为null
-        saveDemandOrderPO.setId(null);
+        /**
+         * 判断在数据库中该数据是否已经存在
+         * 存在则修改保存
+         * 不存在则创建新保存
+         */
+        if (saveDemandOrderMapper.selectById(saveDemandOrderPO.getId())!=null){
+            saveDemandOrderMapper.updateById(saveDemandOrderPO);
+        }else {
+            //将需求订单保存的id设置为null
+            saveDemandOrderPO.setId(null);
+            saveDemandOrderMapper.insert(saveDemandOrderPO);
+        }
 
-        saveDemandOrderMapper.insert(saveDemandOrderPO);
     }
 
 
