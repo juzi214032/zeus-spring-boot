@@ -17,10 +17,10 @@ import team1.deal.jackson.LocalDateTimeDeserializer;
 import team1.deal.jackson.LocalDateTimeSerializer;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.List;
 
 @Configuration
-@EnableWebMvc
 public class MySpringMVConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -63,6 +63,13 @@ public class MySpringMVConfig implements WebMvcConfigurer {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        Iterator<HttpMessageConverter<?>> iterator = converters.iterator();
+        while(iterator.hasNext()){
+            HttpMessageConverter<?> converter = iterator.next();
+            if(converter instanceof MappingJackson2HttpMessageConverter){
+                iterator.remove();
+            }
+        }
         ObjectMapper objectMapper = Jackson2ObjectMapperBuilder
                 .json()
                 // 属性为 null 时不进行序列化
