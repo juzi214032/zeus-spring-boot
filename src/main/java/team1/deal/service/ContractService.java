@@ -1,7 +1,10 @@
 package team1.deal.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import team1.deal.model.po.ContractPO;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.io.IOException;
 
 
 /**
@@ -14,6 +17,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ContractService extends IService<ContractPO> {
 
+    //上传合同附件，创建合同，并保存到数据库中
+    public void CreatContract(MultipartFile file, ContractPO contractPO) throws IOException;
 
+
+    //合同执行完毕
+    public void CompleteContract(ContractPO contractPO);
 
 }

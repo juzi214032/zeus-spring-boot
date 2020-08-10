@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import team1.deal.model.po.ContractPO;
 import team1.deal.model.vo.MessageResponseVO;
 import team1.deal.model.vo.ResponseVO;
-import team1.deal.service.CreatContractService;
+import team1.deal.service.ContractService;
 
 import java.io.IOException;
 
@@ -18,7 +18,8 @@ import java.io.IOException;
 public class ContractController {
 
     @Autowired
-    private CreatContractService creatContractService;
+    private ContractService contractService;
+
 
     /**
      * 创建合同
@@ -28,12 +29,18 @@ public class ContractController {
     @ApiOperation("创建合同")
     @PostMapping(value = "/CreatAndUpContract")
     public ResponseVO CreatContract(@RequestPart MultipartFile file,@RequestPart ContractPO contractPO) throws IOException {
-        creatContractService.CreatContract(file,contractPO);
+        contractService.CreatContract(file,contractPO);
 
         return new MessageResponseVO(20009);
     }
 
 
+    @ApiOperation("合同执行完毕")
+    @PostMapping(value = "/CompleteContract")
+    public ResponseVO CompleteContract(@RequestBody ContractPO contractPO){
+        contractService.CompleteContract(contractPO);
+        return new MessageResponseVO(20010);
+    }
 
 
 
