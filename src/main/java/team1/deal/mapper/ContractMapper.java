@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author team1
- * @since 2020-08-05
+ * @since 2020-08-10
  */
 public interface ContractMapper extends BaseMapper<ContractPO> {
 

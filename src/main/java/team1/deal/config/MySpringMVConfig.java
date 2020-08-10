@@ -56,6 +56,8 @@ public class MySpringMVConfig implements WebMvcConfigurer {
         /*registry.addInterceptor(myInterceptor).addPathPatterns("/需要拦截的路径url");*/
     }
 
+
+
     /**
      * 配置 Jackson
      *

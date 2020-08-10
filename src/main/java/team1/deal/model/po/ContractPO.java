@@ -18,18 +18,18 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author team1
- * @since 2020-08-05
+ * @since 2020-08-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("contract")
-@ApiModel(value="ContractPO对象", description="合同类")
+@ApiModel(value="ContractPO对象", description="")
 public class ContractPO implements Serializable {
 
 
     @ApiModelProperty(value = "交易合同编号")
     @TableId(value = "transactionContractNumber", type = IdType.AUTO)
-    private String transactionContractNumber;
+    private Integer transactionContractNumber;
 
     @ApiModelProperty(value = "签署日期")
     @TableField("signDate")
@@ -51,6 +51,9 @@ public class ContractPO implements Serializable {
 
     @ApiModelProperty(value = "合同状态，0：合同创建状态，1：合同完善状态（写合同+保存合同+签合同），2：合同完成状态")
     private Integer status;
+
+    @ApiModelProperty(value = "合同附件保存的url")
+    private String url;
 
 
 }

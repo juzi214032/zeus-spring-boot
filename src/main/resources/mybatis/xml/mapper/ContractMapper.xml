@@ -11,6 +11,7 @@
         <result column="price" property="price" />
         <result column="amount" property="amount" />
         <result column="status" property="status" />
+        <result column="url" property="url" />
     </resultMap>
 
 </mapper>

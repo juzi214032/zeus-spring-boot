@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import team1.deal.mapper.DeptMapper;
 
+import java.util.UUID;
+
 @SpringBootTest
 class DealApplicationTests {
 
@@ -15,7 +17,7 @@ class DealApplicationTests {
     @Test
     void test1() {
 
-        System.out.println(deptMapper.selectById(1).toString());
+        System.out.println(UUID.randomUUID());
 
     }
 
