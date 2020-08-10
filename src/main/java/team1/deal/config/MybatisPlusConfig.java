@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //Spring boot方式
 @EnableTransactionManagement
 @Configuration
-@MapperScan("team1.deal.mapper")//这里扫描了之后，就不用再在启动类上面重复扫描了
+@MapperScan({"team1.deal.mapper","team1.deal.dao"})//这里扫描了之后，就不用再在启动类上面重复扫描了
 public class MybatisPlusConfig {
 
 
