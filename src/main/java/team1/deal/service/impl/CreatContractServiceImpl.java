@@ -9,7 +9,6 @@ import team1.deal.service.CreatContractService;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -18,18 +17,10 @@ public class CreatContractServiceImpl implements CreatContractService {
 
     @Autowired
     private ContractMapper contractMapper;
-    //创建合同，并保存到数据库中
+    //上传合同附件，创建合同，并保存到数据库中
     @Override
-    public void CreatContract(ContractPO contractPO) {
-        //设置合同的初始状态
-        contractPO.setStatus(0);
-        //将合同存入数据库
-        contractMapper.insert(contractPO);
-    }
-
-    //上传合同附件,并将合同的URL存如对应的字段
-    @Override
-    public void UpContract(MultipartFile file, ContractPO contractPO) throws ParseException, IOException {
+    public void CreatContract(MultipartFile file,ContractPO contractPO) throws IOException {
+        //上传合同
         String url = null;
         //构建上传之后的地址
         String path = System.getProperty("user.dir") + "\\ContractFolder";
@@ -46,12 +37,14 @@ public class CreatContractServiceImpl implements CreatContractService {
         file.transferTo(new File(path + File.separator + fileName));
         //拼写完整的路径
         url = path + "\\" + fileName;
-
-
-        //url信息存入数据库
+        //将url信息存入contractPO对象中
         contractPO.setUrl(url);
-        contractMapper.updateById(contractPO);
 
+
+        //设置合同的初始状态
+        contractPO.setStatus(0);
+        //将合同存入数据库
+        contractMapper.insert(contractPO);
     }
 
 

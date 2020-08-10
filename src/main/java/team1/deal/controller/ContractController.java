@@ -11,7 +11,6 @@ import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.CreatContractService;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 @RestController
 @Api(tags = "创建合同，以及上传合同附件")
@@ -27,29 +26,14 @@ public class ContractController {
      * @return
      */
     @ApiOperation("创建合同")
-    @PostMapping(value = "/CreatContract")
-    public ResponseVO CreatContract(@RequestBody ContractPO contractPO){
-        creatContractService.CreatContract(contractPO);
-
-        return new MessageResponseVO(20010);
-    }
-
-
-    /**
-     * 上传文件,并将合同的URL存如对应的字段
-     * @param file
-     * @param contractPO
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
-    @ApiOperation("上传合同附件")
-    @PostMapping(value = "/UpContract")
-    public ResponseVO UpContract(@RequestPart MultipartFile file,@RequestPart ContractPO contractPO) throws IOException, ParseException {
-        creatContractService.UpContract(file,contractPO);
+    @PostMapping(value = "/CreatAndUpContract")
+    public ResponseVO CreatContract(@RequestPart MultipartFile file,@RequestPart ContractPO contractPO) throws IOException {
+        creatContractService.CreatContract(file,contractPO);
 
         return new MessageResponseVO(20009);
     }
+
+
 
 
 
