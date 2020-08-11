@@ -1,9 +1,14 @@
 package team1.deal.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import team1.deal.mapper.DemandOrderMapper;
+import team1.deal.mapper.QuotedPriceInfoMapper;
 import team1.deal.model.po.ContractPO;
 import team1.deal.mapper.ContractMapper;
+import team1.deal.model.po.DemandOrderPO;
+import team1.deal.model.po.QuotedPriceInfoPO;
 import team1.deal.service.ContractService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -27,7 +32,18 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
 
     @Autowired
     private ContractMapper contractMapper;
+    @Autowired
+    private DemandOrderMapper demandOrderMapper;
+    @Autowired
+    private QuotedPriceInfoMapper quotedPriceInfoMapper;
+
+
+
+
+
+
     //上传合同附件，创建合同，并保存到数据库中
+    @Transactional
     @Override
     public void CreatContract(MultipartFile file, ContractPO contractPO) throws IOException {
         //上传合同
@@ -55,6 +71,17 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
         contractPO.setStatus(0);
         //将合同存入数据库
         contractMapper.insert(contractPO);
+
+
+        //将需求订单的状态设置为5，表示完成
+        DemandOrderPO demandOrderPO = demandOrderMapper.selectById(contractPO.getDId());
+        demandOrderPO.setStatus(5);
+        demandOrderMapper.updateById(demandOrderPO);
+        //将报价订单的状态设置为5，表示完成
+        QuotedPriceInfoPO quotedPriceInfoPO = quotedPriceInfoMapper.selectById(contractPO.getQId());
+        quotedPriceInfoPO.setStatus(5);
+        quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
+
     }
 
 
