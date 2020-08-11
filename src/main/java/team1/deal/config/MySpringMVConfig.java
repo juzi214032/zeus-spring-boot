@@ -58,7 +58,9 @@ public class MySpringMVConfig implements WebMvcConfigurer {
                 .addPathPatterns("/Contract/*")
                 .addPathPatterns("/Demand/*")
                 .addPathPatterns("/QuotedPrice/*")
-                .addPathPatterns("/Subsidiary/*");
+                .addPathPatterns("/Subsidiary/*")
+                .addPathPatterns("/selectList/*")
+                .addPathPatterns("/Echo/*");
     }
 
 

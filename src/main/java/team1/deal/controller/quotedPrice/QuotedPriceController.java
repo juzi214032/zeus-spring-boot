@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import team1.deal.model.dto.QuotedPriceInfoPOListDTO;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.QuotedPriceInfoPO;
 import team1.deal.model.vo.MessageResponseVO;
@@ -74,6 +75,60 @@ public class QuotedPriceController {
         return new MessageResponseVO(20004);
     }
 
+    //******************************************
+
+
+    /**
+     * 报价批量审核通过
+     * @param quotedPriceInfoPOListDTO
+     * @return
+     */
+    @ApiOperation("报价批量审核通过")
+    @PostMapping(value = "/batchauditAllow")
+    public ResponseVO batchauditAllow(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
+        quotedPriceService.batchauditAllow(quotedPriceInfoPOListDTO);
+
+        return new MessageResponseVO(20011);
+    }
+
+    /**
+     * 报价批量审核不通过
+     * @param quotedPriceInfoPOListDTO
+     * @return
+     */
+    @ApiOperation("报价批量审核不通过")
+    @PostMapping(value = "/batchauditFailure")
+    public ResponseVO batchauditFailure(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
+        quotedPriceService.batchauditFailure(quotedPriceInfoPOListDTO);
+
+        return new MessageResponseVO(20012);
+    }
+
+    /**
+     * 报价批量审批通过
+     * @param quotedPriceInfoPOListDTO
+     * @return
+     */
+    @ApiOperation("报价批量审批通过")
+    @PostMapping(value = "/batchapprovalAllow")
+    public ResponseVO batchapprovalAllow(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
+        quotedPriceService.batchapprovalAllow(quotedPriceInfoPOListDTO);
+
+        return new MessageResponseVO(20013);
+    }
+
+    /**
+     * 报价批量审批不通过
+     * @param quotedPriceInfoPOListDTO
+     * @return
+     */
+    @ApiOperation("报价批量审批不通过")
+    @PostMapping(value = "/batchapprovalFailure")
+    public ResponseVO batchapprovalFailure(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
+        quotedPriceService.batchapprovalFailure(quotedPriceInfoPOListDTO);
+
+        return new MessageResponseVO(20014);
+    }
 
 }
 
