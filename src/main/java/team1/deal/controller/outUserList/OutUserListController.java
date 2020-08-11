@@ -12,19 +12,23 @@ import team1.deal.model.dto.PageParamDTO;
 import team1.deal.model.vo.DemandOrderInfoVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.DemandOrderService;
+import team1.deal.service.UserService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@Api(tags = "子公司筛选名单")
-@RequestMapping("/Subsidiary")
+@Api(tags = "投标筛选名单")
+@RequestMapping("/selectList")
 @Slf4j
 public class OutUserListController {
 
     @Autowired
     private DemandOrderService demandOrderService;
+
+    @Autowired
+    private UserService userService;
 
     @ApiOperation("采购信息列表")
     @GetMapping("/demandOrderList")
@@ -38,7 +42,8 @@ public class OutUserListController {
     public ResponseVO<Map<String,Object>> demandOrderInfo(@ApiParam("采购订单id") @PathVariable Integer orderId){
         Map map = new HashMap();
         map.put("demandOrder",demandOrderService.getDemandOrderById(orderId));
-        map.put("quotedPriceInfo",demandOrderService.getQuotedPriceInfoList(orderId));
+        //模拟用户id，后头可用token替换
+        map.put("quotedPriceInfo",userService.selectSupplier(1));
         return  new ResponseVO<>(map);
     }
 

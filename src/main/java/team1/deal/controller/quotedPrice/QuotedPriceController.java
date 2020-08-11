@@ -22,8 +22,6 @@ public class QuotedPriceController {
     @Autowired
     private QuotedPriceService quotedPriceService;
 
-    @Autowired
-    private UserService userService;
 
     /**
      * 报价审核通过
@@ -76,13 +74,6 @@ public class QuotedPriceController {
         return new MessageResponseVO(20004);
     }
 
-    @ApiOperation("获取审核名单")
-    @GetMapping(value = "/outSupplierList")
-    public ResponseVO outUserList(){
-        //模拟用户id，后头可用token替换
-        Integer id = 1;
-        return new ResponseVO(userService.selectSupplier(1));
-    }
 
 }
 
