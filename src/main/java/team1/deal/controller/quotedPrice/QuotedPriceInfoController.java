@@ -1,4 +1,4 @@
-package team1.deal.controller.outUserList;
+package team1.deal.controller.quotedPrice;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,14 +15,13 @@ import team1.deal.service.DemandOrderService;
 import team1.deal.service.UserService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
-@Api(tags = "投标筛选名单")
+@Api(tags = "报价阶段信息")
 @RequestMapping("/selectList")
 @Slf4j
-public class OutUserListController {
+public class QuotedPriceInfoController {
 
     @Autowired
     private DemandOrderService demandOrderService;
@@ -37,14 +36,20 @@ public class OutUserListController {
         return new ResponseVO<>(page);
     }
 
-    @ApiOperation("采购信息详情")
+    @ApiOperation("国电用户查看采购信息详情")
     @GetMapping("/demandOrderInfo/{orderId}")
-    public ResponseVO<Map<String,Object>> demandOrderInfo(@ApiParam("采购订单id") @PathVariable Integer orderId){
+    public ResponseVO<Map<String,Object>> demandOrderInfoCompany(@ApiParam("采购订单id") @PathVariable Integer orderId){
         Map map = new HashMap();
         map.put("demandOrder",demandOrderService.getDemandOrderById(orderId));
         //模拟用户id，后头可用token替换
         map.put("quotedPriceInfo",userService.selectSupplier(1));
         return  new ResponseVO<>(map);
+    }
+
+    @ApiOperation("阳光用户查看采购信息详情")
+    @GetMapping("/demandOrderInfo/{orderId}")
+    public ResponseVO<DemandOrderInfoVO> demandOrderInfoUser(@ApiParam("采购订单id") @PathVariable Integer orderId){
+        return  new ResponseVO<>(demandOrderService.getDemandOrderById(orderId));
     }
 
 }
