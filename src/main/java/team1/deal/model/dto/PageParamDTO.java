@@ -14,7 +14,4 @@ public class PageParamDTO {
     @ApiModelProperty("每页条数")
     private Integer pageSize = 10;
 
-    @ApiModelProperty("搜索关键字")
-    private String keyword = "";
-
 }

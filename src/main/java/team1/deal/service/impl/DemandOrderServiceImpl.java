@@ -2,6 +2,7 @@ package team1.deal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.base.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import team1.deal.dao.DemandOrderDao;
@@ -42,6 +43,9 @@ public class DemandOrderServiceImpl extends ServiceImpl<DemandOrderMapper, Deman
     //订单列表分页
     @Override
     public Page<DemandOrderInfoVO> getDemandOrderByPage(PageParamDTO pageParamDTO){
+        if (null == pageParamDTO){
+            pageParamDTO = new PageParamDTO();
+        }
         Page<DemandOrderPO> page = new Page<>(pageParamDTO.getPageOn(),pageParamDTO.getPageSize());
         LambdaQueryWrapper<DemandOrderPO> queryWrapper = new LambdaQueryWrapper<DemandOrderPO>()
                 .eq(DemandOrderPO::getStatus, 4);

@@ -32,7 +32,7 @@ public class OutUserListController {
 
     @ApiOperation("采购信息列表")
     @GetMapping("/demandOrderList")
-    public ResponseVO<Page<DemandOrderInfoVO>> demandOrderList(@RequestBody PageParamDTO pageParamDTO){
+    public ResponseVO<Page<DemandOrderInfoVO>> demandOrderList(@RequestBody(required = false) PageParamDTO pageParamDTO){
         Page<DemandOrderInfoVO> page = demandOrderService.getDemandOrderByPage(pageParamDTO);
         return new ResponseVO<>(page);
     }
