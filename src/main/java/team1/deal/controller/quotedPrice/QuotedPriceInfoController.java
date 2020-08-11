@@ -37,7 +37,7 @@ public class QuotedPriceInfoController {
     }
 
     @ApiOperation("国电用户查看采购信息详情")
-    @GetMapping("/demandOrderInfo/{orderId}")
+    @GetMapping("/demandOrderInfo/company/{orderId}")
     public ResponseVO<Map<String,Object>> demandOrderInfoCompany(@ApiParam("采购订单id") @PathVariable Integer orderId){
         Map map = new HashMap();
         map.put("demandOrder",demandOrderService.getDemandOrderById(orderId));
@@ -47,7 +47,7 @@ public class QuotedPriceInfoController {
     }
 
     @ApiOperation("阳光用户查看采购信息详情")
-    @GetMapping("/demandOrderInfo/{orderId}")
+    @GetMapping("/demandOrderInfo/sunUser/{orderId}")
     public ResponseVO<DemandOrderInfoVO> demandOrderInfoUser(@ApiParam("采购订单id") @PathVariable Integer orderId){
         return  new ResponseVO<>(demandOrderService.getDemandOrderById(orderId));
     }
