@@ -6,6 +6,13 @@ spring:
     password: 190014
   application:
     name: deal
+  redis:
+    host: 127.0.0.1
+    password: 123456
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
 logging:

@@ -8,11 +8,10 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import team1.deal.common.Interceptor.AuditInterceptor;
+import team1.deal.common.Interceptor.MyInterceptor;
 import team1.deal.jackson.LocalDateTimeDeserializer;
 import team1.deal.jackson.LocalDateTimeSerializer;
 
@@ -24,7 +23,7 @@ import java.util.List;
 public class MySpringMVConfig implements WebMvcConfigurer {
 
     @Autowired
-    private AuditInterceptor myInterceptor;
+    private MyInterceptor myInterceptor;
     @Autowired
     private LocalDateTimeSerializer localDateTimeSerializer;
 
@@ -53,7 +52,13 @@ public class MySpringMVConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        /*registry.addInterceptor(myInterceptor).addPathPatterns("/需要拦截的路径url");*/
+        registry.addInterceptor(myInterceptor)
+                .addPathPatterns("/creatDemand/*")
+                .addPathPatterns("/creatQuotedPrice/*")
+                .addPathPatterns("/Contract/*")
+                .addPathPatterns("/Demand/*")
+                .addPathPatterns("/QuotedPrice/*")
+                .addPathPatterns("/Subsidiary/*");
     }
 
 
