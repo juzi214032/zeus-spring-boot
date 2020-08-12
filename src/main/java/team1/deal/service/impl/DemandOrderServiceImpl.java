@@ -43,9 +43,6 @@ public class DemandOrderServiceImpl extends ServiceImpl<DemandOrderMapper, Deman
     //订单列表分页
     @Override
     public Page<DemandOrderInfoVO> getDemandOrderByPage(PageParamDTO pageParamDTO){
-        if (null == pageParamDTO){
-            pageParamDTO = new PageParamDTO();
-        }
         Page<DemandOrderPO> page = new Page<>(pageParamDTO.getPageOn(),pageParamDTO.getPageSize());
         LambdaQueryWrapper<DemandOrderPO> queryWrapper = new LambdaQueryWrapper<DemandOrderPO>()
                 .eq(DemandOrderPO::getStatus, 4);
