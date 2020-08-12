@@ -53,18 +53,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         userDao.getUserAuthority(userId).forEach(s->{
             authorityIds.add(s.getId());
         });
+        LambdaQueryWrapper<QuotedPriceInfoPO> lambdaQueryWrapper = new LambdaQueryWrapper();
         List<QuotedPriceInfoPO> poList;
         //如果是电厂人员
         if (deptId == 1){
             for (Integer i :authorityIds) {
                 //如果是电厂部门的监察人员
                 if (i == 1){
-                    poList = quotedPriceInfoMapper.selectList(new LambdaQueryWrapper<QuotedPriceInfoPO>().eq(QuotedPriceInfoPO::getStatus,0));
+                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,0));
                     return changeToVO(poList);
                 }
                 //如果是电产部门的管理人员
                 if (i == 2){
-                    poList = quotedPriceInfoMapper.selectList(new LambdaQueryWrapper<QuotedPriceInfoPO>().eq(QuotedPriceInfoPO::getStatus,1));
+                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,1));
                     return changeToVO(poList);
                 }
             }
@@ -74,12 +75,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
             for (Integer i :authorityIds) {
                 //如果是分公司的监察人员
                 if (i == 1){
-                    poList = quotedPriceInfoMapper.selectList(new LambdaQueryWrapper<QuotedPriceInfoPO>().eq(QuotedPriceInfoPO::getStatus,2));
+                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,2));
                     return changeToVO(poList);
                 }
                 //如果是分公司的管理人员
                 if (i == 2){
-                    poList = quotedPriceInfoMapper.selectList(new LambdaQueryWrapper<QuotedPriceInfoPO>().eq(QuotedPriceInfoPO::getStatus,3));
+                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,3));
                     return changeToVO(poList);
                 }
             }
