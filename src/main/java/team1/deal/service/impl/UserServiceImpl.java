@@ -1,10 +1,12 @@
 package team1.deal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import team1.deal.dao.UserDao;
 import team1.deal.mapper.QuotedPriceInfoMapper;
+import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.QuotedPriceInfoPO;
 import team1.deal.model.po.UserPO;
 import team1.deal.mapper.UserMapper;
@@ -36,56 +38,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
     private UserMapper userMapper;
 
 
-    /**根据部门和权限，返回供应商列表
-     * 在这里模拟的id和对应的值
-     * 部门
-     * 1     电厂
-     * 2     分公司
-     * 权限
-     * 1      审核
-     * 2      审批
-     */
     public List<QuotedPriceInfoVO> selectSupplier(Integer userId){
-        //获取用户所在部门id
-        Integer deptId = userDao.getUserDept(userId).getId();
+        //获取用户所在部门
+        String dept = userDao.getUserDept(userId).getDeptName();
         //获取用户所拥有的权限id
-        List<Integer> authorityIds = new ArrayList<>();
+        List<String> authorityList = new ArrayList<>();
         userDao.getUserAuthority(userId).forEach(s->{
-            authorityIds.add(s.getId());
+            authorityList.add(s.getAuthority());
         });
-        LambdaQueryWrapper<QuotedPriceInfoPO> lambdaQueryWrapper = new LambdaQueryWrapper();
-        List<QuotedPriceInfoPO> poList;
-        //如果是电厂人员
-        if (deptId == 1){
-            for (Integer i :authorityIds) {
-                //如果是电厂部门的监察人员
-                if (i == 1){
-                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,0));
-                    return changeToVO(poList);
-                }
-                //如果是电产部门的管理人员
-                if (i == 2){
-                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,1));
-                    return changeToVO(poList);
-                }
-            }
+        QueryWrapper<QuotedPriceInfoPO> wrapper =new QueryWrapper<>();
+        if (authorityList.contains("审核")&&dept.equals("电厂")){
+            wrapper.eq("status",0);
+            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+        }else if (authorityList.contains("审批")&&dept.equals("电厂")){
+            wrapper.eq("status",1);
+            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+        }else if (authorityList.contains("审核")&&dept.equals("子公司")){
+            wrapper.eq("status",2);
+            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+        }else if (authorityList.contains("审批")&&dept.equals("子公司")){
+            wrapper.eq("status",3);
+            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+        }else {
+            wrapper.eq("status",4);
+            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
         }
-        //如果是分公司人员
-        if (deptId == 2){
-            for (Integer i :authorityIds) {
-                //如果是分公司的监察人员
-                if (i == 1){
-                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,2));
-                    return changeToVO(poList);
-                }
-                //如果是分公司的管理人员
-                if (i == 2){
-                    poList = quotedPriceInfoMapper.selectList(lambdaQueryWrapper.eq(QuotedPriceInfoPO::getStatus,3));
-                    return changeToVO(poList);
-                }
-            }
-        }
-        return null;
     }
 
     //订单类转返回消息

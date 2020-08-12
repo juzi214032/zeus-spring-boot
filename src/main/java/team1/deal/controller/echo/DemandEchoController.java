@@ -27,7 +27,7 @@ public class DemandEchoController {
     @Autowired
     private RedisTemplate<Object, UserPO> redisTemplate;
 
-    @ApiOperation("获取待审核需求订单")
+    @ApiOperation("获取需求订单")
     @PostMapping(value = "/DemandEcho")
     public ResponseVO DemandEcho(HttpServletRequest httpServletRequest){
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
