@@ -49,7 +49,7 @@ public class ContractPO implements Serializable {
     @ApiModelProperty(value = "签约量")
     private Integer amount;
 
-    @ApiModelProperty(value = "合同状态，0：合同创建状态，1：合同完善状态（写合同+保存合同+签合同），2：合同完成状态")
+    @ApiModelProperty(value = "合同状态，0：合同创建状态，1：合同完成状态")
     private Integer status;
 
     @ApiModelProperty(value = "合同附件保存的url")

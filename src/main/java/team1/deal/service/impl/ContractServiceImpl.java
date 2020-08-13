@@ -89,7 +89,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
     //合同执行完毕
     @Override
     public void CompleteContract(ContractPO contractPO) {
-        contractPO.setStatus(2);
+        contractPO.setStatus(1);
         //将修改为完毕状态的contractPO在数据库中更新
         contractMapper.updateById(contractPO);
     }

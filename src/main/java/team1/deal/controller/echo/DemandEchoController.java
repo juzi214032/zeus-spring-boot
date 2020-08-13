@@ -26,6 +26,11 @@ public class DemandEchoController {
     @Autowired
     private RedisTemplate<Object, UserPO> redisTemplate;
 
+    /**
+     * 需求订单回显
+     * @param httpServletRequest
+     * @return
+     */
     @ApiOperation("需求订单回显")
     @PostMapping(value = "/DemandEcho")
     public ResponseVO DemandEcho(HttpServletRequest httpServletRequest){
