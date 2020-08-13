@@ -21,12 +21,19 @@ public class CreatDemandServiceImpl implements CreatDemandService {
     //创建需求
     @Override
     public void CreatDemand(DemandOrderPO demandOrderPO) {
-        //设置需求订单的状态
-        demandOrderPO.setStatus(0);
-        //将需求订单的id设置为null,防止保存的id与提交后的id冲突
-        demandOrderPO.setId(null);
 
-        demandOrderMapper.insert(demandOrderPO);
+        //判断需求订单表中有无
+        if (demandOrderMapper.selectById(demandOrderPO.getId())==null){
+            //没有，则插入
+            //设置需求订单的状态
+            demandOrderPO.setStatus(0);
+            //将需求订单的id设置为null,防止保存的id与提交后的id冲突
+            demandOrderPO.setId(null);
+            demandOrderMapper.insert(demandOrderPO);
+        }else {
+            //有，则修改
+            demandOrderMapper.updateById(demandOrderPO);
+        }
     }
 
 
