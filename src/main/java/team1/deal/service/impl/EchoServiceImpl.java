@@ -12,6 +12,7 @@ import team1.deal.mapper.SaveQuotedPriceInfoMapper;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.SaveDemandOrderPO;
 import team1.deal.model.po.SaveQuotedPriceInfoPO;
+import team1.deal.model.vo.DemandOrderBriefInfoVO;
 import team1.deal.model.vo.DemandOrderInfoVO;
 import team1.deal.service.EchoService;
 
@@ -31,8 +32,8 @@ public class EchoServiceImpl implements EchoService {
     private SaveQuotedPriceInfoMapper saveQuotedPriceInfoMapper;
 
 
-    //获取待审核订单
-    public List<DemandOrderInfoVO> getToAudit(Integer userId){
+    //获取需求订单简要信息
+    public List<DemandOrderBriefInfoVO> getDemandOrderBriefInfo(Integer userId){
         //获取用户所在部门
         String dept = userDao.getUserDept(userId).getDeptName();
         //获取用户所拥有的权限id
@@ -79,13 +80,12 @@ public class EchoServiceImpl implements EchoService {
     }
 
     //订单类转返回消息
-    private List<DemandOrderInfoVO> changeToVO(List<DemandOrderPO> list){
-        List<DemandOrderInfoVO> voList = new ArrayList<>();
+    private List<DemandOrderBriefInfoVO> changeToVO(List<DemandOrderPO> list){
+        List<DemandOrderBriefInfoVO> voList = new ArrayList<>();
         list.forEach(s->{
-            DemandOrderInfoVO demandOrderInfoVO = new DemandOrderInfoVO();
-            BeanUtils.copyProperties(s, demandOrderInfoVO);
-            demandOrderInfoVO.setReceiptNumber(demandOrderInfoVO.getApplyUnit() + "-" + demandOrderInfoVO.getApplyTime().toLocalDate());
-            voList.add(demandOrderInfoVO);
+            DemandOrderBriefInfoVO demandOrderBriefInfoVO = new DemandOrderBriefInfoVO();
+            BeanUtils.copyProperties(s, demandOrderBriefInfoVO);
+            voList.add(demandOrderBriefInfoVO);
         });
         return voList;
     }
