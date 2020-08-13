@@ -1,5 +1,6 @@
 package team1.deal.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team1.deal.mapper.QuotedPriceInfoMapper;
@@ -32,17 +33,14 @@ public class CreatQuotedPriceServiceImpl implements CreatQuotedPriceService {
     public void SaveQuotedPrice(SaveQuotedPriceInfoPO saveQuotedPriceInfoPO) {
         //设置报价订单的状态
         saveQuotedPriceInfoPO.setStatus(-2);
-        /**
-         * 判断在数据库中该数据是否已经存在
-         * 存在则修改保存
-         * 不存在则创建新保存
-         */
-        if (saveQuotedPriceInfoMapper.selectById(saveQuotedPriceInfoPO.getId())!=null){
-            saveQuotedPriceInfoMapper.updateById(saveQuotedPriceInfoPO);
-        }else {
-            //将报价订单保存的id设置为null
-            saveQuotedPriceInfoPO.setId(null);
-            saveQuotedPriceInfoMapper.insert(saveQuotedPriceInfoPO);
+
+        //判断保存表中有无已保存的数据，有则删除旧，保存新的,确保保存表中在某一时刻只能有一条数据
+        QueryWrapper wrapper = new QueryWrapper();
+        SaveQuotedPriceInfoPO saveQuotedPriceInfoPO1 = saveQuotedPriceInfoMapper.selectOne(wrapper);
+        if (saveQuotedPriceInfoPO1!=null){
+            //删除旧数据
+            saveQuotedPriceInfoMapper.deleteById(saveQuotedPriceInfoPO1.getId());
         }
+        saveQuotedPriceInfoMapper.insert(saveQuotedPriceInfoPO);
     }
 }

@@ -14,6 +14,6 @@ spring:
     redis:
       cache-null-values: false
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*.xml
+  mapper-locations: classpath:/mybatis/xml/*/*.xml
 logging:
   level.team1.deal.mapper.*: debug

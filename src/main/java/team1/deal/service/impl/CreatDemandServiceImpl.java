@@ -35,19 +35,15 @@ public class CreatDemandServiceImpl implements CreatDemandService {
     public void SaveDemand(SaveDemandOrderPO saveDemandOrderPO) {
         //设置需求订单的状态为-2代表没有
         saveDemandOrderPO.setStatus(-2);
-        /**
-         * 判断在数据库中该数据是否已经存在
-         * 存在则修改保存
-         * 不存在则创建新保存
-         */
-        if (saveDemandOrderMapper.selectById(saveDemandOrderPO.getId())!=null){
-            saveDemandOrderMapper.updateById(saveDemandOrderPO);
-        }else {
-            //将需求订单保存的id设置为null
-            saveDemandOrderPO.setId(null);
-            saveDemandOrderMapper.insert(saveDemandOrderPO);
-        }
 
+        //判断保存表中有无已保存的数据，有则删除旧，保存新的
+        QueryWrapper wrapper = new QueryWrapper();
+        SaveDemandOrderPO saveDemandOrderPO1 = saveDemandOrderMapper.selectOne(wrapper);
+        if (saveDemandOrderPO1!=null){
+            //删除旧数据
+            saveDemandOrderMapper.deleteById(saveDemandOrderPO1.getId());
+        }
+        saveDemandOrderMapper.insert(saveDemandOrderPO);
     }
 
 
