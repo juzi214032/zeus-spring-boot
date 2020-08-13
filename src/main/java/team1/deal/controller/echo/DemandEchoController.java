@@ -45,8 +45,8 @@ public class DemandEchoController {
      */
     @ApiOperation("保存需求订单回显")
     @PostMapping(value = "/SaveDemandEcho")
-    public SaveDemandOrderPO SaveDemandEcho(){
-        return echoService.SaveDemandEcho();
+    public ResponseVO SaveDemandEcho(){
+        return new ResponseVO(echoService.SaveDemandEcho());
     }
 
 
@@ -56,8 +56,8 @@ public class DemandEchoController {
      */
     @ApiOperation("保存报价订单回显")
     @PostMapping(value = "/SaveQuotedPriceEcho")
-    public SaveQuotedPriceInfoPO SaveQuotedPriceEcho(){
-        return echoService.SaveQuotedPriceEcho();
+    public ResponseVO SaveQuotedPriceEcho(){
+        return new ResponseVO(echoService.SaveQuotedPriceEcho());
     }
 
 }
