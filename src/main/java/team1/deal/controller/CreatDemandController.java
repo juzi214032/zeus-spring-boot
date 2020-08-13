@@ -2,16 +2,16 @@ package team1.deal.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.SaveDemandOrderPO;
 import team1.deal.model.vo.MessageResponseVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.CreatDemandService;
+import team1.deal.service.DemandOrderService;
 
 @RestController
 @Api(tags = "创建|保存需求")
@@ -20,6 +20,9 @@ public class CreatDemandController {
 
     @Autowired
     private CreatDemandService creatDemandService;
+
+    @Autowired
+    private DemandOrderService demandOrderService;
 
     /**
      * 创建并提交
@@ -45,4 +48,14 @@ public class CreatDemandController {
         return new MessageResponseVO(20006);
     }
 
+    @ApiOperation("审核不通过修改按钮订单信息回显")
+    @GetMapping(value = "/OrderInfo/{orderId}")
+    public ResponseVO changeButtonOrderInfo(@ApiParam("需求订单id") @PathVariable Integer orderId){
+        DemandOrderPO demandOrderPO = demandOrderService.getById(orderId);
+        demandOrderPO.setIdea(null);
+        SaveDemandOrderPO saveDemandOrderPO = new SaveDemandOrderPO();
+        BeanUtils.copyProperties(demandOrderPO,saveDemandOrderPO);
+        creatDemandService.SaveDemand(saveDemandOrderPO);
+        return new ResponseVO(demandOrderPO);
+    }
 }
