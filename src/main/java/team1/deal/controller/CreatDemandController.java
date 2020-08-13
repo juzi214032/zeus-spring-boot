@@ -5,14 +5,18 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.SaveDemandOrderPO;
+import team1.deal.model.po.UserPO;
 import team1.deal.model.vo.MessageResponseVO;
 import team1.deal.model.vo.PartDemandOrderInfo;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.CreatDemandService;
 import team1.deal.service.DemandOrderService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @Api(tags = "创建|保存需求")
@@ -24,6 +28,9 @@ public class CreatDemandController {
 
     @Autowired
     private DemandOrderService demandOrderService;
+
+    @Autowired
+    private RedisTemplate<Object, UserPO> redisTemplate;
 
     /**
      * 创建并提交
@@ -51,12 +58,13 @@ public class CreatDemandController {
 
     @ApiOperation("审核不通过修改按钮订单信息回显")
     @GetMapping(value = "/OrderInfo/{orderId}")
-    public ResponseVO changeButtonOrderInfo(@ApiParam("需求订单id") @PathVariable Integer orderId){
+    public ResponseVO changeButtonOrderInfo(@ApiParam("需求订单id") @PathVariable Integer orderId, HttpServletRequest httpServletRequest){
         PartDemandOrderInfo  partDemandOrderInfo =new PartDemandOrderInfo();
         BeanUtils.copyProperties(demandOrderService.getById(orderId),partDemandOrderInfo);
         SaveDemandOrderPO saveDemandOrderPO = new SaveDemandOrderPO();
         BeanUtils.copyProperties(partDemandOrderInfo,saveDemandOrderPO);
+        saveDemandOrderPO.setUId(redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token")).getId());
         creatDemandService.SaveDemand(saveDemandOrderPO);
-        return new ResponseVO(demandOrderPO);
+        return new ResponseVO(partDemandOrderInfo);
     }
 }
