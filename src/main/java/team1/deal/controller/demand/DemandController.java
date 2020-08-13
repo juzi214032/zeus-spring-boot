@@ -4,6 +4,7 @@ package team1.deal.controller.demand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.vo.MessageResponseVO;
@@ -27,7 +28,7 @@ public class DemandController {
      */
     @ApiOperation("需求审核通过")
     @PostMapping(value = "/auditAllow")
-    public ResponseVO auditAllow(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO auditAllow(@RequestBody @Validated DemandOrderPO demandOrderPO){
         demandService.auditAllow(demandOrderPO);
         return new MessageResponseVO(20001);
     }
@@ -39,7 +40,7 @@ public class DemandController {
      */
     @ApiOperation("需求审核不通过")
     @PostMapping(value = "/auditFailure")
-    public ResponseVO auditFailure(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO auditFailure(@RequestBody @Validated DemandOrderPO demandOrderPO){
         demandService.auditFailure(demandOrderPO);
         return new MessageResponseVO(20002);
     }
@@ -51,7 +52,7 @@ public class DemandController {
      */
     @ApiOperation("需求审批通过")
     @PostMapping(value = "/approvalAllow")
-    public ResponseVO approvalAllow(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO approvalAllow(@RequestBody @Validated DemandOrderPO demandOrderPO){
         demandService.approvalAllow(demandOrderPO);
         return new MessageResponseVO(20003);
     }
@@ -63,7 +64,7 @@ public class DemandController {
      */
     @ApiOperation("需求审批不通过")
     @PostMapping(value = "/approvalFailure")
-    public ResponseVO approvalFailure(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO approvalFailure(@RequestBody @Validated DemandOrderPO demandOrderPO){
         demandService.approvalFailure(demandOrderPO);
         return new MessageResponseVO(20004);
     }

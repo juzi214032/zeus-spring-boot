@@ -3,6 +3,7 @@ package team1.deal.controller.quotedPrice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import team1.deal.model.dto.QuotedPriceInfoPOListDTO;
 import team1.deal.model.po.DemandOrderPO;
@@ -31,7 +32,7 @@ public class QuotedPriceController {
      */
     @ApiOperation("报价审核通过")
     @PostMapping(value = "/auditAllow")
-    public ResponseVO auditAllow(@RequestBody QuotedPriceInfoPO quotedPriceInfoPO){
+    public ResponseVO auditAllow(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
         quotedPriceService.auditAllow(quotedPriceInfoPO);
         return new MessageResponseVO(20001);
     }
@@ -44,7 +45,7 @@ public class QuotedPriceController {
      */
     @ApiOperation("报价审核不通过")
     @PostMapping(value = "/auditFailure")
-    public ResponseVO auditFailure(@RequestBody QuotedPriceInfoPO quotedPriceInfoPO){
+    public ResponseVO auditFailure(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
         quotedPriceService.auditFailure(quotedPriceInfoPO);
         return new MessageResponseVO(20002);
     }
@@ -57,7 +58,7 @@ public class QuotedPriceController {
      */
     @ApiOperation("报价审批通过")
     @PostMapping(value = "/approvalAllow")
-    public ResponseVO approvalAllow(@RequestBody QuotedPriceInfoPO quotedPriceInfoPO){
+    public ResponseVO approvalAllow(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
         quotedPriceService.approvalAllow(quotedPriceInfoPO);
         return new MessageResponseVO(20003);
     }
@@ -70,7 +71,7 @@ public class QuotedPriceController {
      */
     @ApiOperation("报价审批不通过")
     @PostMapping(value = "/approvalFailure")
-    public ResponseVO approvalFailure(@RequestBody QuotedPriceInfoPO quotedPriceInfoPO){
+    public ResponseVO approvalFailure(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
         quotedPriceService.approvalFailure(quotedPriceInfoPO);
         return new MessageResponseVO(20004);
     }

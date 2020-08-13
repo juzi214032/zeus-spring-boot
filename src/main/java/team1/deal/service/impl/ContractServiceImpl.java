@@ -77,9 +77,9 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
         DemandOrderPO demandOrderPO = demandOrderMapper.selectById(contractPO.getDId());
         demandOrderPO.setStatus(5);
         demandOrderMapper.updateById(demandOrderPO);
-        //将报价订单的状态设置为5，表示完成
+        //将报价订单的状态设置为4，表示完成
         QuotedPriceInfoPO quotedPriceInfoPO = quotedPriceInfoMapper.selectById(contractPO.getQId());
-        quotedPriceInfoPO.setStatus(5);
+        quotedPriceInfoPO.setStatus(4);
         quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
 
     }

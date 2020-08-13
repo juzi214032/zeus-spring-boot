@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import team1.deal.model.dto.PageParamDTO;
 import team1.deal.model.po.UserPO;
@@ -37,7 +38,7 @@ public class QuotedPriceInfoController {
 
     @ApiOperation("采购信息列表")
     @GetMapping("/demandOrderList")
-    public ResponseVO<Page<DemandOrderInfoVO>> demandOrderList(PageParamDTO pageParamDTO){
+    public ResponseVO<Page<DemandOrderInfoVO>> demandOrderList(@Validated PageParamDTO pageParamDTO){
         Page<DemandOrderInfoVO> page = demandOrderService.getDemandOrderByPage(pageParamDTO);
         return new ResponseVO<>(page);
     }

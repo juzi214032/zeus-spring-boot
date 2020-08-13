@@ -3,6 +3,7 @@ package team1.deal.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,20 +30,20 @@ public class CeatQuotedPriceController {
      */
     @ApiOperation("报价点击创建")
     @PostMapping(value = "/buttonCreatQuotedPrice")
-    public ResponseVO CreatQuotedPrice(@RequestBody QuotedPriceInfoPO quotedPriceInfoPO){
+    public ResponseVO CreatQuotedPrice(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
         creatQuotedPriceService.CreatQuotedPrice(quotedPriceInfoPO);
         return new MessageResponseVO(20007);
     }
 
 
     /**
-     * 创建不提交报价
+     * 保存报价
      * @param saveQuotedPriceInfoPO
      * @return
      */
     @ApiOperation("报价点击保存")
     @PostMapping(value = "/buttonSaveQuotedPrice")
-    public ResponseVO SaveQuotedPrice(@RequestBody SaveQuotedPriceInfoPO saveQuotedPriceInfoPO){
+    public ResponseVO SaveQuotedPrice(@RequestBody @Validated SaveQuotedPriceInfoPO saveQuotedPriceInfoPO){
         creatQuotedPriceService.SaveQuotedPrice(saveQuotedPriceInfoPO);
         return new MessageResponseVO(20008);
     }

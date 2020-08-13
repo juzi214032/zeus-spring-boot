@@ -10,6 +10,8 @@ import team1.deal.model.po.UserPO;
 import team1.deal.service.impl.EchoServiceImpl;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -36,8 +38,9 @@ class DealApplicationTests {
     @Test
     void test2() {
 
-        redisTemplate.expire("k",23L, TimeUnit.HOURS);
-        System.out.println(redisTemplate.opsForValue().get("k"));
+        /*redisTemplate.expire("k",23L, TimeUnit.HOURS);
+        System.out.println(redisTemplate.opsForValue().get("k"));*/
+        System.out.println(LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli());
     }
 
 }

@@ -3,6 +3,7 @@ package team1.deal.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import team1.deal.model.po.ContractPO;
@@ -28,7 +29,7 @@ public class ContractController {
      */
     @ApiOperation("创建合同")
     @PostMapping(value = "/CreatAndUpContract")
-    public ResponseVO CreatContract(@RequestPart MultipartFile file,@RequestPart ContractPO contractPO) throws IOException {
+    public ResponseVO CreatContract(@RequestPart MultipartFile file,@RequestPart @Validated ContractPO contractPO) throws IOException {
         contractService.CreatContract(file,contractPO);
 
         return new MessageResponseVO(20009);
@@ -37,7 +38,7 @@ public class ContractController {
 
     @ApiOperation("合同执行完毕")
     @PostMapping(value = "/CompleteContract")
-    public ResponseVO CompleteContract(@RequestBody ContractPO contractPO){
+    public ResponseVO CompleteContract(@RequestBody @Validated ContractPO contractPO){
         contractService.CompleteContract(contractPO);
         return new MessageResponseVO(20010);
     }

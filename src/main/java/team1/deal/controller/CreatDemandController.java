@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.SaveDemandOrderPO;
@@ -39,7 +40,7 @@ public class CreatDemandController {
      */
     @ApiOperation("需求点击创建")
     @PostMapping(value = "/buttonCreatDemand")
-    public ResponseVO CreatDemand(@RequestBody DemandOrderPO demandOrderPO){
+    public ResponseVO CreatDemand(@RequestBody @Validated DemandOrderPO demandOrderPO){
         creatDemandService.CreatDemand(demandOrderPO);
         return new MessageResponseVO(20005);
     }
@@ -51,7 +52,7 @@ public class CreatDemandController {
      */
     @ApiOperation("需求点击保存")
     @PostMapping(value = "/buttonSaveDemand")
-    public ResponseVO SaveDemand(@RequestBody SaveDemandOrderPO saveDemandOrderPO){
+    public ResponseVO SaveDemand(@RequestBody @Validated SaveDemandOrderPO saveDemandOrderPO){
         creatDemandService.SaveDemand(saveDemandOrderPO);
         return new MessageResponseVO(20006);
     }
