@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.SaveDemandOrderPO;
 import team1.deal.model.vo.MessageResponseVO;
+import team1.deal.model.vo.PartDemandOrderInfo;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.CreatDemandService;
 import team1.deal.service.DemandOrderService;
@@ -51,10 +52,10 @@ public class CreatDemandController {
     @ApiOperation("审核不通过修改按钮订单信息回显")
     @GetMapping(value = "/OrderInfo/{orderId}")
     public ResponseVO changeButtonOrderInfo(@ApiParam("需求订单id") @PathVariable Integer orderId){
-        DemandOrderPO demandOrderPO = demandOrderService.getById(orderId);
-        demandOrderPO.setIdea(null);
+        PartDemandOrderInfo  partDemandOrderInfo =new PartDemandOrderInfo();
+        BeanUtils.copyProperties(demandOrderService.getById(orderId),partDemandOrderInfo);
         SaveDemandOrderPO saveDemandOrderPO = new SaveDemandOrderPO();
-        BeanUtils.copyProperties(demandOrderPO,saveDemandOrderPO);
+        BeanUtils.copyProperties(partDemandOrderInfo,saveDemandOrderPO);
         creatDemandService.SaveDemand(saveDemandOrderPO);
         return new ResponseVO(demandOrderPO);
     }
