@@ -37,9 +37,6 @@ public class MySpringMVConfig implements WebMvcConfigurer {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        /*registry.addViewController("/").setViewName("login");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/helloword").setViewName("login");*/
     }
 
 
@@ -52,7 +49,15 @@ public class MySpringMVConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(myInterceptor).addPathPatterns("/*/**");
+        registry.addInterceptor(myInterceptor)
+                .addPathPatterns("/creatDemand/*")
+                .addPathPatterns("/creatQuotedPrice/*")
+                .addPathPatterns("/Contract/*")
+                .addPathPatterns("/Demand/*")
+                .addPathPatterns("/QuotedPrice/*")
+                .addPathPatterns("/Subsidiary/*")
+                .addPathPatterns("/selectList/**")
+                .addPathPatterns("/Echo/**");
     }
 
 
