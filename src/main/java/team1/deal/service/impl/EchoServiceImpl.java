@@ -51,6 +51,7 @@ public class EchoServiceImpl implements EchoService {
         //获取用户所在部门
         String dept = userDao.getUserDept(userId).getDeptName();
         if (authorityList.contains("提出需求")&&dept.equals("电厂")){
+            wrapper.eq("uId",userId);
             return changeToVO(demandOrderMapper.selectList(wrapper));
         }else if (authorityList.contains("审核")&&dept.equals("电厂")){
             wrapper.eq("status",0);
