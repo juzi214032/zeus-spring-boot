@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import team1.deal.model.dto.PageParamDTO;
 import team1.deal.model.po.DemandOrderPO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import team1.deal.model.vo.DemandOrderBriefInfoVO;
 import team1.deal.model.vo.DemandOrderInfoVO;
 import team1.deal.model.vo.QuotedPriceInfoVO;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public interface DemandOrderService extends IService<DemandOrderPO> {
 
-    Page<DemandOrderInfoVO> getDemandOrderByPage (PageParamDTO pageParamDTO);
+    Page<DemandOrderBriefInfoVO> getDemandOrderByPage (PageParamDTO pageParamDTO);
 
     List<QuotedPriceInfoVO> getQuotedPriceInfoList(Integer id);
 

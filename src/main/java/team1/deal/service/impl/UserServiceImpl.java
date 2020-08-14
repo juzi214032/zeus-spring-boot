@@ -53,16 +53,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         }else if (authorityList.contains("审批")&&dept.equals("电厂")){
             wrapper.eq("status",1);
             return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
-        }else if (authorityList.contains("审核")&&dept.equals("子公司")){
+        }else if (authorityList.contains("审批")&&dept.equals("子公司")){
             wrapper.eq("status",2);
             return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
-        }else if (authorityList.contains("审批")&&dept.equals("子公司")){
-            wrapper.eq("status",3);
-            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
-        }else {
-            wrapper.eq("status",4);
-            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
         }
+        return null;
     }
 
     //订单类转返回消息

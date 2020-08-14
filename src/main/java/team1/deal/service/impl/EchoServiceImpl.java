@@ -17,6 +17,8 @@ import team1.deal.model.vo.DemandOrderInfoVO;
 import team1.deal.service.EchoService;
 
 import java.sql.Wrapper;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +36,6 @@ public class EchoServiceImpl implements EchoService {
 
     //获取需求订单简要信息
     public List<DemandOrderBriefInfoVO> getDemandOrderBriefInfo(Integer userId){
-        //获取用户所在部门
-        String dept = userDao.getUserDept(userId).getDeptName();
         //获取用户所拥有的权限id
         List<String> authorityList = new ArrayList<>();
         userDao.getUserAuthority(userId).forEach(s->{
@@ -43,6 +43,13 @@ public class EchoServiceImpl implements EchoService {
         });
         QueryWrapper<DemandOrderPO> wrapper =new QueryWrapper<>();
         //接下来根据部门和权限做出相应的回应
+        //阳光用户返回所有能报价的订单
+        if (authorityList.contains("报价")){
+            wrapper.eq("status",4).lt("lastTime", LocalDateTime.now());
+            return changeToVO(demandOrderMapper.selectList(wrapper));
+        }
+        //获取用户所在部门
+        String dept = userDao.getUserDept(userId).getDeptName();
         if (authorityList.contains("提出需求")&&dept.equals("电厂")){
             return changeToVO(demandOrderMapper.selectList(wrapper));
         }else if (authorityList.contains("审核")&&dept.equals("电厂")){
@@ -57,10 +64,8 @@ public class EchoServiceImpl implements EchoService {
         }else if (authorityList.contains("审批")&&dept.equals("子公司")){
             wrapper.eq("status",3);
             return changeToVO(demandOrderMapper.selectList(wrapper));
-        }else {
-            wrapper.eq("status",4);
-            return changeToVO(demandOrderMapper.selectList(wrapper));
         }
+        return null;
     }
 
 

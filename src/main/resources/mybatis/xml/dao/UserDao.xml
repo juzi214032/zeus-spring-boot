@@ -4,7 +4,7 @@
     <select id="getUserDept" resultType="team1.deal.model.po.DeptPO">
         select * from user
         INNER JOIN dept_user ON user.id = dept_user.uId
-        INNER JOIN dept ON user.id = dept.id
+        INNER JOIN dept ON dept_user.dId = dept.id
         where user.id = #{id}
     </select>
     <select id="getUserAuthority" resultType="team1.deal.model.po.AuthorityPO">

@@ -26,6 +26,9 @@ public class DemandOrderBriefInfoVO {
     @TableField("coalNumber")
     private Integer coalNumber;
 
+    @ApiModelProperty(value = "交货地点")
+    private String deliveryPlace;
+
     @ApiModelProperty(value = "交货日期")
     @TableField("deliveryTime")
     private LocalDateTime deliveryTime;
