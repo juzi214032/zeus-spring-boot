@@ -35,12 +35,6 @@ class DealApplicationTests {
         System.out.println(redisTemplate.opsForValue().get("k"));
     }
 
-    @Test
-    void test2() {
 
-        /*redisTemplate.expire("k",23L, TimeUnit.HOURS);
-        System.out.println(redisTemplate.opsForValue().get("k"));*/
-        System.out.println(LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli());
-    }
 
 }
