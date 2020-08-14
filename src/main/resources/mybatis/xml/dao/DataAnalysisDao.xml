@@ -7,4 +7,20 @@
         ON user.id = user_role.uid
         where user_role.rId=4
     </select>
+
+    <!-- long countDemandNumber(); -->
+    <select id="countDemandNumber" resultType="long">
+        select count(*) from demand_order where status = 4
+    </select>
+
+    <!-- public long CountDemandProcurement(); -->
+    <select id="CountDemandProcurement" resultType="long">
+        select sum(coalNumber) from demand_order where status = 4
+    </select>
+
+    <!-- public long totalvolume(); -->
+    <select id="totalvolume" resultType="long">
+        select sum(rawCoalPrice * supplyQuantity) from quoted_price_info where status = 3
+    </select>
+
 </mapper>

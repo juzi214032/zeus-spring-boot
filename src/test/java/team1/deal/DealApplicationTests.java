@@ -35,6 +35,10 @@ class DealApplicationTests {
         System.out.println(redisTemplate.opsForValue().get("k"));
     }
 
+    @Test
+    void test2(){
+
+    }
 
 
 }
