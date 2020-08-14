@@ -16,6 +16,12 @@ public interface DataAnalysisDao {
     //总交易额
     public long totalvolume();
 
+    //某一种煤的总量
+    public long KindsOfCoal(String coalType);
+
+    //某一种煤有没有
+    public long existOrNotExist(String coalType);
+
 
 
 }

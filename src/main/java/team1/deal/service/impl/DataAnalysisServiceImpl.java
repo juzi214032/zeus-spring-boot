@@ -6,6 +6,11 @@ import team1.deal.dao.DataAnalysisDao;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.DataAnalysisService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class DataAnalysisServiceImpl implements DataAnalysisService {
 
@@ -42,6 +47,20 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
             return dataAnalysisDao.totalvolume();
         }
         return 0;
+    }
+
+    //折线图,各种煤的总量集合
+    @Override
+    public Map<String, Object> aggregateOfAllKindsOfCoal() {
+        Map<String,Object> map = new HashMap<>();
+        if (dataAnalysisDao.existOrNotExist("煤种1")!=0){
+            map.put("煤种1",dataAnalysisDao.KindsOfCoal("煤种1"));
+        }if (dataAnalysisDao.existOrNotExist("煤种2")!=0){
+            map.put("煤种2",dataAnalysisDao.KindsOfCoal("煤种2"));
+        }if (dataAnalysisDao.existOrNotExist("煤种3")!=0){
+            map.put("煤种3",dataAnalysisDao.KindsOfCoal("煤种3"));
+        }
+        return map;
     }
 
 }

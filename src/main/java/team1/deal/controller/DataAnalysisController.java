@@ -46,4 +46,10 @@ public class DataAnalysisController{
         return new ResponseVO(dataAnalysisService.totalvolume());
     }
 
+    //折线图,各种煤的总量集合
+    @GetMapping("/aggregateOfAllKindsOfCoal")
+    @ApiOperation("各种煤的总量集合")
+    public ResponseVO aggregateOfAllKindsOfCoal(){
+        return new ResponseVO(dataAnalysisService.aggregateOfAllKindsOfCoal());
+    }
 }

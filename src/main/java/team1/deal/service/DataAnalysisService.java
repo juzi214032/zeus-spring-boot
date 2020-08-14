@@ -2,6 +2,8 @@ package team1.deal.service;
 
 import team1.deal.model.vo.ResponseVO;
 
+import java.util.Map;
+
 public interface DataAnalysisService {
     long getSunUserNumber();
 
@@ -13,6 +15,9 @@ public interface DataAnalysisService {
 
     //总交易额
     public long totalvolume();
+
+    //折线图,各种煤的总量集合
+    public Map<String,Object> aggregateOfAllKindsOfCoal();
 
 
 

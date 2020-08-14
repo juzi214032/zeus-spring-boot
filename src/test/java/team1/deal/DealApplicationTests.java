@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import team1.deal.dao.DataAnalysisDao;
 import team1.deal.mapper.DeptMapper;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.UserPO;
@@ -21,7 +22,8 @@ class DealApplicationTests {
 
     @Autowired
     private RedisTemplate<Object, UserPO> redisTemplate;
-
+    @Autowired
+    private DataAnalysisDao dataAnalysisDao;
 
     @Test
     void test1() {
@@ -37,7 +39,10 @@ class DealApplicationTests {
 
     @Test
     void test2(){
-
+        /*if (dataAnalysisDao.existOrNotExist("煤种1")!=0){
+            System.out.println("有");
+        }*/
+        System.out.println(dataAnalysisDao.KindsOfCoal("煤种1"));
     }
 
 

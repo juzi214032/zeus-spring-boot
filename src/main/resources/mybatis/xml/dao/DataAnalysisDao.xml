@@ -28,4 +28,14 @@
         select count(*) from quoted_price_info where status = 3
     </select>
 
+    <!-- public long KindsOfCoal(String coalType); -->
+    <select id="KindsOfCoal" resultType="long">
+        select sum(coalNumber) from demand_order where coalType = #{coalType}
+    </select>
+
+    <!-- public long existOrNotExist(String coalType); -->
+    <select id="existOrNotExist" resultType="long">
+        select count(*) from demand_order where coalType = #{coalType}
+    </select>
+
 </mapper>
