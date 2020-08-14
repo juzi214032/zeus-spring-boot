@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="team1.deal.dao.QuotedPriceInfoDao">
-    <select id="getDemandOrder" resultType="team1.deal.model.po.DemandOrderPO">
-        select d.* from demand_order AS d INNER JOIN quoted_price_info AS q ON  q.did = d.id where q.did=#{id}
-    </select>
-</mapper>

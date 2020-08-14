@@ -47,37 +47,21 @@ public class QuotedPriceInfoServiceImpl extends ServiceImpl<QuotedPriceInfoMappe
         userDao.getUserAuthority(userId).forEach(s->{
             authorityList.add(s.getAuthority());
         });
-        QueryWrapper<QuotedPriceInfoPO> wrapper =new QueryWrapper<>();
         //接下来根据部门和权限做出相应的回应
         //阳光用户返回所有用户提交的报价
         if (authorityList.contains("报价")){
-            wrapper.eq("uId",userId);
-            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+            return quotedPriceInfoDao.getQuotedPriceBriefInfo(userId,null);
         }
         //获取用户所在部门
         String dept = userDao.getUserDept(userId).getDeptName();
         if (authorityList.contains("审核")&&dept.equals("电厂")){
-            wrapper.eq("status",0);
-            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+            return quotedPriceInfoDao.getQuotedPriceBriefInfo(null,0);
         }else if (authorityList.contains("审批")&&dept.equals("电厂")){
-            wrapper.eq("status",1);
-            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+            return quotedPriceInfoDao.getQuotedPriceBriefInfo(null,1);
         }else if (authorityList.contains("审批")&&dept.equals("子公司")){
-            wrapper.eq("status",2);
-            return changeToVO(quotedPriceInfoMapper.selectList(wrapper));
+            return quotedPriceInfoDao.getQuotedPriceBriefInfo(null,2);
         }
         return null;
-    }
-
-    //转换为VO类型的数组
-    private List<QuotedPriceBriefInfoVO> changeToVO(List<QuotedPriceInfoPO> quotedPriceInfoPOList){
-        List<QuotedPriceBriefInfoVO> quotedPriceBriefInfoVOList = new ArrayList<>();
-        quotedPriceInfoPOList.forEach(s->{
-            QuotedPriceBriefInfoVO quotedPriceBriefInfoVO = new QuotedPriceBriefInfoVO();
-            BeanUtils.copyProperties(s,quotedPriceBriefInfoVO);
-            quotedPriceBriefInfoVOList.add(quotedPriceBriefInfoVO);
-        });
-        return quotedPriceBriefInfoVOList;
     }
 
     //根据报价订单返回需求订单

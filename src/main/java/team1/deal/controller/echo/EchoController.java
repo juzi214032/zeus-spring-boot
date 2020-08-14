@@ -65,12 +65,12 @@ public class EchoController {
     @ApiOperation("报价简要信息回显")
     @GetMapping("/quotedEchoBrief")
     public ResponseVO<List<QuotedPriceBriefInfoVO>> quotedEchoBrief(HttpServletRequest httpServletRequest){
-
-        return new ResponseVO<>(quotedPriceInfoService.getQuotedBriefList(1));
+        UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
+        return new ResponseVO<>(quotedPriceInfoService.getQuotedBriefList(userPO.getId()));
     }
 
     @ApiOperation(value = "报价详细信息回显",notes = "审核审批人员访问")
-    @GetMapping("/quotedEchoDetail/{id}")
+    @GetMapping("/quotedEchoDetail/{quotedId}")
     public ResponseVO<Map<String,Object>> quotedEchoDetail(@ApiParam("报价订单id") @PathVariable Integer quotedId, HttpServletRequest httpServletRequest){
         Map map = new HashMap();
         map.put("demandOrder",quotedPriceInfoService.getDemandOrder(quotedId));
@@ -80,7 +80,7 @@ public class EchoController {
     }
 
     @ApiOperation(value = "报价详细信息回显",notes = "阳光用户访问")
-    @GetMapping("/quotedEchoDetail/sunUser/{id}")
+    @GetMapping("/quotedEchoDetail/sunUser/{quotedId}")
     public ResponseVO<Map<String,Object>> demandOrderInfoUser(@ApiParam("报价订单id") @PathVariable Integer quotedId){
         Map map = new HashMap();
         map.put("demandOrder",quotedPriceInfoService.getDemandOrder(quotedId));
