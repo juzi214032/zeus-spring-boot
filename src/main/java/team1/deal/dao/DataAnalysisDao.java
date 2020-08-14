@@ -4,6 +4,9 @@ public interface DataAnalysisDao {
     //阳光用户数量
     public long countSunUserNumber();
 
+    //状态为3的报价订单总数
+    public long countQuotedPriceNumber();
+
     //需求订单已经通过审核审批的数量
     public long countDemandNumber();
 

@@ -23,4 +23,9 @@
         select sum(rawCoalPrice * supplyQuantity) from quoted_price_info where status = 3
     </select>
 
+    <!-- public long countQuotedPriceNumber(); -->
+    <select id="countQuotedPriceNumber" resultType="long">
+        select count(*) from quoted_price_info where status = 3
+    </select>
+
 </mapper>
