@@ -22,6 +22,9 @@ public interface DataAnalysisDao {
     //某一种煤有没有
     public long existOrNotExist(String coalType);
 
+    //运输方式统计
+    public long modeOfTransportStatistics(String transportType);
+
 
 
 }

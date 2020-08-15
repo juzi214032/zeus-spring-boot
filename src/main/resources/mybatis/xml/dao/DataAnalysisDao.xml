@@ -38,4 +38,9 @@
         select count(*) from demand_order where coalType = #{coalType}
     </select>
 
+    <!-- public long modeOfTransportStatistics(String transportType); -->
+    <select id="modeOfTransportStatistics" resultType="long">
+        select count(*) from demand_order where transportType = #{transportType}
+    </select>
+
 </mapper>

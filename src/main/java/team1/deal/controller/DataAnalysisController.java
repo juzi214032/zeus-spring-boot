@@ -14,42 +14,51 @@ import team1.deal.service.DataAnalysisService;
 @RequestMapping("/data")
 @ApiModel("数据分析")
 public class DataAnalysisController{
-    @Autowired
-    private DataAnalysisDao dataAnalysisDao;
+
     @Autowired
     private DataAnalysisService dataAnalysisService;
 
+    //阳光用户数量统计
     @GetMapping("/sunUserNumber")
     @ApiOperation("阳光用户数量")
     public ResponseVO getSunUser(){
-        return new ResponseVO(dataAnalysisDao.countSunUserNumber());
+        return new ResponseVO(dataAnalysisService.getSunUserNumber());
     }
 
-    //需求订单已经通过审核审批的数量
+    //需求订单已经通过审核审批的数量统计
     @GetMapping("/CountDemand")
-    @ApiOperation("需求订单数量")
+    @ApiOperation("需求订单数量统计")
     public ResponseVO getContDemand(){
         return new ResponseVO(dataAnalysisService.getContDemand());
     }
 
     //所有需求订单采购数量总量
     @GetMapping("/CountDemandProcurement")
-    @ApiOperation("购数量总量")
+    @ApiOperation("采购数量总量统计")
     public ResponseVO ContDemandProcurement(){
         return new ResponseVO(dataAnalysisService.ContDemandProcurement());
     }
 
-    //总交易额
+    //总交易额统计
     @GetMapping("/totalvolume")
-    @ApiOperation("购数量总量")
+    @ApiOperation("总交易额统计")
     public ResponseVO totalvolume(){
         return new ResponseVO(dataAnalysisService.totalvolume());
     }
 
-    //折线图,各种煤的总量集合
+    //折线图,各种煤的总量统计
     @GetMapping("/aggregateOfAllKindsOfCoal")
-    @ApiOperation("各种煤的总量集合")
+    @ApiOperation("各种煤的总量统计")
     public ResponseVO aggregateOfAllKindsOfCoal(){
         return new ResponseVO(dataAnalysisService.aggregateOfAllKindsOfCoal());
     }
+
+    //运输方式统计
+    @GetMapping("/modeOfTransportStatistics")
+    @ApiOperation("运输方式统计")
+    public ResponseVO modeOfTransportStatistics(){
+        return new ResponseVO(dataAnalysisService.modeOfTransportStatistics());
+    }
+
+
 }

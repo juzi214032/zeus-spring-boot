@@ -19,6 +19,8 @@ public interface DataAnalysisService {
     //折线图,各种煤的总量集合
     public Map<String,Object> aggregateOfAllKindsOfCoal();
 
+    //运输方式统计
+    public Map<String,Object> modeOfTransportStatistics();
 
 
 }
