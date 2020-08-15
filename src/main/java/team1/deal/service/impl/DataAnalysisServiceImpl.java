@@ -1,12 +1,18 @@
 package team1.deal.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team1.deal.dao.DataAnalysisDao;
+import team1.deal.mapper.CityMapper;
+import team1.deal.model.dto.DispatchDestinationDTO;
+import team1.deal.model.dto.LatitudeAndIongitudeAndNumberDTO;
+import team1.deal.model.po.CityPO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.DataAnalysisService;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +27,8 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
 
     @Autowired
     private DataAnalysisDao dataAnalysisDao;
+    @Autowired
+    private CityMapper cityMapper;
 
     //阳光用户数量统计
     public long getSunUserNumber() {
@@ -114,6 +122,45 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         Map<String,Object> map = new HashMap<>();
         for (Integer did:DemandIdList){
             map.put(""+did,dataAnalysisDao.attention(did));
+        }
+        return map;
+    }
+
+
+    //煤炭流向统计
+    @Transactional
+    @Override
+    public Map<Object,Object> coalFlowStatistics() {
+        List<DispatchDestinationDTO> dispatchDestinationDTOList = new ArrayList<>();
+        //先获取有哪些需求订单
+        List<Integer> DemandIdList = dataAnalysisDao.getDemandIds();
+        for (Integer did:DemandIdList){
+            for (DispatchDestinationDTO dispatchDestinationDTO:dataAnalysisDao.getDispatchDestinationDTO(did)){
+                dispatchDestinationDTOList.add(dispatchDestinationDTO);
+            }
+        }
+        Map<Object,Object> map = new HashMap<>();
+        for (DispatchDestinationDTO dispatchDestinationDTO:dispatchDestinationDTOList){
+            QueryWrapper wrapper1 = new QueryWrapper();
+            wrapper1.eq("cityName",dispatchDestinationDTO.getPort());
+            CityPO Portcity = cityMapper.selectOne(wrapper1);
+            QueryWrapper wrapper2 = new QueryWrapper();
+            wrapper2.eq("cityName",dispatchDestinationDTO.getDeliveryPlace());
+            CityPO DeliveryPlacecity = cityMapper.selectOne(wrapper2);
+            //获取发送地的经纬度
+            List<BigDecimal> port = new ArrayList<>();
+            port.add(0,Portcity.getLongitude());
+            port.add(1,Portcity.getLatitude());
+            //获取收货地的经纬度
+            List<BigDecimal> deliveryPlace = new ArrayList<>();
+            deliveryPlace.add(0,DeliveryPlacecity.getLongitude());
+            deliveryPlace.add(1,DeliveryPlacecity.getLatitude());
+            //将发货地-收货地的经纬度信息，封装
+            LatitudeAndIongitudeAndNumberDTO latitudeAndIongitudeAndNumberDTO = new LatitudeAndIongitudeAndNumberDTO();
+            latitudeAndIongitudeAndNumberDTO.setPort(port);
+            latitudeAndIongitudeAndNumberDTO.setDeliveryPlace(deliveryPlace);
+            //将latitudeAndIongitudeAndNumberDTO作为键可以避免重复
+            map.put(latitudeAndIongitudeAndNumberDTO,latitudeAndIongitudeAndNumberDTO);
         }
         return map;
     }

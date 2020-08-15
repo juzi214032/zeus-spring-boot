@@ -30,6 +30,9 @@ public interface DataAnalysisService {
     //关注程度统计
     public Map<String,Object> attention();
 
+    //煤炭流向统计
+    public Map<Object,Object> coalFlowStatistics();
+
     //本周新增需求订单
     long increaseOfDemand();
 

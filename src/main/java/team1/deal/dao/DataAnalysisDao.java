@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
+import team1.deal.model.dto.DispatchDestinationDTO;
+
 import java.time.LocalDate;
 
 public interface DataAnalysisDao {
@@ -42,6 +44,10 @@ public interface DataAnalysisDao {
 
     //获取全都需求订单的id号
     public List<Integer> getDemandIds();
+
+    //查询出发送地-目的地
+    public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did);
+
 
     //本周新增需求订单
     long increaseOfDemand(@Param("monday") LocalDate monday, @Param("sunday")LocalDate sunday);
