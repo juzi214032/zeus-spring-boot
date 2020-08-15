@@ -9,6 +9,7 @@ import team1.deal.service.DataAnalysisService;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,4 +136,8 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return dataAnalysisDao.increaseOfDemandProcurement(monday,sunday);
     }
 
+    @Override
+    public LocalDateTime getInsertRecentTime(){
+        return dataAnalysisDao.selectRecentTime();
+    }
 }

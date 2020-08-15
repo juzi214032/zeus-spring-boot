@@ -74,4 +74,10 @@
         where applyTime <![CDATA[   <=  ]]> #{sunday} and applyTime <![CDATA[   >=  ]]> #{monday}
     </select>
 
+    <select id="selectRecentTime" resultType="java.time.LocalDateTime">
+        select u.createTime from user AS u
+        INNER JOIN user_role AS ur ON u.id = ur.uId
+        INNER JOIN role AS r ON ur.rId = r.id
+        where r.roleName = "阳光用户" order by createTime desc limit 1
+    </select>
 </mapper>

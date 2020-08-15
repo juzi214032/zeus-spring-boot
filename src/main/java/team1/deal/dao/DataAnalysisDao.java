@@ -1,5 +1,6 @@
 package team1.deal.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
@@ -48,4 +49,6 @@ public interface DataAnalysisDao {
     //本周新增采购数量
     long increaseOfDemandProcurement(@Param("monday") LocalDate monday, @Param("sunday")LocalDate sunday);
 
+    //获取最近一次新加入的阳光用户时间
+    LocalDateTime selectRecentTime();
 }

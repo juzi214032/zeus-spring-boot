@@ -88,4 +88,10 @@ public class DataAnalysisController{
         return new ResponseVO(dataAnalysisService.increaseOfDemandProcurement());
     }
 
+    //最近一次阳光用户新增时间
+    @GetMapping("/increaseTime/sunUser")
+    @ApiOperation("最近阳光用户新增时间")
+    public ResponseVO getSunUserIncreaseTime(){
+        return new ResponseVO(dataAnalysisService.getInsertRecentTime());
+    }
 }

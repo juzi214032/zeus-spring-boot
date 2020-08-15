@@ -2,6 +2,7 @@ package team1.deal.service;
 
 import team1.deal.model.vo.ResponseVO;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public interface DataAnalysisService {
@@ -34,4 +35,8 @@ public interface DataAnalysisService {
 
     //本周新增采购数量
     long increaseOfDemandProcurement();
+
+    //最近新增阳光用户时间
+    LocalDateTime getInsertRecentTime();
+
 }
