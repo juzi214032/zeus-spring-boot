@@ -14,7 +14,7 @@
     </select>
 
     <!-- public long CountDemandProcurement(); -->
-    <select id="CountDemandProcurement" resultType="long">
+    <select id="countDemandProcurement" resultType="long">
         select sum(coalNumber) from demand_order where status = 4
     </select>
 
@@ -29,7 +29,7 @@
     </select>
 
     <!-- public long KindsOfCoal(String coalType); -->
-    <select id="KindsOfCoal" resultType="long">
+    <select id="kindsOfCoal" resultType="long">
         select sum(coalNumber) from demand_order where coalType = #{coalType}
     </select>
 
@@ -64,10 +64,29 @@
         select id from  demand_order
     </select>
 
+<<<<<<< HEAD
     <!-- public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did); -->
     <select id="getDispatchDestinationDTO" resultType="team1.deal.model.dto.DispatchDestinationDTO">
         select q.port,d.deliveryPlace from quoted_price_info as q inner join demand_order as d
         on q.did = d.id
     </select>
 
+=======
+    <select id="increaseOfDemand" resultType="long">
+        select count(*) from demand_order
+        where applyTime <![CDATA[   <=  ]]> #{sunday} and applyTime <![CDATA[   >=  ]]> #{monday}
+    </select>
+
+    <select id="increaseOfDemandProcurement" resultType="long">
+        select sum(coalNumber) from demand_order
+        where applyTime <![CDATA[   <=  ]]> #{sunday} and applyTime <![CDATA[   >=  ]]> #{monday}
+    </select>
+
+    <select id="selectRecentTime" resultType="java.time.LocalDateTime">
+        select u.createTime from user AS u
+        INNER JOIN user_role AS ur ON u.id = ur.uId
+        INNER JOIN role AS r ON ur.rId = r.id
+        where r.roleName = "阳光用户" order by createTime desc limit 1
+    </select>
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
 </mapper>

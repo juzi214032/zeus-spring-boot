@@ -1,9 +1,15 @@
 package team1.deal.dao;
 
+<<<<<<< HEAD
 import team1.deal.model.dto.DispatchDestinationDTO;
 
+=======
+import java.time.LocalDateTime;
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Param;
+import java.time.LocalDate;
 
 public interface DataAnalysisDao {
     //阳光用户数量
@@ -16,13 +22,13 @@ public interface DataAnalysisDao {
     public long countDemandNumber();
 
     //所有需求订单采购数量总量
-    public long CountDemandProcurement();
+    public long countDemandProcurement();
 
     //总交易额
     public long totalvolume();
 
     //某一种煤的总量
-    public long KindsOfCoal(String coalType);
+    public long kindsOfCoal(String coalType);
 
     //某一种煤有没有
     public long existOrNotExist(String coalType);
@@ -42,10 +48,19 @@ public interface DataAnalysisDao {
     //获取全都需求订单的id号
     public List<Integer> getDemandIds();
 
+<<<<<<< HEAD
     //查询出发送地-目的地
     public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did);
 
 
+=======
+    //本周新增需求订单
+    long increaseOfDemand(@Param("monday") LocalDate monday, @Param("sunday")LocalDate sunday);
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
 
+    //本周新增采购数量
+    long increaseOfDemandProcurement(@Param("monday") LocalDate monday, @Param("sunday")LocalDate sunday);
 
+    //获取最近一次新加入的阳光用户时间
+    LocalDateTime selectRecentTime();
 }

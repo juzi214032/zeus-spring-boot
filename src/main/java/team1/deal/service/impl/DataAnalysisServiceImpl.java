@@ -11,7 +11,14 @@ import team1.deal.model.dto.LatitudeAndIongitudeAndNumberDTO;
 import team1.deal.model.po.CityPO;
 import team1.deal.service.DataAnalysisService;
 
+<<<<<<< HEAD
 import java.math.BigDecimal;
+=======
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,9 +46,9 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     //所有需求订单采购数量总量统计
     @Transactional
     @Override
-    public long ContDemandProcurement() {
+    public long contDemandProcurement() {
         if (dataAnalysisDao.countDemandNumber()!=0){
-            return dataAnalysisDao.CountDemandProcurement();
+            return dataAnalysisDao.countDemandProcurement();
         }
         return 0;
     }
@@ -62,11 +69,11 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     public Map<String, Object> aggregateOfAllKindsOfCoal() {
         Map<String,Object> map = new HashMap<>();
         if (dataAnalysisDao.existOrNotExist("煤种1")!=0){
-            map.put("煤种1",dataAnalysisDao.KindsOfCoal("煤种1"));
+            map.put("煤种1",dataAnalysisDao.kindsOfCoal("煤种1"));
         }if (dataAnalysisDao.existOrNotExist("煤种2")!=0){
-            map.put("煤种2",dataAnalysisDao.KindsOfCoal("煤种2"));
+            map.put("煤种2",dataAnalysisDao.kindsOfCoal("煤种2"));
         }if (dataAnalysisDao.existOrNotExist("煤种3")!=0){
-            map.put("煤种3",dataAnalysisDao.KindsOfCoal("煤种3"));
+            map.put("煤种3",dataAnalysisDao.kindsOfCoal("煤种3"));
         }
         return map;
     }
@@ -121,6 +128,7 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return map;
     }
 
+<<<<<<< HEAD
 
     /**
      * 可能需要修改
@@ -164,4 +172,28 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return map;
     }
 
+=======
+    @Override
+    public long increaseOfDemand(){
+        LocalDate now = LocalDate.now();
+        // 求这个日期的周一、周日
+        LocalDate monday = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).plusDays(1);
+        LocalDate sunday = now.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).minusDays(1);
+        return dataAnalysisDao.increaseOfDemand(monday,sunday);
+    }
+
+    @Override
+    public long increaseOfDemandProcurement(){
+        LocalDate now = LocalDate.now();
+        // 求这个日期的周一、周日
+        LocalDate monday = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).plusDays(1);
+        LocalDate sunday = now.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).minusDays(1);
+        return dataAnalysisDao.increaseOfDemandProcurement(monday,sunday);
+    }
+
+    @Override
+    public LocalDateTime getInsertRecentTime(){
+        return dataAnalysisDao.selectRecentTime();
+    }
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
 }

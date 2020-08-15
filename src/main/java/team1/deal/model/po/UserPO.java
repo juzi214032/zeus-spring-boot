@@ -37,5 +37,6 @@ public class UserPO implements Serializable {
     @ApiModelProperty(value = "密码")
     private String password;
 
-
+    @ApiModelProperty(value = "创建时间")
+    private String createTime;
 }

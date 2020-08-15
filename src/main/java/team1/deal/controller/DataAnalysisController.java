@@ -35,8 +35,8 @@ public class DataAnalysisController{
     //所有需求订单采购数量总量统计
     @GetMapping("/CountDemandProcurement")
     @ApiOperation("采购数量总量统计")
-    public ResponseVO ContDemandProcurement(){
-        return new ResponseVO(dataAnalysisService.ContDemandProcurement());
+    public ResponseVO contDemandProcurement(){
+        return new ResponseVO(dataAnalysisService.contDemandProcurement());
     }
 
     //总交易额统计
@@ -74,6 +74,7 @@ public class DataAnalysisController{
         return new ResponseVO(dataAnalysisService.attention());
     }
 
+<<<<<<< HEAD
     //煤炭流向统计
     @GetMapping("/coalFlowStatistics")
     @ApiOperation("煤炭流向统计")
@@ -82,5 +83,26 @@ public class DataAnalysisController{
     }
 
 
+=======
+    //本周需求订单统计
+    @GetMapping("/increase/demandOrder")
+    @ApiOperation("新增本周需求订单统计")
+    public ResponseVO  getIncreaseDemandOrder(){
+        return new ResponseVO(dataAnalysisService.increaseOfDemand());
+    }
 
+    //本周采购数量统计
+    @GetMapping("/increase/demandProcurement")
+    @ApiOperation("新增本周采购数量统计")
+    public ResponseVO  getDemandProcurement(){
+        return new ResponseVO(dataAnalysisService.increaseOfDemandProcurement());
+    }
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
+
+    //最近一次阳光用户新增时间
+    @GetMapping("/increaseTime/sunUser")
+    @ApiOperation("最近阳光用户新增时间")
+    public ResponseVO getSunUserIncreaseTime(){
+        return new ResponseVO(dataAnalysisService.getInsertRecentTime());
+    }
 }

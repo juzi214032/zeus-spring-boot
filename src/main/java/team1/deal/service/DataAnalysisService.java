@@ -3,7 +3,11 @@ package team1.deal.service;
 import team1.deal.model.dto.DispatchDestinationDTO;
 import team1.deal.model.vo.ResponseVO;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.time.LocalDateTime;
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
 import java.util.Map;
 
 public interface DataAnalysisService {
@@ -13,8 +17,8 @@ public interface DataAnalysisService {
     //需求订单已经通过审核审批的数量统计
     public long getContDemand();
 
-    //所有需求订单采购数量总量统计
-    public long ContDemandProcurement();
+    //所有需求订单采购数量总量
+    public long contDemandProcurement();
 
     //总交易额统计
     public long totalvolume();
@@ -31,8 +35,19 @@ public interface DataAnalysisService {
     //关注程度统计
     public Map<String,Object> attention();
 
+<<<<<<< HEAD
     //煤炭流向统计
     public Map<Object,Object> coalFlowStatistics();
 
+=======
+    //本周新增需求订单
+    long increaseOfDemand();
+
+    //本周新增采购数量
+    long increaseOfDemandProcurement();
+
+    //最近新增阳光用户时间
+    LocalDateTime getInsertRecentTime();
+>>>>>>> d2c5ad01fad5e46ca9fa9b9d50b8a3ec9e90457c
 
 }
