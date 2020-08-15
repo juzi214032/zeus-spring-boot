@@ -64,4 +64,10 @@
         select id from  demand_order
     </select>
 
+    <!-- public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did); -->
+    <select id="getDispatchDestinationDTO" resultType="team1.deal.model.dto.DispatchDestinationDTO">
+        select q.port,d.deliveryPlace from quoted_price_info as q inner join demand_order as d
+        on q.did = d.id
+    </select>
+
 </mapper>

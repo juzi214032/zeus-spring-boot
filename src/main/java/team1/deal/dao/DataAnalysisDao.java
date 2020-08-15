@@ -1,5 +1,7 @@
 package team1.deal.dao;
 
+import team1.deal.model.dto.DispatchDestinationDTO;
+
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +41,10 @@ public interface DataAnalysisDao {
 
     //获取全都需求订单的id号
     public List<Integer> getDemandIds();
+
+    //查询出发送地-目的地
+    public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did);
+
 
 
 

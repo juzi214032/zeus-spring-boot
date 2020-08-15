@@ -74,5 +74,13 @@ public class DataAnalysisController{
         return new ResponseVO(dataAnalysisService.attention());
     }
 
+    //煤炭流向统计
+    @GetMapping("/coalFlowStatistics")
+    @ApiOperation("煤炭流向统计")
+    public ResponseVO coalFlowStatistics(){
+        return new ResponseVO(dataAnalysisService.coalFlowStatistics());
+    }
+
+
 
 }

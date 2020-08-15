@@ -1,7 +1,9 @@
 package team1.deal.service;
 
+import team1.deal.model.dto.DispatchDestinationDTO;
 import team1.deal.model.vo.ResponseVO;
 
+import java.util.List;
 import java.util.Map;
 
 public interface DataAnalysisService {
@@ -28,6 +30,9 @@ public interface DataAnalysisService {
 
     //关注程度统计
     public Map<String,Object> attention();
+
+    //煤炭流向统计
+    public Map<Object,Object> coalFlowStatistics();
 
 
 }
