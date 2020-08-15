@@ -1,12 +1,15 @@
 package team1.deal.controller.echo;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import team1.deal.model.dto.PageParamDTO;
 import team1.deal.model.po.UserPO;
+import team1.deal.model.vo.DemandOrderBriefInfoVO;
 import team1.deal.model.vo.DemandOrderInfoVO;
 import team1.deal.model.vo.QuotedPriceBriefInfoVO;
 import team1.deal.model.vo.ResponseVO;
@@ -48,9 +51,9 @@ public class EchoController {
      */
     @ApiOperation("需求订单简要信息回显")
     @GetMapping(value = "/demandEchoBrief")
-    public ResponseVO DemandEchoBrief(HttpServletRequest httpServletRequest){
+    public ResponseVO<IPage<DemandOrderBriefInfoVO>> DemandEchoBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
-        return new ResponseVO(echoService.getDemandOrderBriefInfo(userPO.getId()));
+        return new ResponseVO(echoService.getDemandOrderBriefInfo(pageParamDTO,userPO.getId()));
     }
 
     /**
@@ -64,9 +67,9 @@ public class EchoController {
 
     @ApiOperation("报价简要信息回显")
     @GetMapping("/quotedEchoBrief")
-    public ResponseVO<List<QuotedPriceBriefInfoVO>> quotedEchoBrief(HttpServletRequest httpServletRequest){
+    public ResponseVO<IPage<QuotedPriceBriefInfoVO>> quotedEchoBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
-        return new ResponseVO<>(quotedPriceInfoService.getQuotedBriefList(userPO.getId()));
+        return new ResponseVO<>(quotedPriceInfoService.getQuotedBriefList(pageParamDTO,userPO.getId()));
     }
 
     @ApiOperation(value = "报价详细信息回显",notes = "审核审批人员访问")

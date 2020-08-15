@@ -4,4 +4,18 @@
     <select id="getQuotedPriceInfoList" resultType="team1.deal.model.po.QuotedPriceInfoPO">
         select q.* from demand_order AS d INNER JOIN quoted_price_info AS q ON  q.did = d.id where d.id=#{id}
     </select>
+    <select id="getDemandOrderBriefInfo" resultType="team1.deal.model.vo.DemandOrderBriefInfoVO">
+        select id,status,coalType,coalNumber,deliveryPlace,deliveryTime,lastTime from demand_order
+        <where>
+            <if test="userId !=null">
+                uId = #{userId}
+            </if>
+            <if test="status != null">
+                AND status =#{status}
+            </if>
+            <if test="lastTime !=null">
+                AND lastTime &gt; #{lastTime}
+            </if>
+        </where>
+    </select>
 </mapper>
