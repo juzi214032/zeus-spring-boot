@@ -11,8 +11,8 @@ public interface DataAnalysisService {
     //需求订单已经通过审核审批的数量统计
     public long getContDemand();
 
-    //所有需求订单采购数量总量统计
-    public long ContDemandProcurement();
+    //所有需求订单采购数量总量
+    public long contDemandProcurement();
 
     //总交易额统计
     public long totalvolume();
@@ -29,5 +29,9 @@ public interface DataAnalysisService {
     //关注程度统计
     public Map<String,Object> attention();
 
+    //本周新增需求订单
+    long increaseOfDemand();
 
+    //本周新增采购数量
+    long increaseOfDemandProcurement();
 }
