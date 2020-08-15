@@ -26,5 +26,8 @@ public interface DataAnalysisService {
     //地区煤炭分布统计
     public Map<String,Object> regionalCoalDistribution();
 
+    //关注程度统计
+    public Map<String,Object> attention();
+
 
 }

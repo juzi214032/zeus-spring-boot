@@ -1,6 +1,7 @@
 package team1.deal.dao;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DataAnalysisDao {
     //阳光用户数量
@@ -32,6 +33,12 @@ public interface DataAnalysisDao {
 
     //查询一共有哪些产地
     public List<String> region();
+
+    //关注程度统计
+    public long attention(Integer did);
+
+    //获取全都需求订单的id号
+    public List<Integer> getDemandIds();
 
 
 

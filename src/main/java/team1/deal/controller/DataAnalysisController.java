@@ -67,6 +67,12 @@ public class DataAnalysisController{
         return new ResponseVO(dataAnalysisService.regionalCoalDistribution());
     }
 
+    //关注程度统计
+    @GetMapping("/attention")
+    @ApiOperation("关注程度统计")
+    public ResponseVO attention(){
+        return new ResponseVO(dataAnalysisService.attention());
+    }
 
 
 }

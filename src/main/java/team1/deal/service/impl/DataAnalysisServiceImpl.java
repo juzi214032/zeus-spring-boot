@@ -101,4 +101,17 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return map;
     }
 
+    //关注程度统计
+    @Transactional
+    @Override
+    public Map<String, Object> attention() {
+        //先获取有哪些需求订单
+        List<Integer> DemandIdList = dataAnalysisDao.getDemandIds();
+        Map<String,Object> map = new HashMap<>();
+        for (Integer did:DemandIdList){
+            map.put(""+did,dataAnalysisDao.attention(did));
+        }
+        return map;
+    }
+
 }

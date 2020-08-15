@@ -53,4 +53,15 @@
         select producingArea from quoted_price_info
     </select>
 
+    <!-- public long attention(Integer did); -->
+    <select id="attention" resultType="long">
+        select count(*) from quoted_price_info as q inner join demand_order as d
+        on q.did = d.id where  q.did = #{did}
+    </select>
+
+    <!-- public List<Integer> getDemandIds(); -->
+    <select id="getDemandIds" resultType="Integer">
+        select id from  demand_order
+    </select>
+
 </mapper>
