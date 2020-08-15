@@ -18,21 +18,18 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     @Autowired
     private DataAnalysisDao dataAnalysisDao;
 
-    /**
-     * 返回阳光用户数量
-     * @return
-     */
+    //阳光用户数量统计
     public long getSunUserNumber() {
         return dataAnalysisDao.countSunUserNumber();
     }
 
-    //需求订单已经通过审核审批的数量
+    //需求订单已经通过审核审批的数量统计
     @Override
     public long getContDemand() {
         return dataAnalysisDao.countDemandNumber();
     }
 
-    //所有需求订单采购数量总量
+    //所有需求订单采购数量总量统计
     @Transactional
     @Override
     public long ContDemandProcurement() {
@@ -42,7 +39,7 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return 0;
     }
 
-    //总交易额
+    //总交易额统计
     @Transactional
     @Override
     public long totalvolume() {
@@ -52,7 +49,7 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return 0;
     }
 
-    //折线图,各种煤的总量集合
+    //折线图,各种煤的总量统计
     @Transactional
     @Override
     public Map<String, Object> aggregateOfAllKindsOfCoal() {
@@ -87,6 +84,19 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         long modeOfTransport4 = dataAnalysisDao.modeOfTransportStatistics("汽车");
         if (modeOfTransport4!=0){
             map.put("汽车",modeOfTransport4);
+        }
+        return map;
+    }
+
+    //地区煤炭分布统计
+    @Transactional
+    @Override
+    public Map<String, Object> regionalCoalDistribution() {
+        //先获取一共有哪些地区
+        List<String> producingArealist = dataAnalysisDao.region();
+        Map<String,Object> map = new HashMap<>();
+        for (String producingArea:producingArealist){
+            map.put(producingArea,dataAnalysisDao.regionalCoalDistribution(producingArea));
         }
         return map;
     }

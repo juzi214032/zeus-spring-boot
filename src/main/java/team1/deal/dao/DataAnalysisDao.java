@@ -1,5 +1,7 @@
 package team1.deal.dao;
 
+import java.util.List;
+
 public interface DataAnalysisDao {
     //阳光用户数量
     public long countSunUserNumber();
@@ -24,6 +26,12 @@ public interface DataAnalysisDao {
 
     //运输方式统计
     public long modeOfTransportStatistics(String transportType);
+
+    //地区煤炭分布统计
+    public long regionalCoalDistribution(String producingArea);
+
+    //查询一共有哪些产地
+    public List<String> region();
 
 
 

@@ -42,7 +42,8 @@ class DealApplicationTests {
         /*if (dataAnalysisDao.existOrNotExist("煤种1")!=0){
             System.out.println("有");
         }*/
-        System.out.println(dataAnalysisDao.KindsOfCoal("煤种1"));
+        //System.out.println(dataAnalysisDao.KindsOfCoal("煤种1"));
+        System.out.println(dataAnalysisDao.region());
     }
 
 

@@ -32,7 +32,7 @@ public class DataAnalysisController{
         return new ResponseVO(dataAnalysisService.getContDemand());
     }
 
-    //所有需求订单采购数量总量
+    //所有需求订单采购数量总量统计
     @GetMapping("/CountDemandProcurement")
     @ApiOperation("采购数量总量统计")
     public ResponseVO ContDemandProcurement(){
@@ -59,6 +59,14 @@ public class DataAnalysisController{
     public ResponseVO modeOfTransportStatistics(){
         return new ResponseVO(dataAnalysisService.modeOfTransportStatistics());
     }
+
+    //地区煤炭分布统计
+    @GetMapping("/regionalCoalDistribution")
+    @ApiOperation("地区煤炭分布统计")
+    public ResponseVO regionalCoalDistribution(){
+        return new ResponseVO(dataAnalysisService.regionalCoalDistribution());
+    }
+
 
 
 }
