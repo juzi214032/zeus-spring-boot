@@ -28,14 +28,17 @@
         select count(*) from quoted_price_info where status = 3
     </select>
 
-    <!-- public long KindsOfCoal(String coalType); -->
+    <!-- public long KindsOfCoal(String coalType,LocalDateTime beginYear,LocalDateTime endYear); -->
     <select id="kindsOfCoal" resultType="long">
-        select sum(coalNumber) from demand_order where coalType = #{coalType}
+        select sum(coalNumber) from demand_order
+        where coalType = #{coalType} and deliveryTime <![CDATA[>=]]> #{beginYear}
+        and deliveryTime <![CDATA[<]]> #{endYear}
     </select>
 
-    <!-- public List<String> kindsOfCoallist(); -->
+    <!-- public List<String> kindsOfCoallist(LocalDateTime beginYear,LocalDateTime endYear); -->
     <select id="kindsOfCoallist" resultType="String">
-        select coalType from demand_order
+        select coalType from demand_order where deliveryTime <![CDATA[>=]]> #{beginYear}
+        and deliveryTime <![CDATA[<]]> #{endYear} group by coalType
     </select>
 
     <!-- public long existOrNotExist(String coalType); -->

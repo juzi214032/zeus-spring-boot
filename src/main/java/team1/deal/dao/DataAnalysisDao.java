@@ -24,11 +24,12 @@ public interface DataAnalysisDao {
     //总交易额
     public long totalvolume();
 
-    //某一种煤的总量
-    public long kindsOfCoal(String coalType);
+    //某一种煤的总量，根据某年
+    public long kindsOfCoal(String coalType,LocalDateTime beginYear,LocalDateTime endYear);
 
-    //查询一共有多少种煤
-    public List<String> kindsOfCoallist();
+
+  //查询一共有多少种煤，根据某年
+    public List<String> kindsOfCoallist(LocalDateTime beginYear,LocalDateTime endYear);
 
     //某一种煤有没有
     public long existOrNotExist(String coalType);

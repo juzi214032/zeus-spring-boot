@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team1.deal.dao.DataAnalysisDao;
 import team1.deal.model.vo.ResponseVO;
@@ -49,8 +50,8 @@ public class DataAnalysisController{
     //折线图,各种煤的总量统计
     @GetMapping("/aggregateOfAllKindsOfCoal")
     @ApiOperation("各种煤的总量统计")
-    public ResponseVO aggregateOfAllKindsOfCoal(){
-        return new ResponseVO(dataAnalysisService.aggregateOfAllKindsOfCoal());
+    public ResponseVO aggregateOfAllKindsOfCoal(@RequestParam Integer begin, @RequestParam Integer end){
+        return new ResponseVO(dataAnalysisService.aggregateOfAllKindsOfCoal(begin,end));
     }
 
     //运输方式统计

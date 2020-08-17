@@ -1,21 +1,17 @@
 package team1.deal;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.date.DateUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import team1.deal.dao.DataAnalysisDao;
-import team1.deal.mapper.DeptMapper;
-import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.UserPO;
-import team1.deal.service.impl.EchoServiceImpl;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class DealApplicationTests {
@@ -39,11 +35,9 @@ class DealApplicationTests {
 
     @Test
     void test2(){
-        /*if (dataAnalysisDao.existOrNotExist("煤种1")!=0){
-            System.out.println("有");
-        }*/
-        //System.out.println(dataAnalysisDao.KindsOfCoal("煤种1"));
-        System.out.println(dataAnalysisDao.region());
+        LocalDateTime beginlocalDateTime = DateUtil.parseLocalDateTime("2020-01-01 00:00:00");
+        LocalDateTime endlocalDateTime = DateUtil.parseLocalDateTime("2021-09-05 19:11:27");
+        System.out.println(dataAnalysisDao.kindsOfCoal("煤种1",beginlocalDateTime,endlocalDateTime));
     }
 
 

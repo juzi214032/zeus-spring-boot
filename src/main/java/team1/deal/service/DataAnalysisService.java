@@ -1,8 +1,10 @@
 package team1.deal.service;
 
+import team1.deal.model.vo.CoalYearNameGdpVO;
 import team1.deal.model.vo.ResponseVO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public interface DataAnalysisService {
@@ -19,7 +21,7 @@ public interface DataAnalysisService {
     public long totalvolume();
 
     //折线图,各种煤的总量统计
-    public Map<String,Object> aggregateOfAllKindsOfCoal();
+    public List<CoalYearNameGdpVO> aggregateOfAllKindsOfCoal(Integer begin,Integer end);
 
     //运输方式统计
     public Map<String,Object> modeOfTransportStatistics();

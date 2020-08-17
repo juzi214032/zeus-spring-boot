@@ -1,5 +1,7 @@
 package team1.deal.service.impl;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import team1.deal.mapper.CityMapper;
 import team1.deal.model.dto.DispatchDestinationDTO;
 import team1.deal.model.dto.LatitudeAndIongitudeAndNumberDTO;
 import team1.deal.model.po.CityPO;
+import team1.deal.model.vo.CoalYearNameGdpVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.DataAnalysisService;
 
@@ -64,16 +67,21 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     //折线图,各种煤的总量统计
     @Transactional
     @Override
-    public Map<String, Object> aggregateOfAllKindsOfCoal() {
-        Map<String,Object> map = new HashMap<>();
-        //查询出有多少种煤
-        List<String> kindsOfCoallist = dataAnalysisDao.kindsOfCoallist();
-        for (String Coal:kindsOfCoallist){
-            if (dataAnalysisDao.existOrNotExist(Coal)!=0){
-                map.put(Coal,dataAnalysisDao.kindsOfCoal(Coal));
+    public List<CoalYearNameGdpVO> aggregateOfAllKindsOfCoal(Integer begin,Integer end) {
+        List<CoalYearNameGdpVO> coalYearNameGdpVOList = new ArrayList<>();
+        for (int i = begin ;i<=end ; i++){
+            //设置开始时间，设置结束时间
+            LocalDateTime beginlocalDateTime = DateUtil.parseLocalDateTime(i+"-01-01 00:00:00");
+            LocalDateTime endlocalDateTime = DateUtil.parseLocalDateTime(++i+"-01-01 00:00:00");
+            //查询出有多少种煤
+            List<String> kindsOfCoallist = dataAnalysisDao.kindsOfCoallist(beginlocalDateTime,endlocalDateTime);
+            for (String Coal:kindsOfCoallist){
+                if (dataAnalysisDao.existOrNotExist(Coal)!=0){
+                    coalYearNameGdpVOList.add(new CoalYearNameGdpVO(Coal,beginlocalDateTime.getYear(), dataAnalysisDao.kindsOfCoal(Coal,beginlocalDateTime,endlocalDateTime)));
+                }
             }
         }
-        return map;
+        return coalYearNameGdpVOList;
     }
 
     //运输方式统计
