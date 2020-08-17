@@ -27,6 +27,9 @@ public interface DataAnalysisDao {
     //某一种煤的总量
     public long kindsOfCoal(String coalType);
 
+    //查询一共有多少种煤
+    public List<String> kindsOfCoallist();
+
     //某一种煤有没有
     public long existOrNotExist(String coalType);
 

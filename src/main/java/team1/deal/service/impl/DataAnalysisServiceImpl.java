@@ -66,12 +66,12 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     @Override
     public Map<String, Object> aggregateOfAllKindsOfCoal() {
         Map<String,Object> map = new HashMap<>();
-        if (dataAnalysisDao.existOrNotExist("煤种1")!=0){
-            map.put("煤种1",dataAnalysisDao.kindsOfCoal("煤种1"));
-        }if (dataAnalysisDao.existOrNotExist("煤种2")!=0){
-            map.put("煤种2",dataAnalysisDao.kindsOfCoal("煤种2"));
-        }if (dataAnalysisDao.existOrNotExist("煤种3")!=0){
-            map.put("煤种3",dataAnalysisDao.kindsOfCoal("煤种3"));
+        //查询出有多少种煤
+        List<String> kindsOfCoallist = dataAnalysisDao.kindsOfCoallist();
+        for (String Coal:kindsOfCoallist){
+            if (dataAnalysisDao.existOrNotExist(Coal)!=0){
+                map.put(Coal,dataAnalysisDao.kindsOfCoal(Coal));
+            }
         }
         return map;
     }
@@ -117,7 +117,6 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         }
         return map;
     }
-
 
     //煤炭流向统计
     @Transactional
