@@ -13,6 +13,7 @@ import team1.deal.model.dto.LatitudeAndIongitudeAndNumberDTO;
 import team1.deal.model.po.CityPO;
 import team1.deal.model.vo.CoalYearNameGdpVO;
 import team1.deal.model.vo.ResponseVO;
+import team1.deal.model.vo.TransportInformationVO;
 import team1.deal.service.DataAnalysisService;
 
 import java.math.BigDecimal;
@@ -87,17 +88,17 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     //运输方式统计
     @Transactional
     @Override
-    public Map<String, Object> modeOfTransportStatistics() {
-        Map<String,Object> map = new HashMap<>();
+    public List<TransportInformationVO> modeOfTransportStatistics() {
+        List<TransportInformationVO> transportInformationVOList = new ArrayList<>();
         //查询一共有哪些方式的运输方式
         List<String> transportTypelist = dataAnalysisDao.transportTypelist();
         for (String transportType:transportTypelist){
             long modeOfTransport = dataAnalysisDao.modeOfTransportStatistics(transportType);
             if (modeOfTransport!=0){
-                map.put(transportType,modeOfTransport);
+                transportInformationVOList.add(new TransportInformationVO(transportType,modeOfTransport));
             }
         }
-        return map;
+        return transportInformationVOList;
     }
 
     //地区煤炭分布统计

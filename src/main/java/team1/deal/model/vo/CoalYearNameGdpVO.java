@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value="CoalYearNameGdp对象", description="用来接收折线图中煤炭的数据")
+@ApiModel(value="CoalYearNameGdpVO对象", description="用来接收折线图中煤炭的数据")
 public class CoalYearNameGdpVO {
 
     @ApiModelProperty(value = "煤炭名")
