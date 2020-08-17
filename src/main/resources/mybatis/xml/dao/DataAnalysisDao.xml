@@ -43,6 +43,11 @@
         select count(*) from demand_order where transportType = #{transportType}
     </select>
 
+    <!-- public List<String> transportTypelist(); -->
+    <select id="transportTypelist" resultType="String">
+        select transportType from demand_order
+    </select>
+
     <!-- public long regionalCoalDistribution(String producingArea); -->
     <select id="regionalCoalDistribution" resultType="long">
         select sum(supplyQuantity) from quoted_price_info where producingArea = #{producingArea}

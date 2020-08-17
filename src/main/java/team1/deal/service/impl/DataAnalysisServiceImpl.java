@@ -81,21 +81,13 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     @Override
     public Map<String, Object> modeOfTransportStatistics() {
         Map<String,Object> map = new HashMap<>();
-        long modeOfTransport1 = dataAnalysisDao.modeOfTransportStatistics("船运");
-        if (modeOfTransport1!=0){
-            map.put("船运",modeOfTransport1);
-        }
-        long modeOfTransport2 = dataAnalysisDao.modeOfTransportStatistics("火车");
-        if (modeOfTransport2!=0){
-            map.put("火车",modeOfTransport2);
-        }
-        long modeOfTransport3 = dataAnalysisDao.modeOfTransportStatistics("空运");
-        if (modeOfTransport3!=0){
-            map.put("空运",modeOfTransport3);
-        }
-        long modeOfTransport4 = dataAnalysisDao.modeOfTransportStatistics("汽车");
-        if (modeOfTransport4!=0){
-            map.put("汽车",modeOfTransport4);
+        //查询一共有哪些方式的运输方式
+        List<String> transportTypelist = dataAnalysisDao.transportTypelist();
+        for (String transportType:transportTypelist){
+            long modeOfTransport = dataAnalysisDao.modeOfTransportStatistics(transportType);
+            if (modeOfTransport!=0){
+                map.put(transportType,modeOfTransport);
+            }
         }
         return map;
     }
@@ -139,6 +131,9 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
                 dispatchDestinationDTOList.add(dispatchDestinationDTO);
             }
         }
+
+
+
         Map<Object,Object> map = new HashMap<>();
         for (DispatchDestinationDTO dispatchDestinationDTO:dispatchDestinationDTOList){
             QueryWrapper wrapper1 = new QueryWrapper();

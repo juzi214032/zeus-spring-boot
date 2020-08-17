@@ -33,6 +33,9 @@ public interface DataAnalysisDao {
     //运输方式统计
     public long modeOfTransportStatistics(String transportType);
 
+    //查询一共有哪些方式的运输方式
+    public List<String> transportTypelist();
+
     //地区煤炭分布统计
     public long regionalCoalDistribution(String producingArea);
 
