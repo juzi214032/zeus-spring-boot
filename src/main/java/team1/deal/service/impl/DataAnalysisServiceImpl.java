@@ -78,7 +78,7 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
             List<String> kindsOfCoallist = dataAnalysisDao.kindsOfCoallist(beginlocalDateTime,endlocalDateTime);
             for (String Coal:kindsOfCoallist){
                 if (dataAnalysisDao.existOrNotExist(Coal)!=0){
-                    coalYearNameGdpVOList.add(new CoalYearNameGdpVO(Coal,beginlocalDateTime.getYear(), dataAnalysisDao.kindsOfCoal(Coal,beginlocalDateTime,endlocalDateTime)));
+                    coalYearNameGdpVOList.add(new CoalYearNameGdpVO(Coal,Convert.toStr(beginlocalDateTime.getYear()), dataAnalysisDao.kindsOfCoal(Coal,beginlocalDateTime,endlocalDateTime)));
                 }
             }
         }

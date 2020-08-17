@@ -11,11 +11,11 @@ public class CoalYearNameGdpVO {
     @ApiModelProperty(value = "煤炭名")
     private String name;
     @ApiModelProperty(value = "年")
-    private Integer year;
+    private String year;
     @ApiModelProperty(value = "数量")
     private long gdp;
 
-    public CoalYearNameGdpVO(String name, Integer year, long gdp) {
+    public CoalYearNameGdpVO(String name, String year, long gdp) {
         this.name = name;
         this.year = year;
         this.gdp = gdp;
