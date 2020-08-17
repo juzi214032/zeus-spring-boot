@@ -12,6 +12,7 @@ import team1.deal.model.po.UserPO;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 class DealApplicationTests {
@@ -35,9 +36,10 @@ class DealApplicationTests {
 
     @Test
     void test2(){
-        LocalDateTime beginlocalDateTime = DateUtil.parseLocalDateTime("2020-01-01 00:00:00");
-        LocalDateTime endlocalDateTime = DateUtil.parseLocalDateTime("2021-09-05 19:11:27");
-        System.out.println(dataAnalysisDao.kindsOfCoal("煤种1",beginlocalDateTime,endlocalDateTime));
+        List<String> list = dataAnalysisDao.CoallistbyProducingArea("湖南");
+        for (String name:list){
+            System.out.println(name);
+        }
     }
 
 

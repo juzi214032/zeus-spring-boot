@@ -27,8 +27,7 @@ public interface DataAnalysisDao {
     //某一种煤的总量，根据某年
     public long kindsOfCoal(String coalType,LocalDateTime beginYear,LocalDateTime endYear);
 
-
-  //查询一共有多少种煤，根据某年
+    //查询一共有多少种煤，根据某年
     public List<String> kindsOfCoallist(LocalDateTime beginYear,LocalDateTime endYear);
 
     //某一种煤有没有
@@ -40,11 +39,14 @@ public interface DataAnalysisDao {
     //查询一共有哪些方式的运输方式
     public List<String> transportTypelist();
 
-    //地区煤炭分布统计
-    public long regionalCoalDistribution(String producingArea);
+    //地区煤炭分布统计,根据地区和煤种
+    public long regionalCoalDistribution(String producingArea,String coalType);
 
     //查询一共有哪些产地
     public List<String> region();
+
+    //查询某个地区有哪些煤种
+    public List<String> CoallistbyProducingArea(String producingArea);
 
     //关注程度统计
     public long attention(Integer did);

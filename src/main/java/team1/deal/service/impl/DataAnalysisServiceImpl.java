@@ -11,6 +11,7 @@ import team1.deal.mapper.CityMapper;
 import team1.deal.model.dto.DispatchDestinationDTO;
 import team1.deal.model.dto.LatitudeAndIongitudeAndNumberDTO;
 import team1.deal.model.po.CityPO;
+import team1.deal.model.vo.CoalInformationVO;
 import team1.deal.model.vo.CoalYearNameGdpVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.model.vo.TransportInformationVO;
@@ -104,14 +105,20 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     //地区煤炭分布统计
     @Transactional
     @Override
-    public Map<String, Object> regionalCoalDistribution() {
+    public List<CoalInformationVO> regionalCoalDistribution() {
+        List<CoalInformationVO> coalInformationVOList = new ArrayList<>();
         //先获取一共有哪些地区
         List<String> producingArealist = dataAnalysisDao.region();
         Map<String,Object> map = new HashMap<>();
         for (String producingArea:producingArealist){
-            map.put(producingArea,dataAnalysisDao.regionalCoalDistribution(producingArea));
+            //查询某个地区有哪些煤种
+            List<String> coalTypeList = dataAnalysisDao.CoallistbyProducingArea(producingArea);
+            for (String coalType:coalTypeList){
+                coalInformationVOList.add(new CoalInformationVO(coalType,producingArea,
+                        dataAnalysisDao.regionalCoalDistribution(producingArea,coalType)));
+            }
         }
-        return map;
+        return coalInformationVOList;
     }
 
     //关注程度统计

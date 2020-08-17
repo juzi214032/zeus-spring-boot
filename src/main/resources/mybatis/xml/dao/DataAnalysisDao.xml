@@ -56,14 +56,21 @@
         select transportType from demand_order group by transportType
     </select>
 
-    <!-- public long regionalCoalDistribution(String producingArea); -->
+    <!-- public long regionalCoalDistribution(String producingArea,String coalType); -->
     <select id="regionalCoalDistribution" resultType="long">
-        select sum(supplyQuantity) from quoted_price_info where producingArea = #{producingArea}
+        select sum(q.supplyQuantity) from quoted_price_info as q inner join demand_order as d on q.dId=d.id
+        where q.producingArea = #{param1} and d.coalType=#{param2}
     </select>
 
     <!-- public List<String> region(); -->
     <select id="region" resultType="String">
-        select producingArea from quoted_price_info
+        select producingArea from quoted_price_info group by producingArea
+    </select>
+
+    <!-- public List<String> CoallistbyProducingArea(String producingArea); -->
+    <select id="CoallistbyProducingArea" resultType="String">
+        select d.coalType from quoted_price_info as q inner join demand_order as d on q.dId=d.id
+        where q.producingArea=#{producingArea} group by d.coalType
     </select>
 
     <!-- public long attention(Integer did); -->

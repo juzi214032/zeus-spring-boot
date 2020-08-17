@@ -1,5 +1,6 @@
 package team1.deal.service;
 
+import team1.deal.model.vo.CoalInformationVO;
 import team1.deal.model.vo.CoalYearNameGdpVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.model.vo.TransportInformationVO;
@@ -28,7 +29,7 @@ public interface DataAnalysisService {
     public List<TransportInformationVO> modeOfTransportStatistics();
 
     //地区煤炭分布统计
-    public Map<String,Object> regionalCoalDistribution();
+    public List<CoalInformationVO> regionalCoalDistribution();
 
     //关注程度统计
     public Map<String,Object> attention();
