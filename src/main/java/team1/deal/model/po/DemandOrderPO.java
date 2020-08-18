@@ -30,12 +30,11 @@ import javax.validation.constraints.NotNull;
 @TableName("demand_order")
 @ApiModel(value="DemandOrderPO对象", description="需求订单类")
 public class DemandOrderPO implements Serializable {
-    @NotNull
+
     @ApiModelProperty(value = "需求订单id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @NotNull
     @ApiModelProperty(value = "用户id")
     @TableField("uId")
     private Integer uId;

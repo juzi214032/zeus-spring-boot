@@ -38,7 +38,6 @@ public class SaveQuotedPriceInfoPO implements Serializable {
     @TableField("dId")
     private Integer dId;
 
-    @Range(min = 1,message = "供应商id不合法")
     @ApiModelProperty(value = "供应商id（在user表中）")
     @TableField("uId")
     private Integer uId;

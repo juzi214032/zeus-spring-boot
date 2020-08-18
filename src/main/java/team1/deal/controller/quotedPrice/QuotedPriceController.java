@@ -60,9 +60,6 @@ public class QuotedPriceController {
         return new MessageResponseVO(20004);
     }
 
-    //******************************************
-
-
 
     @ApiOperation("报价批量审核通过")
     @PostMapping(value = "/batchauditAllow")
