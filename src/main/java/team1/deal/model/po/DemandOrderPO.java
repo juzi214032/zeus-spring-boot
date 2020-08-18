@@ -30,37 +30,42 @@ import javax.validation.constraints.NotNull;
 @TableName("demand_order")
 @ApiModel(value="DemandOrderPO对象", description="需求订单类")
 public class DemandOrderPO implements Serializable {
-
-
+    @NotNull
     @ApiModelProperty(value = "需求订单id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @NotNull
     @ApiModelProperty(value = "用户id")
     @TableField("uId")
     private Integer uId;
 
-    @Range(min = -2,max = 5,message = "状态不合法")
+    @NotNull
+    @Range(min = -2,max = 5)
     @ApiModelProperty(value = "状态代码（0：待审核状态，1：电厂一级审核通过状态，2：电厂二级审核通过状态，3：子公司一级审核通过状态，4：子公司二级审核通过状态，5完成状态，-1：待修改状态,-2：未创建状态")
     private Integer status;
 
     @ApiModelProperty(value = "审核意见")
     private String idea;
 
+    @NotNull
     @Future
     @ApiModelProperty(value = "报价截止时间")
     @TableField("lastTime")
     private LocalDateTime lastTime;
 
-    @NotBlank(message = "申请单位不合法")
+    @NotBlank
     @ApiModelProperty(value = "申请单位")
     @TableField("applyUnit")
     private String applyUnit;
 
+    @NotNull
+    @Future
     @ApiModelProperty(value = "申请日期")
     @TableField("applyTime")
     private LocalDateTime applyTime;
 
+    @NotNull
     @Future
     @ApiModelProperty(value = "交货日期")
     @TableField("deliveryTime")
@@ -71,32 +76,32 @@ public class DemandOrderPO implements Serializable {
     @TableField("coalType")
     private String coalType;
 
-    @Range(min = 1,message = "采购数量不合法")
+    @NotNull
     @ApiModelProperty(value = "采购数量")
     @TableField("coalNumber")
     private Integer coalNumber;
 
-    @NotBlank(message = "运输方式不合法")
+    @NotBlank
     @ApiModelProperty(value = "运输方式")
     @TableField("transportType")
     private String transportType;
 
-    @NotBlank(message = "交货地点不合法")
+    @NotBlank
     @ApiModelProperty(value = "交货地点")
     @TableField("deliveryPlace")
     private String deliveryPlace;
 
-    @NotBlank(message = "结算方式不合法")
+    @NotBlank
     @ApiModelProperty(value = "结算方式")
     @TableField("paymentType")
     private String paymentType;
 
-    @NotBlank(message = "验收方式不合法")
+    @NotBlank
     @ApiModelProperty(value = "验收方式")
     @TableField("checkType")
     private String checkType;
 
-    @NotNull(message = "最高限价不合法")
+    @NotNull
     @ApiModelProperty(value = "最高限价，不能为空")
     @TableField("maxPrice")
     private BigDecimal maxPrice;
@@ -105,37 +110,37 @@ public class DemandOrderPO implements Serializable {
     @TableField("minPrice")
     private BigDecimal minPrice;
 
-    @NotBlank(message = "限价说明不合法")
+    @NotBlank
     @ApiModelProperty(value = "限价说明")
     @TableField("priceDescription")
     private String priceDescription;
 
-    @NotNull(message = "每吨煤,报价保证金额不合法")
+    @NotNull
     @ApiModelProperty(value = "每吨煤,报价保证金额")
     @TableField("offerMargin")
     private BigDecimal offerMargin;
 
-    @NotNull(message = "每吨煤,执行保证金额不合法")
+    @NotNull
     @ApiModelProperty(value = "每吨煤,执行保证金额")
     @TableField("performMargin")
     private BigDecimal performMargin;
 
-    @NotNull(message = "热值不合法")
+    @NotNull
     @ApiModelProperty(value = "热值")
     @TableField("calorificValue")
     private BigDecimal calorificValue;
 
-    @NotNull(message = "全硫不合法")
+    @NotNull
     @ApiModelProperty(value = "全硫")
     @TableField("sulfurContent")
     private BigDecimal sulfurContent;
 
-    @NotNull(message = "挥发分不合法")
+    @NotNull
     @ApiModelProperty(value = "挥发分")
     @TableField("volatileQuantity")
     private BigDecimal volatileQuantity;
 
-    @NotNull(message = "空干基灰分不合法")
+    @NotNull
     @ApiModelProperty(value = "空干基灰分")
     private BigDecimal aad;
 
