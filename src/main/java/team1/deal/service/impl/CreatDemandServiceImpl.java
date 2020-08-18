@@ -2,12 +2,16 @@ package team1.deal.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import team1.deal.mapper.DemandOrderMapper;
 import team1.deal.mapper.SaveDemandOrderMapper;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.SaveDemandOrderPO;
+import team1.deal.model.po.UserPO;
 import team1.deal.service.CreatDemandService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class CreatDemandServiceImpl implements CreatDemandService {
@@ -16,11 +20,13 @@ public class CreatDemandServiceImpl implements CreatDemandService {
     private DemandOrderMapper demandOrderMapper;
     @Autowired
     private SaveDemandOrderMapper saveDemandOrderMapper;
+    @Autowired
+    private RedisTemplate<Object, UserPO> redisTemplate;
 
 
     //创建需求
     @Override
-    public void CreatDemand(DemandOrderPO demandOrderPO) {
+    public void CreatDemand(HttpServletRequest request,DemandOrderPO demandOrderPO) {
 
         //判断需求订单表中有无
         if (demandOrderMapper.selectById(demandOrderPO.getId())==null){
@@ -29,6 +35,11 @@ public class CreatDemandServiceImpl implements CreatDemandService {
             demandOrderPO.setStatus(0);
             //将需求订单的id设置为null,防止保存的id与提交后的id冲突
             demandOrderPO.setId(null);
+
+            String Token = request.getHeader("Token");
+            //在redis中查询
+            UserPO userPO = redisTemplate.opsForValue().get(Token);
+            demandOrderPO.setUId(userPO.getId());
             demandOrderMapper.insert(demandOrderPO);
         }else {
             //有，则修改
@@ -39,7 +50,7 @@ public class CreatDemandServiceImpl implements CreatDemandService {
 
     //保存需求
     @Override
-    public void SaveDemand(SaveDemandOrderPO saveDemandOrderPO) {
+    public void SaveDemand(HttpServletRequest request, SaveDemandOrderPO saveDemandOrderPO) {
         //设置需求订单的状态为-2代表没有
         saveDemandOrderPO.setStatus(-2);
 
@@ -50,6 +61,10 @@ public class CreatDemandServiceImpl implements CreatDemandService {
             //删除旧数据
             saveDemandOrderMapper.deleteById(saveDemandOrderPO1.getId());
         }
+        String Token = request.getHeader("Token");
+        //在redis中查询
+        UserPO userPO = redisTemplate.opsForValue().get(Token);
+        saveDemandOrderPO.setUId(userPO.getId());
         saveDemandOrderMapper.insert(saveDemandOrderPO);
     }
 

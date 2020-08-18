@@ -28,7 +28,7 @@ class DealApplicationTests {
         person.setName("chen");
         person.setUsername("账户");
         person.setPassword("123");
-        person.setId(1);
+        person.setId(3);
         //String k = UUID.randomUUID() + "";
         redisTemplate.opsForValue().set("k",person, Duration.ofHours(23L));
         System.out.println(redisTemplate.opsForValue().get("k"));

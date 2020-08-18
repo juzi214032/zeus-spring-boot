@@ -32,27 +32,18 @@ public class CreatDemandController {
     @Autowired
     private RedisTemplate<Object, UserPO> redisTemplate;
 
-    /**
-     * 创建并提交
-     * @param demandOrderPO
-     * @return
-     */
+
     @ApiOperation("需求点击创建")
     @PostMapping(value = "/buttonCreatDemand")
-    public ResponseVO CreatDemand(@RequestBody @Validated DemandOrderPO demandOrderPO){
-        creatDemandService.CreatDemand(demandOrderPO);
+    public ResponseVO CreatDemand(HttpServletRequest request,@RequestBody @Validated DemandOrderPO demandOrderPO){
+        creatDemandService.CreatDemand(request,demandOrderPO);
         return new MessageResponseVO(20005);
     }
 
-    /**
-     * 创建后保存
-     * @param saveDemandOrderPO
-     * @return
-     */
     @ApiOperation("需求点击保存")
     @PostMapping(value = "/buttonSaveDemand")
-    public ResponseVO SaveDemand(@RequestBody @Validated SaveDemandOrderPO saveDemandOrderPO){
-        creatDemandService.SaveDemand(saveDemandOrderPO);
+    public ResponseVO SaveDemand(HttpServletRequest request,@RequestBody @Validated SaveDemandOrderPO saveDemandOrderPO){
+        creatDemandService.SaveDemand(request,saveDemandOrderPO);
         return new MessageResponseVO(20006);
     }
 
@@ -62,7 +53,7 @@ public class CreatDemandController {
         DemandOrderPO demandOrderPO = demandOrderService.getById(orderId);
         SaveDemandOrderPO saveDemandOrderPO = new SaveDemandOrderPO();
         BeanUtils.copyProperties(demandOrderPO,saveDemandOrderPO);
-        creatDemandService.SaveDemand(saveDemandOrderPO);
+        creatDemandService.SaveDemand(httpServletRequest,saveDemandOrderPO);
         return new ResponseVO(demandOrderPO);
     }
 }

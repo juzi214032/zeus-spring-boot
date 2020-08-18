@@ -25,11 +25,7 @@ public class QuotedPriceController {
     private QuotedPriceService quotedPriceService;
 
 
-    /**
-     * 报价审核通过
-     * @param quotedPriceInfoPO
-     * @return
-     */
+
     @ApiOperation("报价审核通过")
     @PostMapping(value = "/auditAllow")
     public ResponseVO auditAllow(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
@@ -38,11 +34,7 @@ public class QuotedPriceController {
     }
 
 
-    /**
-     * 报价审核不通过
-     * @param quotedPriceInfoPO
-     * @return
-     */
+
     @ApiOperation("报价审核不通过")
     @PostMapping(value = "/auditFailure")
     public ResponseVO auditFailure(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
@@ -51,11 +43,7 @@ public class QuotedPriceController {
     }
 
 
-    /**
-     * 报价审批通过
-     * @param quotedPriceInfoPO
-     * @return
-     */
+
     @ApiOperation("报价审批通过")
     @PostMapping(value = "/approvalAllow")
     public ResponseVO approvalAllow(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
@@ -64,11 +52,7 @@ public class QuotedPriceController {
     }
 
 
-    /**
-     * 报价审批不通过
-     * @param quotedPriceInfoPO
-     * @return
-     */
+
     @ApiOperation("报价审批不通过")
     @PostMapping(value = "/approvalFailure")
     public ResponseVO approvalFailure(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
@@ -79,11 +63,7 @@ public class QuotedPriceController {
     //******************************************
 
 
-    /**
-     * 报价批量审核通过
-     * @param quotedPriceInfoPOListDTO
-     * @return
-     */
+
     @ApiOperation("报价批量审核通过")
     @PostMapping(value = "/batchauditAllow")
     public ResponseVO batchauditAllow(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
@@ -92,11 +72,7 @@ public class QuotedPriceController {
         return new MessageResponseVO(20011);
     }
 
-    /**
-     * 报价批量审核不通过
-     * @param quotedPriceInfoPOListDTO
-     * @return
-     */
+
     @ApiOperation("报价批量审核不通过")
     @PostMapping(value = "/batchauditFailure")
     public ResponseVO batchauditFailure(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
@@ -105,11 +81,7 @@ public class QuotedPriceController {
         return new MessageResponseVO(20012);
     }
 
-    /**
-     * 报价批量审批通过
-     * @param quotedPriceInfoPOListDTO
-     * @return
-     */
+
     @ApiOperation("报价批量审批通过")
     @PostMapping(value = "/batchapprovalAllow")
     public ResponseVO batchapprovalAllow(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
@@ -118,11 +90,7 @@ public class QuotedPriceController {
         return new MessageResponseVO(20013);
     }
 
-    /**
-     * 报价批量审批不通过
-     * @param quotedPriceInfoPOListDTO
-     * @return
-     */
+
     @ApiOperation("报价批量审批不通过")
     @PostMapping(value = "/batchapprovalFailure")
     public ResponseVO batchapprovalFailure(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){

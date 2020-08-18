@@ -14,6 +14,8 @@ import team1.deal.model.vo.MessageResponseVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.CreatQuotedPriceService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @Api(tags = "创建|保存报价")
 @RequestMapping(value = "/creatQuotedPrice")
@@ -23,28 +25,20 @@ public class CeatQuotedPriceController {
     private CreatQuotedPriceService creatQuotedPriceService;
 
 
-    /**
-     * 创建并提交报价
-     * @param quotedPriceInfoPO
-     * @return
-     */
+
     @ApiOperation("报价点击创建")
     @PostMapping(value = "/buttonCreatQuotedPrice")
-    public ResponseVO CreatQuotedPrice(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
-        creatQuotedPriceService.CreatQuotedPrice(quotedPriceInfoPO);
+    public ResponseVO CreatQuotedPrice(HttpServletRequest request, @RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
+        creatQuotedPriceService.CreatQuotedPrice(request,quotedPriceInfoPO);
         return new MessageResponseVO(20007);
     }
 
 
-    /**
-     * 保存报价
-     * @param saveQuotedPriceInfoPO
-     * @return
-     */
+
     @ApiOperation("报价点击保存")
     @PostMapping(value = "/buttonSaveQuotedPrice")
-    public ResponseVO SaveQuotedPrice(@RequestBody @Validated SaveQuotedPriceInfoPO saveQuotedPriceInfoPO){
-        creatQuotedPriceService.SaveQuotedPrice(saveQuotedPriceInfoPO);
+    public ResponseVO SaveQuotedPrice(HttpServletRequest request,@RequestBody @Validated SaveQuotedPriceInfoPO saveQuotedPriceInfoPO){
+        creatQuotedPriceService.SaveQuotedPrice(request,saveQuotedPriceInfoPO);
         return new MessageResponseVO(20008);
     }
 
