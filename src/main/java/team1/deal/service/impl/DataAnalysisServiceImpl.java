@@ -109,7 +109,6 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         List<CoalInformationVO> coalInformationVOList = new ArrayList<>();
         //先获取一共有哪些地区
         List<String> producingArealist = dataAnalysisDao.region();
-        Map<String,Object> map = new HashMap<>();
         for (String producingArea:producingArealist){
             //查询某个地区有哪些煤种
             List<String> coalTypeList = dataAnalysisDao.CoallistbyProducingArea(producingArea);
@@ -118,7 +117,18 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
                         dataAnalysisDao.regionalCoalDistribution(producingArea,coalType)));
             }
         }
-        return coalInformationVOList;
+
+        List<CoalInformationVO> coalInformationVOList2 = new ArrayList<>();
+        for (CoalInformationVO coalInformationVO:coalInformationVOList){
+            if (coalInformationVO.getProducingArea().equals("沿海城市")){
+                coalInformationVOList2.add(coalInformationVO);
+            }else if (coalInformationVO.getProducingArea().equals("内陆城市")){
+                coalInformationVOList2.add(coalInformationVO);
+            }
+        }
+
+
+        return coalInformationVOList2;
     }
 
     //关注程度统计
@@ -129,7 +139,7 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         List<Integer> DemandIdList = dataAnalysisDao.getDemandIds();
         Map<String,Object> map = new HashMap<>();
         for (Integer did:DemandIdList){
-            map.put(""+did,dataAnalysisDao.attention(did));
+            map.put(Convert.toStr(did),dataAnalysisDao.attention(did));
         }
         return map;
     }
