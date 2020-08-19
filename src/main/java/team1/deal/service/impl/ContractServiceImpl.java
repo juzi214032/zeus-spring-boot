@@ -37,11 +37,6 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
     @Autowired
     private QuotedPriceInfoMapper quotedPriceInfoMapper;
 
-
-
-
-
-
     //上传合同附件，创建合同，并保存到数据库中
     @Transactional
     @Override
@@ -65,14 +60,10 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
         url = path + "\\" + fileName;
         //将url信息存入contractPO对象中
         contractPO.setUrl(url);
-
-
         //设置合同的初始状态
         contractPO.setStatus(0);
         //将合同存入数据库
         contractMapper.insert(contractPO);
-
-
         //将需求订单的状态设置为5，表示完成
         DemandOrderPO demandOrderPO = demandOrderMapper.selectById(contractPO.getDId());
         demandOrderPO.setStatus(5);
@@ -81,11 +72,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
         QuotedPriceInfoPO quotedPriceInfoPO = quotedPriceInfoMapper.selectById(contractPO.getQId());
         quotedPriceInfoPO.setStatus(4);
         quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
-
     }
-
-
-
     //合同执行完毕
     @Override
     public void CompleteContract(ContractPO contractPO) {
@@ -93,11 +80,4 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
         //将修改为完毕状态的contractPO在数据库中更新
         contractMapper.updateById(contractPO);
     }
-
-
-
-
-
-
-
 }

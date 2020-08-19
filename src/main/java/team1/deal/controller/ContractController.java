@@ -22,16 +22,10 @@ public class ContractController {
     private ContractService contractService;
 
 
-    /**
-     * 创建合同
-     * @param contractPO
-     * @return
-     */
     @ApiOperation("创建合同")
     @PostMapping(value = "/CreatAndUpContract")
     public ResponseVO CreatContract(@RequestPart MultipartFile file,@RequestPart @Validated ContractPO contractPO) throws IOException {
         contractService.CreatContract(file,contractPO);
-
         return new MessageResponseVO(20009);
     }
 

@@ -39,25 +39,28 @@ public class ContractPO implements Serializable {
     @TableField("signDate")
     private LocalDateTime signDate;
 
-    @Range(min = 1,message = "需求订单id不合法")
+    @NotNull
+    @Range(min = 1)
     @ApiModelProperty(value = "需求表单id")
     @TableField("dId")
     private Integer dId;
 
-    @Range(min = 1,message = "报价表单id不合法")
+    @NotNull
+    @Range(min = 1)
     @ApiModelProperty(value = "报价表单id")
     @TableField("qId")
     private Integer qId;
 
-    @NotNull(message = "签约价格不合法")
+    @NotNull
     @ApiModelProperty(value = "签约价格")
     private BigDecimal price;
 
-    @Range(min = 1,message = "签约量不合法")
+    @NotNull
+    @Range(min = 1)
     @ApiModelProperty(value = "签约量")
     private Integer amount;
 
-    @Range(min = 0,max = 1,message = "合同状态不合法")
+    @Range(min = 0,max = 1)
     @ApiModelProperty(value = "合同状态，0：合同创建状态，1：合同完成状态")
     private Integer status;
 
