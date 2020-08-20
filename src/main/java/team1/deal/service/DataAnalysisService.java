@@ -1,10 +1,12 @@
 package team1.deal.service;
 
+import team1.deal.model.dto.DispatchDestinationDTO;
 import team1.deal.model.vo.CoalInformationVO;
 import team1.deal.model.vo.CoalYearNameGdpVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.model.vo.TransportInformationVO;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,10 @@ public interface DataAnalysisService {
     public Map<String,Object> attention();
 
     //煤炭流向统计
-    public Map<Object,Object> coalFlowStatistics();
+    public List<Map<String,String>> coalFlowStatistics();
+
+    //煤炭发货地
+    public List<Map<String, BigDecimal>> coalDeliveryPlace();
 
     //本周新增需求订单
     long increaseOfDemand();

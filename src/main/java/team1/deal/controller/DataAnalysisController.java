@@ -82,6 +82,13 @@ public class DataAnalysisController{
         return new ResponseVO(dataAnalysisService.coalFlowStatistics());
     }
 
+    //煤炭发货地
+    @GetMapping("/coalDeliveryPlace")
+    @ApiOperation("煤炭发货地")
+    public ResponseVO coalDeliveryPlace(){
+        return new ResponseVO(dataAnalysisService.coalDeliveryPlace());
+    }
+
     //本周需求订单统计
     @GetMapping("/increase/demandOrder")
     @ApiOperation("新增本周需求订单统计")

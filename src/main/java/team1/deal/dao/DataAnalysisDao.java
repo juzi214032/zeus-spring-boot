@@ -55,7 +55,7 @@ public interface DataAnalysisDao {
     public List<Integer> getDemandIds();
 
     //查询出发送地-目的地
-    public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did);
+    public List<DispatchDestinationDTO> getDispatchDestinationDTO();
 
 
     //本周新增需求订单

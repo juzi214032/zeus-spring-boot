@@ -17,4 +17,7 @@
             </if>
         </where>
     </select>
+    <select id="getDeliveryPlace" resultType="team1.deal.model.po.CityPO">
+        select distinct c.* from city AS c INNER JOIN quoted_price_info AS q where q.port = c.cityName
+    </select>
 </mapper>

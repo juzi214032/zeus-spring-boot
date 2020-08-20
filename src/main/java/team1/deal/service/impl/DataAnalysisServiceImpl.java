@@ -2,11 +2,12 @@ package team1.deal.service.impl;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team1.deal.dao.DataAnalysisDao;
+import team1.deal.dao.QuotedPriceInfoDao;
 import team1.deal.mapper.CityMapper;
 import team1.deal.model.dto.DispatchDestinationDTO;
 import team1.deal.model.dto.LatitudeAndIongitudeAndNumberDTO;
@@ -22,10 +23,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class DataAnalysisServiceImpl implements DataAnalysisService {
@@ -34,6 +32,8 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     private DataAnalysisDao dataAnalysisDao;
     @Autowired
     private CityMapper cityMapper;
+    @Autowired
+    private QuotedPriceInfoDao quotedPriceInfoDao;
 
     //阳光用户数量统计
     public long getSunUserNumber() {
@@ -145,44 +145,32 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     }
 
     //煤炭流向统计
-    @Transactional
     @Override
-    public Map<Object,Object> coalFlowStatistics() {
-        List<DispatchDestinationDTO> dispatchDestinationDTOList = new ArrayList<>();
-        //先获取有哪些需求订单
-        List<Integer> DemandIdList = dataAnalysisDao.getDemandIds();
-        for (Integer did:DemandIdList){
-            for (DispatchDestinationDTO dispatchDestinationDTO:dataAnalysisDao.getDispatchDestinationDTO(did)){
-                dispatchDestinationDTOList.add(dispatchDestinationDTO);
-            }
-        }
+    public List<Map<String,String>> coalFlowStatistics() {
+        List<DispatchDestinationDTO> list = dataAnalysisDao.getDispatchDestinationDTO();
+        List<Map<String,String>> fromTo = new ArrayList<>();
+        list.forEach(s->{
+            CityPO cityFrom = cityMapper.selectOne(Wrappers.lambdaQuery(CityPO.class).eq(CityPO::getCityName,s.getPort()));
+            CityPO cityTo = cityMapper.selectOne(Wrappers.lambdaQuery(CityPO.class).eq(CityPO::getCityName,s.getDeliveryPlace()));
+            Map<String,String> map = new HashMap<>();
+            map.put("from",cityFrom.toString());
+            map.put("to",cityTo.toString());
+            fromTo.add(map);
+        });
+        return fromTo;
+    }
 
-
-
-        Map<Object,Object> map = new HashMap<>();
-        for (DispatchDestinationDTO dispatchDestinationDTO:dispatchDestinationDTOList){
-            QueryWrapper wrapper1 = new QueryWrapper();
-            wrapper1.eq("cityName",dispatchDestinationDTO.getPort());
-            CityPO Portcity = cityMapper.selectOne(wrapper1);
-            QueryWrapper wrapper2 = new QueryWrapper();
-            wrapper2.eq("cityName",dispatchDestinationDTO.getDeliveryPlace());
-            CityPO DeliveryPlacecity = cityMapper.selectOne(wrapper2);
-            //获取发送地的经纬度
-            List<BigDecimal> port = new ArrayList<>();
-            port.add(0,Portcity.getLongitude());
-            port.add(1,Portcity.getLatitude());
-            //获取收货地的经纬度
-            List<BigDecimal> deliveryPlace = new ArrayList<>();
-            deliveryPlace.add(0,DeliveryPlacecity.getLongitude());
-            deliveryPlace.add(1,DeliveryPlacecity.getLatitude());
-            //将发货地-收货地的经纬度信息，封装
-            LatitudeAndIongitudeAndNumberDTO latitudeAndIongitudeAndNumberDTO = new LatitudeAndIongitudeAndNumberDTO();
-            latitudeAndIongitudeAndNumberDTO.setPort(port);
-            latitudeAndIongitudeAndNumberDTO.setDeliveryPlace(deliveryPlace);
-            //将latitudeAndIongitudeAndNumberDTO作为键可以避免重复
-            map.put(latitudeAndIongitudeAndNumberDTO,latitudeAndIongitudeAndNumberDTO);
-        }
-        return map;
+    @Override
+    public List<Map<String,BigDecimal>> coalDeliveryPlace(){
+        List<CityPO> list = quotedPriceInfoDao.getDeliveryPlace();
+        List<Map<String,BigDecimal>> deliveryPlace = new ArrayList<>();
+        list.forEach(s->{
+            Map<String,BigDecimal> map = new HashMap<>();
+            map.put("lng",s.getLongitude());
+            map.put("lat",s.getLatitude());
+            deliveryPlace.add(map);
+        });
+        return deliveryPlace;
     }
 
     @Override

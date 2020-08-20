@@ -35,5 +35,8 @@ public class CityPO implements Serializable {
     @TableId(value = "cityName", type = IdType.AUTO)
     private String cityName;
 
-
+    @Override
+    public String toString() {
+        return longitude + "," + latitude ;
+    }
 }
