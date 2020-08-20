@@ -18,4 +18,8 @@
             </if>
         </where>
     </select>
+    <select id="getDemandOrderBriefInfoQuoted" resultType="team1.deal.model.vo.DemandOrderBriefInfoVO">
+        select d.id,d.status,d.coalType,d.coalNumber,d.deliveryPlace,d.deliveryTime,d.lastTime from demand_order as d INNER JOIN quoted_price_info as q on
+        d.id = q.dId where d.`status`= 4 and q.`status`=#{status}
+    </select>
 </mapper>

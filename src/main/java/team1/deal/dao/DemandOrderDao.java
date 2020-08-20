@@ -16,4 +16,7 @@ public interface DemandOrderDao {
 
      //获取需求订单简要信息分页
      IPage<DemandOrderBriefInfoVO> getDemandOrderBriefInfo(@Param("page") Page<DemandOrderBriefInfoVO> page, @Param("userId") Integer uId, @Param("status") Integer status, @Param("lastTime") LocalDateTime localDateTime);
+
+    //报价阶段获取需求订单简要信息分页
+    IPage<DemandOrderBriefInfoVO> getDemandOrderBriefInfoQuoted(@Param("page") Page<DemandOrderBriefInfoVO> page,@Param("status") Integer status);
 }

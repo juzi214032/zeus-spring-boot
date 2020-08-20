@@ -11,9 +11,6 @@ public class QuotedPriceBriefInfoVO {
     @ApiModelProperty(value = "表单id")
     private Integer id;
 
-    @ApiModelProperty(value = "需求订单id")
-    private Integer dId;
-
     @ApiModelProperty(value = "煤炭种类")
     private String coalType;
 

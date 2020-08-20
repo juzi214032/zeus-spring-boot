@@ -18,6 +18,7 @@ import team1.deal.model.po.SaveDemandOrderPO;
 import team1.deal.model.po.SaveQuotedPriceInfoPO;
 import team1.deal.model.vo.DemandOrderBriefInfoVO;
 import team1.deal.model.vo.DemandOrderInfoVO;
+import team1.deal.model.vo.QuotedPriceBriefInfoVO;
 import team1.deal.service.EchoService;
 
 import java.sql.Wrapper;
@@ -28,8 +29,6 @@ import java.util.List;
 
 @Service
 public class EchoServiceImpl implements EchoService {
-    @Autowired
-    private DemandOrderMapper demandOrderMapper;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -69,6 +68,30 @@ public class EchoServiceImpl implements EchoService {
         return null;
     }
 
+    //报价时获取需求订单简要信息
+    public IPage<DemandOrderBriefInfoVO> getDemandOrderBriefInfoQuoted(PageParamDTO pageParamDTO, Integer userId){
+        Page<DemandOrderBriefInfoVO> page =new Page<>(pageParamDTO.getPageOn(),pageParamDTO.getPageSize());
+        //获取用户所拥有的权限id
+        List<String> authorityList = new ArrayList<>();
+        userDao.getUserAuthority(userId).forEach(s->{
+            authorityList.add(s.getAuthority());
+        });
+        //接下来根据部门和权限做出相应的回应
+        //阳光用户
+        if (authorityList.contains("报价")){
+            return null;
+        }
+        //获取用户所在部门
+        String dept = userDao.getUserDept(userId).getDeptName();
+        if (authorityList.contains("审核")&&dept.equals("电厂")){
+            return demandOrderDao.getDemandOrderBriefInfoQuoted(page,0);
+        }else if (authorityList.contains("审批")&&dept.equals("电厂")){
+            return demandOrderDao.getDemandOrderBriefInfoQuoted(page,1);
+        }else if (authorityList.contains("审批")&&dept.equals("子公司")){
+            return demandOrderDao.getDemandOrderBriefInfoQuoted(page,2);
+        }
+        return null;
+    }
 
     //保存需求订单回显
     @Override

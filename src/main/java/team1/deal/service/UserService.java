@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2020-08-05
  */
 public interface UserService extends IService<UserPO> {
-    List<QuotedPriceInfoVO> selectSupplier(Integer userId);
+    List<QuotedPriceInfoVO> selectSupplier(Integer orderId,Integer userId);
 }

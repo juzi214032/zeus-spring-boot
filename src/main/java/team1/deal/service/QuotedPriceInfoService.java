@@ -5,6 +5,7 @@ import team1.deal.model.dto.PageParamDTO;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.QuotedPriceInfoPO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import team1.deal.model.vo.DemandOrderInfoVO;
 import team1.deal.model.vo.QuotedPriceBriefInfoVO;
 import team1.deal.model.vo.QuotedPriceInfoVO;
 
@@ -21,7 +22,7 @@ import java.util.List;
 public interface QuotedPriceInfoService extends IService<QuotedPriceInfoPO> {
     IPage<QuotedPriceBriefInfoVO> getQuotedBriefList(PageParamDTO pageParamDTO,Integer userId);
 
-    DemandOrderPO getDemandOrder(Integer quotedId);
+    DemandOrderInfoVO getDemandOrder(Integer quotedId);
 
     QuotedPriceInfoVO getQuotedInfoVO(Integer quotedId);
 }

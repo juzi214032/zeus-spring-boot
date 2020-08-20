@@ -65,20 +65,33 @@ public class EchoController {
         return new ResponseVO(demandOrderService.getDemandOrderById(orderId));
     }
 
+    /**
+     * 报价阶段需求订单简要信息回显
+     * @param httpServletRequest
+     * @return
+     */
+    @ApiOperation("报价阶段需求订单简要信息回显")
+    @GetMapping(value = "/demandEchoBrief/quoted")
+    public ResponseVO<IPage<DemandOrderBriefInfoVO>> DemandEchoBriefQuoted(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
+        UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
+        return new ResponseVO(echoService.getDemandOrderBriefInfoQuoted(pageParamDTO,userPO.getId()));
+    }
+
+
     @ApiOperation("报价简要信息回显")
     @GetMapping("/quotedEchoBrief")
-    public ResponseVO<IPage<QuotedPriceBriefInfoVO>> quotedEchoBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
+    public ResponseVO<IPage<QuotedPriceBriefInfoVO>> quotedEchoBrief(, PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
         return new ResponseVO<>(quotedPriceInfoService.getQuotedBriefList(pageParamDTO,userPO.getId()));
     }
 
     @ApiOperation(value = "报价详细信息回显",notes = "审核审批人员访问")
-    @GetMapping("/quotedEchoDetail/{quotedId}")
-    public ResponseVO<Map<String,Object>> quotedEchoDetail(@ApiParam("报价订单id") @PathVariable Integer quotedId, HttpServletRequest httpServletRequest){
+    @GetMapping("/quotedEchoDetail/{orderId}")
+    public ResponseVO<Map<String,Object>> quotedEchoDetail(@ApiParam("需求订单id") @PathVariable Integer orderId, HttpServletRequest httpServletRequest){
         Map map = new HashMap();
-        map.put("demandOrder",quotedPriceInfoService.getDemandOrder(quotedId));
+        map.put("demandOrder",demandOrderService.getDemandOrderById(orderId));
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
-        map.put("quotedPriceInfo",userService.selectSupplier(userPO.getId()));
+        map.put("quotedPriceInfo",userService.selectSupplier(orderId,userPO.getId()));
         return  new ResponseVO<>(map);
     }
 

@@ -13,6 +13,8 @@ public interface EchoService {
 
      IPage<DemandOrderBriefInfoVO> getDemandOrderBriefInfo(PageParamDTO pageParamDTO, Integer userId);
 
+     IPage<DemandOrderBriefInfoVO> getDemandOrderBriefInfoQuoted(PageParamDTO pageParamDTO, Integer userId);
+
      //保存需求订单回显
      public SaveDemandOrderPO SaveDemandEcho();
 
