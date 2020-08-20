@@ -80,7 +80,7 @@ public class EchoController {
 
     @ApiOperation("报价简要信息回显")
     @GetMapping("/quotedEchoBrief")
-    public ResponseVO<IPage<QuotedPriceBriefInfoVO>> quotedEchoBrief(, PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
+    public ResponseVO<IPage<QuotedPriceBriefInfoVO>> quotedEchoBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
         return new ResponseVO<>(quotedPriceInfoService.getQuotedBriefList(pageParamDTO,userPO.getId()));
     }
