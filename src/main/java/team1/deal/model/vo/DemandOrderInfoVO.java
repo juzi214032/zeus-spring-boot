@@ -57,10 +57,10 @@ public class DemandOrderInfoVO {
     private String checkType;
 
     @ApiModelProperty(value = "最高限价，不能为空")
-    private String maxPrice;
+    private BigDecimal maxPrice;
 
     @ApiModelProperty(value = "最低限价,可以为空")
-    private String minPrice;
+    private BigDecimal minPrice;
 
     @ApiModelProperty(value = "限价说明")
     private String priceDescription;

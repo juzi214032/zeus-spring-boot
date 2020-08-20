@@ -1,5 +1,6 @@
 package team1.deal.model.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -38,5 +39,6 @@ public class UserPO implements Serializable {
     private String password;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField("createTime")
     private String createTime;
 }
