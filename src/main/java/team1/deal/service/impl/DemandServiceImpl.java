@@ -12,7 +12,7 @@ public class DemandServiceImpl implements DemandService {
     private DemandOrderMapper demandOrderMapper;
 
 
-    //审核通过
+    //审核/审批通过
     @Override
     public void auditAllow(DemandOrderPO demandOrderPO) {
         demandOrderPO.setStatus(demandOrderPO.getStatus()+1);
@@ -20,33 +20,13 @@ public class DemandServiceImpl implements DemandService {
         demandOrderMapper.updateById(demandOrderPO);
     }
 
-    //审核不通过
+    //审核/审批不通过
     @Override
     public void auditFailure(DemandOrderPO demandOrderPO) {
         demandOrderPO.setStatus(-1);
         //将修改的结果存入数据库
         demandOrderMapper.updateById(demandOrderPO);
     }
-
-    //审批通过
-    @Override
-    public void approvalAllow(DemandOrderPO demandOrderPO){
-        demandOrderPO.setStatus(demandOrderPO.getStatus()+1);
-        //将修改的结果存入数据库
-        demandOrderMapper.updateById(demandOrderPO);
-    }
-
-    //审批不通过
-    @Override
-    public void approvalFailure(DemandOrderPO demandOrderPO){
-        demandOrderPO.setStatus(-1);
-        //将修改的结果存入数据库
-        demandOrderMapper.updateById(demandOrderPO);
-    }
-
-
-
-
 
 
 }

@@ -13,7 +13,7 @@ public class PageParamDTO {
     @ApiModelProperty("当前页码-从 1 开始")
     private Integer pageOn = 1;
 
-    @Range(min = 10,max = 10,message = "每一页显示条数数量不对")
+    @Range(min = 10,max = 20,message = "每一页显示条数数量不对")
     @ApiModelProperty("每页条数")
     private Integer pageSize = 10;
 

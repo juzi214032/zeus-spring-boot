@@ -5,16 +5,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import team1.deal.model.dto.QuotedPriceInfoPOListDTO;
-import team1.deal.model.po.DemandOrderPO;
+import team1.deal.model.dto.QuotedPriceIdListDTO;
 import team1.deal.model.po.QuotedPriceInfoPO;
 import team1.deal.model.vo.MessageResponseVO;
 import team1.deal.model.vo.ResponseVO;
 import team1.deal.service.QuotedPriceService;
-import team1.deal.service.UserService;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 @Api(tags = "电厂或者子公司，报价多级审核")
@@ -61,40 +56,27 @@ public class QuotedPriceController {
     }
 
 
-    @ApiOperation("报价批量审核通过")
+
+
+
+
+
+
+    @ApiOperation("报价批量审核/审批通过")
     @PostMapping(value = "/batchauditAllow")
-    public ResponseVO batchauditAllow(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
-        quotedPriceService.batchauditAllow(quotedPriceInfoPOListDTO);
+    public ResponseVO batchauditAllow(@RequestBody QuotedPriceIdListDTO quotedPriceIdListDTO){
+        quotedPriceService.batchauditAllow(quotedPriceIdListDTO);
 
         return new MessageResponseVO(20011);
     }
 
 
-    @ApiOperation("报价批量审核不通过")
+    @ApiOperation("报价批量审核/审批不通过")
     @PostMapping(value = "/batchauditFailure")
-    public ResponseVO batchauditFailure(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
-        quotedPriceService.batchauditFailure(quotedPriceInfoPOListDTO);
+    public ResponseVO batchauditFailure(@RequestBody QuotedPriceIdListDTO quotedPriceIdListDTO){
+        quotedPriceService.batchauditFailure(quotedPriceIdListDTO);
 
         return new MessageResponseVO(20012);
     }
-
-
-    @ApiOperation("报价批量审批通过")
-    @PostMapping(value = "/batchapprovalAllow")
-    public ResponseVO batchapprovalAllow(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
-        quotedPriceService.batchapprovalAllow(quotedPriceInfoPOListDTO);
-
-        return new MessageResponseVO(20013);
-    }
-
-
-    @ApiOperation("报价批量审批不通过")
-    @PostMapping(value = "/batchapprovalFailure")
-    public ResponseVO batchapprovalFailure(@RequestBody QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO){
-        quotedPriceService.batchapprovalFailure(quotedPriceInfoPOListDTO);
-
-        return new MessageResponseVO(20014);
-    }
-
 }
 

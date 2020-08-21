@@ -20,7 +20,7 @@ public class DemandController {
     private DemandService demandService;
 
 
-    @ApiOperation("需求审核通过")
+    @ApiOperation("需求审核/审批通过")
     @PostMapping(value = "/auditAllow")
     public ResponseVO auditAllow(@RequestBody @Validated DemandOrderPO demandOrderPO){
         demandService.auditAllow(demandOrderPO);
@@ -28,27 +28,11 @@ public class DemandController {
     }
 
 
-    @ApiOperation("需求审核不通过")
+    @ApiOperation("需求审核/审批不通过")
     @PostMapping(value = "/auditFailure")
     public ResponseVO auditFailure(@RequestBody @Validated DemandOrderPO demandOrderPO){
         demandService.auditFailure(demandOrderPO);
         return new MessageResponseVO(20002);
-    }
-
-
-    @ApiOperation("需求审批通过")
-    @PostMapping(value = "/approvalAllow")
-    public ResponseVO approvalAllow(@RequestBody @Validated DemandOrderPO demandOrderPO){
-        demandService.approvalAllow(demandOrderPO);
-        return new MessageResponseVO(20003);
-    }
-
-
-    @ApiOperation("需求审批不通过")
-    @PostMapping(value = "/approvalFailure")
-    public ResponseVO approvalFailure(@RequestBody @Validated DemandOrderPO demandOrderPO){
-        demandService.approvalFailure(demandOrderPO);
-        return new MessageResponseVO(20004);
     }
 
 }

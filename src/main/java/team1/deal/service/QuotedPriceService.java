@@ -1,6 +1,6 @@
 package team1.deal.service;
 
-import team1.deal.model.dto.QuotedPriceInfoPOListDTO;
+import team1.deal.model.dto.QuotedPriceIdListDTO;
 import team1.deal.model.po.QuotedPriceInfoPO;
 
 public interface QuotedPriceService {
@@ -20,17 +20,11 @@ public interface QuotedPriceService {
 
     //***************************************************************
 
-    //报价批量审核通过
-    public void batchauditAllow(QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO);
+    //报价批量审核/审批通过
+    public void batchauditAllow(QuotedPriceIdListDTO quotedPriceIdListDTO);
 
-    //报价批量审核不通过
-    public void batchauditFailure(QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO);
-
-    //报价批量审批通过
-    public void batchapprovalAllow(QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO);
-
-    //报价批量审批不通过
-    public void batchapprovalFailure(QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO);
+    //报价批量审核/审批不通过
+    public void batchauditFailure(QuotedPriceIdListDTO quotedPriceIdListDTO);
 
 
 }
