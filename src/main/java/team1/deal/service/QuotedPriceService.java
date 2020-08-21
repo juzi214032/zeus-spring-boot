@@ -5,11 +5,6 @@ import team1.deal.model.po.QuotedPriceInfoPO;
 
 public interface QuotedPriceService {
 
-    //报价审核/审批通过
-    public void auditAllow(QuotedPriceInfoPO quotedPriceInfoPO);
-
-    //报价审核/审批不通过
-    public void auditFailure(QuotedPriceInfoPO quotedPriceInfoPO);
 
     //报价批量审核/审批通过
     public void batchauditAllow(QuotedPriceIdListDTO quotedPriceIdListDTO);

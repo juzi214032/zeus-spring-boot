@@ -17,22 +17,6 @@ public class QuotedPriceServiceImpl implements QuotedPriceService {
     private QuotedPriceInfoMapper quotedPriceInfoMapper;
 
 
-    //报价审核/审批通过
-    @Override
-    public void auditAllow(QuotedPriceInfoPO quotedPriceInfoPO) {
-        quotedPriceInfoPO.setStatus(quotedPriceInfoPO.getStatus()+1);
-        //将修改的结果存入数据库
-        quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
-    }
-
-    //报价审核审批不通过
-    @Override
-    public void auditFailure(QuotedPriceInfoPO quotedPriceInfoPO) {
-        quotedPriceInfoPO.setStatus(-1);
-        //将修改的结果存入数据库
-        quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
-    }
-
     //报价批量审核/审批通过
     @Transactional
     @Override

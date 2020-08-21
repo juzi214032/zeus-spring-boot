@@ -20,22 +20,6 @@ public class QuotedPriceController {
     private QuotedPriceService quotedPriceService;
 
 
-    @ApiOperation("报价审核/审批通过")
-    @PostMapping(value = "/auditAllow")
-    public ResponseVO auditAllow(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
-        quotedPriceService.auditAllow(quotedPriceInfoPO);
-        return new MessageResponseVO(20001);
-    }
-
-
-    @ApiOperation("报价审核/审批不通过")
-    @PostMapping(value = "/auditFailure")
-    public ResponseVO auditFailure(@RequestBody @Validated QuotedPriceInfoPO quotedPriceInfoPO){
-        quotedPriceService.auditFailure(quotedPriceInfoPO);
-        return new MessageResponseVO(20002);
-    }
-
-
     @ApiOperation("报价批量审核/审批通过")
     @PostMapping(value = "/batchauditAllow")
     public ResponseVO batchauditAllow(@RequestBody QuotedPriceIdListDTO quotedPriceIdListDTO){
