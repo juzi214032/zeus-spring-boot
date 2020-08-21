@@ -70,7 +70,7 @@ public class EchoServiceImpl implements EchoService {
 
     //报价时获取需求订单简要信息
     public IPage<DemandOrderBriefInfoVO> getDemandOrderBriefInfoQuoted(PageParamDTO pageParamDTO, Integer userId){
-        Page<DemandOrderBriefInfoVO> page =new Page<>(pageParamDTO.getPageOn(),pageParamDTO.getPageSize());
+        Page<DemandOrderBriefInfoVO> page =new Page<>(pageParamDTO.getPageOn(),pageParamDTO.getPageSize(),0,false);
         //获取用户所拥有的权限id
         List<String> authorityList = new ArrayList<>();
         userDao.getUserAuthority(userId).forEach(s->{
@@ -84,6 +84,8 @@ public class EchoServiceImpl implements EchoService {
         //获取用户所在部门
         String dept = userDao.getUserDept(userId).getDeptName();
         if (authorityList.contains("审核")&&dept.equals("电厂")){
+//            List<DemandOrderBriefInfoVO> demandOrderBriefInfoQuoted = demandOrderDao.getDemandOrderBriefInfoQuoted(0);
+//            return new Page<DemandOrderBriefInfoVO>().setRecords(demandOrderBriefInfoQuoted);
             return demandOrderDao.getDemandOrderBriefInfoQuoted(page,0);
         }else if (authorityList.contains("审批")&&dept.equals("电厂")){
             return demandOrderDao.getDemandOrderBriefInfoQuoted(page,1);

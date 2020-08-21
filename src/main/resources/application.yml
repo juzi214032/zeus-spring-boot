@@ -16,4 +16,6 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:/mybatis/xml/*/*.xml
 logging:
-  level.team1.deal.mapper.*: debug
+  level:
+    team1.deal.mapper.*: debug
+    team1.deal.dao: debug

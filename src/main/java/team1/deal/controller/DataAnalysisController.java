@@ -1,5 +1,6 @@
 package team1.deal.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import team1.deal.service.DataAnalysisService;
 
 @RestController
 @RequestMapping("/data")
-@ApiModel("数据分析")
+@Api(tags = "数据分析")
 public class DataAnalysisController{
 
     @Autowired
