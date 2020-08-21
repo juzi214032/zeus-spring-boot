@@ -44,11 +44,6 @@ public class EchoController {
     private QuotedPriceInfoService quotedPriceInfoService;
 
 
-    /**
-     * 需求订单简要信息回显
-     * @param httpServletRequest
-     * @return
-     */
     @ApiOperation("需求订单简要信息回显")
     @GetMapping(value = "/demandEchoBrief")
     public ResponseVO<IPage<DemandOrderBriefInfoVO>> DemandEchoBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
@@ -56,20 +51,14 @@ public class EchoController {
         return new ResponseVO(echoService.getDemandOrderBriefInfo(pageParamDTO,userPO.getId()));
     }
 
-    /**
-     * 需求订单详细信息回显
-     */
+
     @ApiOperation("需求订单详细信息回显")
     @GetMapping(value = "/demandEchoDetail/{orderId}")
     public ResponseVO DemandEchoDetail(@ApiParam("需求订单id") @PathVariable Integer orderId){
         return new ResponseVO(demandOrderService.getDemandOrderById(orderId));
     }
 
-    /**
-     * 报价阶段需求订单简要信息回显
-     * @param httpServletRequest
-     * @return
-     */
+
     @ApiOperation("报价阶段需求订单简要信息回显")
     @GetMapping(value = "/demandEchoBrief/quoted")
     public ResponseVO<IPage<DemandOrderBriefInfoVO>> DemandEchoBriefQuoted(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
@@ -104,10 +93,7 @@ public class EchoController {
         return  new ResponseVO<>(map);
     }
 
-    /**
-     * 保存需求订单回显
-     * @return
-     */
+
     @ApiOperation("保存需求订单回显")
     @PostMapping(value = "/SaveDemandEcho")
     public ResponseVO SaveDemandEcho(){
@@ -115,10 +101,7 @@ public class EchoController {
     }
 
 
-    /**
-     * 保存报价订单回显
-     * @return
-     */
+
     @ApiOperation("保存报价订单回显")
     @PostMapping(value = "/SaveQuotedPriceEcho")
     public ResponseVO SaveQuotedPriceEcho(){

@@ -17,7 +17,7 @@ public class QuotedPriceServiceImpl implements QuotedPriceService {
     private QuotedPriceInfoMapper quotedPriceInfoMapper;
 
 
-    //报价审核通过
+    //报价审核/审批通过
     @Override
     public void auditAllow(QuotedPriceInfoPO quotedPriceInfoPO) {
         quotedPriceInfoPO.setStatus(quotedPriceInfoPO.getStatus()+1);
@@ -25,7 +25,7 @@ public class QuotedPriceServiceImpl implements QuotedPriceService {
         quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
     }
 
-    //报价审核不通过
+    //报价审核审批不通过
     @Override
     public void auditFailure(QuotedPriceInfoPO quotedPriceInfoPO) {
         quotedPriceInfoPO.setStatus(-1);
@@ -33,34 +33,7 @@ public class QuotedPriceServiceImpl implements QuotedPriceService {
         quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
     }
 
-    //报价审批通过
-    @Override
-    public void approvalAllow(QuotedPriceInfoPO quotedPriceInfoPO) {
-        quotedPriceInfoPO.setStatus(quotedPriceInfoPO.getStatus()+1);
-        //将修改的结果存入数据库
-        quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
-    }
-
-    //报价审批不通过
-    @Override
-    public void approvalFailure(QuotedPriceInfoPO quotedPriceInfoPO) {
-        quotedPriceInfoPO.setStatus(-1);
-        //将修改的结果存入数据库
-        quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
-    }
-
-    //*************************************************************************
-
     //报价批量审核/审批通过
-    /*@Transactional
-    @Override
-    public void batchauditAllow(QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO) {
-        for (QuotedPriceInfoPO quotedPriceInfoPO:quotedPriceInfoPOListDTO.getQuotedPriceInfoPOList()){
-            quotedPriceInfoPO.setStatus(quotedPriceInfoPO.getStatus()+1);
-            //将修改的结果存入数据库
-            quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
-        }
-    }*/
     @Transactional
     @Override
     public void batchauditAllow(QuotedPriceIdListDTO quotedPriceIdListDTO) {
@@ -71,23 +44,10 @@ public class QuotedPriceServiceImpl implements QuotedPriceService {
             //将修改的结果存入数据库
             quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
         }
-
-
-
-
     }
 
 
     //报价批量审核/审批不通过
-   /* @Transactional
-    @Override
-    public void batchauditFailure(QuotedPriceInfoPOListDTO quotedPriceInfoPOListDTO) {
-        for (QuotedPriceInfoPO quotedPriceInfoPO:quotedPriceInfoPOListDTO.getQuotedPriceInfoPOList()){
-            quotedPriceInfoPO.setStatus(-1);
-            //将修改的结果存入数据库
-            quotedPriceInfoMapper.updateById(quotedPriceInfoPO);
-        }
-    }*/
     @Transactional
     @Override
     public void batchauditFailure(QuotedPriceIdListDTO quotedPriceIdListDTO) {
