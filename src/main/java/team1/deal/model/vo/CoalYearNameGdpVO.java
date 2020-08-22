@@ -9,14 +9,14 @@ import lombok.Data;
 public class CoalYearNameGdpVO {
 
     @ApiModelProperty(value = "煤炭名")
-    private String name;
+    private String coalType;
     @ApiModelProperty(value = "年")
     private String year;
     @ApiModelProperty(value = "数量")
     private long gdp;
 
-    public CoalYearNameGdpVO(String name, String year, long gdp) {
-        this.name = name;
+    public CoalYearNameGdpVO(String coalType, String year, long gdp) {
+        this.coalType = coalType;
         this.year = year;
         this.gdp = gdp;
     }

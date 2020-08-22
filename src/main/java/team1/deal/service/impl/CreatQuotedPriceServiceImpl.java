@@ -30,12 +30,10 @@ public class CreatQuotedPriceServiceImpl implements CreatQuotedPriceService {
         quotedPriceInfoPO.setStatus(0);
         //将报价订单的id设置为null,防止保存的id与提交后的id冲突
         quotedPriceInfoPO.setId(null);
-
         String Token = request.getHeader("Token");
         //在redis中查询
         UserPO userPO = redisTemplate.opsForValue().get(Token);
         quotedPriceInfoPO.setUId(userPO.getId());
-
         quotedPriceInfoMapper.insert(quotedPriceInfoPO);
     }
 
@@ -44,7 +42,6 @@ public class CreatQuotedPriceServiceImpl implements CreatQuotedPriceService {
     public void SaveQuotedPrice(HttpServletRequest request,SaveQuotedPriceInfoPO saveQuotedPriceInfoPO) {
         //设置报价订单的状态
         saveQuotedPriceInfoPO.setStatus(-2);
-
         //判断保存表中有无已保存的数据，有则删除旧，保存新的,确保保存表中在某一时刻只能有一条数据
         QueryWrapper wrapper = new QueryWrapper();
         SaveQuotedPriceInfoPO saveQuotedPriceInfoPO1 = saveQuotedPriceInfoMapper.selectOne(wrapper);
@@ -56,7 +53,6 @@ public class CreatQuotedPriceServiceImpl implements CreatQuotedPriceService {
         //在redis中查询
         UserPO userPO = redisTemplate.opsForValue().get(Token);
         saveQuotedPriceInfoPO.setUId(userPO.getId());
-
         saveQuotedPriceInfoMapper.insert(saveQuotedPriceInfoPO);
     }
 }

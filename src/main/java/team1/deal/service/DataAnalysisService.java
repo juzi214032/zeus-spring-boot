@@ -1,10 +1,7 @@
 package team1.deal.service;
 
 import team1.deal.model.dto.DispatchDestinationDTO;
-import team1.deal.model.vo.CoalInformationVO;
-import team1.deal.model.vo.CoalYearNameGdpVO;
-import team1.deal.model.vo.ResponseVO;
-import team1.deal.model.vo.TransportInformationVO;
+import team1.deal.model.vo.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,7 +22,7 @@ public interface DataAnalysisService {
     public long totalvolume();
 
     //折线图,各种煤的总量统计
-    public List<CoalYearNameGdpVO> aggregateOfAllKindsOfCoal(Integer begin,Integer end);
+    public List<CoalYearNameGdpVO> aggregateOfAllKindsOfCoal();
 
     //运输方式统计
     public List<TransportInformationVO> modeOfTransportStatistics();
@@ -34,7 +31,7 @@ public interface DataAnalysisService {
     public List<CoalInformationVO> regionalCoalDistribution();
 
     //关注程度统计
-    public Map<String,Object> attention();
+    public List<RadarMapVO> attention();
 
     //煤炭流向统计
     public List<Map<String,String>> coalFlowStatistics();

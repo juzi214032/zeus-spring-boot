@@ -13,8 +13,22 @@ public class test {
 
 
     @Test
-    void test1(){
-
+    public void test_1(){
+        {
+            int[]arr = new int[]{2,3,4,5};
+            change(arr);
+            System.out.println(arr[1]);
+        }
+    }
+    public static void change(int[] arr)
+    {
+        for(int i=0;i<arr.length;i++)
+        {
+            if(i%2==1)
+            {
+                arr[i]+=2;
+            }
+        }
     }
 
 

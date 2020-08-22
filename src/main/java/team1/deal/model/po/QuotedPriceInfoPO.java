@@ -44,8 +44,6 @@ public class QuotedPriceInfoPO implements Serializable {
     @TableField("uId")
     private Integer uId;
 
-    @Range(min = -2,max = 4)
-    @NotNull
     @ApiModelProperty(value = "状态代码（0：待审核状态，1：电厂一级审核通过状态，2：电厂二级审核通过状态， *3：子公司审批通过状态，4：完成状态，-1：出局状态，-2保存状态")
     private Integer status;
 

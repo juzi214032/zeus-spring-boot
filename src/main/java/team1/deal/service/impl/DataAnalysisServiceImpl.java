@@ -12,10 +12,7 @@ import team1.deal.mapper.CityMapper;
 import team1.deal.model.dto.DispatchDestinationDTO;
 import team1.deal.model.dto.LatitudeAndIongitudeAndNumberDTO;
 import team1.deal.model.po.CityPO;
-import team1.deal.model.vo.CoalInformationVO;
-import team1.deal.model.vo.CoalYearNameGdpVO;
-import team1.deal.model.vo.ResponseVO;
-import team1.deal.model.vo.TransportInformationVO;
+import team1.deal.model.vo.*;
 import team1.deal.service.DataAnalysisService;
 
 import java.math.BigDecimal;
@@ -69,37 +66,15 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     //折线图,各种煤的总量统计
     @Transactional
     @Override
-    public List<CoalYearNameGdpVO> aggregateOfAllKindsOfCoal(Integer begin,Integer end) {
-        List<CoalYearNameGdpVO> coalYearNameGdpVOList = new ArrayList<>();
-        for (int i = begin ;i<=end ; i++){
-            //设置开始时间，设置结束时间
-            LocalDateTime beginlocalDateTime = DateUtil.parseLocalDateTime(i+"-01-01 00:00:00");
-            LocalDateTime endlocalDateTime = DateUtil.parseLocalDateTime(++i+"-01-01 00:00:00");
-            //查询出有多少种煤
-            List<String> kindsOfCoallist = dataAnalysisDao.kindsOfCoallist(beginlocalDateTime,endlocalDateTime);
-            for (String Coal:kindsOfCoallist){
-                if (dataAnalysisDao.existOrNotExist(Coal)!=0){
-                    coalYearNameGdpVOList.add(new CoalYearNameGdpVO(Coal,Convert.toStr(beginlocalDateTime.getYear()), dataAnalysisDao.kindsOfCoal(Coal,beginlocalDateTime,endlocalDateTime)));
-                }
-            }
-        }
-        return coalYearNameGdpVOList;
+    public List<CoalYearNameGdpVO> aggregateOfAllKindsOfCoal() {
+        return dataAnalysisDao.kindsOfCoal();
     }
 
     //运输方式统计
     @Transactional
     @Override
     public List<TransportInformationVO> modeOfTransportStatistics() {
-        List<TransportInformationVO> transportInformationVOList = new ArrayList<>();
-        //查询一共有哪些方式的运输方式
-        List<String> transportTypelist = dataAnalysisDao.transportTypelist();
-        for (String transportType:transportTypelist){
-            long modeOfTransport = dataAnalysisDao.modeOfTransportStatistics(transportType);
-            if (modeOfTransport!=0){
-                transportInformationVOList.add(new TransportInformationVO(transportType,modeOfTransport));
-            }
-        }
-        return transportInformationVOList;
+        return dataAnalysisDao.modeOfTransportStatistics();
     }
 
     //地区煤炭分布统计
@@ -134,14 +109,8 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     //关注程度统计
     @Transactional
     @Override
-    public Map<String, Object> attention() {
-        //先获取有哪些需求订单
-        List<Integer> DemandIdList = dataAnalysisDao.getDemandIds();
-        Map<String,Object> map = new HashMap<>();
-        for (Integer did:DemandIdList){
-            map.put(Convert.toStr(did),dataAnalysisDao.attention(did));
-        }
-        return map;
+    public List<RadarMapVO> attention() {
+        return dataAnalysisDao.attention();
     }
 
     //煤炭流向统计

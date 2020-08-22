@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import team1.deal.model.dto.DispatchDestinationDTO;
+import team1.deal.model.vo.CoalYearNameGdpVO;
+import team1.deal.model.vo.RadarMapVO;
+import team1.deal.model.vo.TransportInformationVO;
 
 import java.time.LocalDate;
 
@@ -24,20 +27,16 @@ public interface DataAnalysisDao {
     //总交易额
     public long totalvolume();
 
-    //某一种煤的总量，根据某年
-    public long kindsOfCoal(String coalType,LocalDateTime beginYear,LocalDateTime endYear);
+    //折线图
+    public List<CoalYearNameGdpVO> kindsOfCoal();
 
-    //查询一共有多少种煤，根据某年
-    public List<String> kindsOfCoallist(LocalDateTime beginYear,LocalDateTime endYear);
 
     //某一种煤有没有
     public long existOrNotExist(String coalType);
 
     //运输方式统计
-    public long modeOfTransportStatistics(String transportType);
+    public List<TransportInformationVO> modeOfTransportStatistics();
 
-    //查询一共有哪些方式的运输方式
-    public List<String> transportTypelist();
 
     //地区煤炭分布统计,根据地区和煤种
     public long regionalCoalDistribution(String producingArea,String coalType);
@@ -48,11 +47,8 @@ public interface DataAnalysisDao {
     //查询某个地区有哪些煤种
     public List<String> CoallistbyProducingArea(String producingArea);
 
-    //关注程度统计
-    public long attention(Integer did);
-
-    //获取全都需求订单的id号
-    public List<Integer> getDemandIds();
+    //雷达图
+    public List<RadarMapVO> attention();
 
     //查询出发送地-目的地
     public List<DispatchDestinationDTO> getDispatchDestinationDTO();

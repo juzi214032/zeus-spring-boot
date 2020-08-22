@@ -28,11 +28,20 @@
         select count(*) from quoted_price_info where status = 3
     </select>
 
-    <!-- public long KindsOfCoal(String coalType,LocalDateTime beginYear,LocalDateTime endYear); -->
-    <select id="kindsOfCoal" resultType="long">
-        select sum(coalNumber) from demand_order
-        where coalType = #{coalType} and deliveryTime <![CDATA[>=]]> #{beginYear}
-        and deliveryTime <![CDATA[<]]> #{endYear}
+    <!-- 折线图public List<CoalYearNameGdpVO> KindsOfCoal(); -->
+    <select id="kindsOfCoal" resultType="team1.deal.model.vo.CoalYearNameGdpVO">
+        SELECT
+	demand_order.coalType,
+	sum( demand_order.coalNumber ) AS gdp,
+	DATE_FORMAT( demand_order.deliveryTime, "%Y" ) AS `year`
+    FROM
+	demand_order
+    GROUP BY
+	demand_order.coalType,
+	DATE_FORMAT(
+		demand_order.deliveryTime,
+	"%Y"
+	)
     </select>
 
     <!-- public List<String> kindsOfCoallist(LocalDateTime beginYear,LocalDateTime endYear); -->
@@ -46,14 +55,15 @@
         select count(*) from demand_order where coalType = #{coalType}
     </select>
 
-    <!-- public long modeOfTransportStatistics(String transportType); -->
-    <select id="modeOfTransportStatistics" resultType="long">
-        select count(*) from demand_order where transportType = #{transportType}
-    </select>
-
-    <!-- public List<String> transportTypelist(); -->
-    <select id="transportTypelist" resultType="String">
-        select transportType from demand_order group by transportType
+    <!-- 运输方式统计public List<TransportInformationVO> modeOfTransportStatistics(); -->
+    <select id="modeOfTransportStatistics" resultType="team1.deal.model.vo.TransportInformationVO">
+        SELECT
+        demand_order.transportType,
+        count(*) as count
+        FROM
+        demand_order
+        GROUP BY
+        demand_order.transportType
     </select>
 
     <!-- public long regionalCoalDistribution(String producingArea,String coalType); -->
@@ -73,15 +83,12 @@
         where q.producingArea=#{producingArea} group by d.coalType
     </select>
 
-    <!-- public long attention(Integer did); -->
-    <select id="attention" resultType="long">
-        select count(*) from quoted_price_info as q inner join demand_order as d
-        on q.did = d.id where  q.did = #{did}
-    </select>
-
-    <!-- public List<Integer> getDemandIds(); -->
-    <select id="getDemandIds" resultType="Integer">
-        select id from  demand_order
+    <!-- 雷达图public List<RadarMapVO> attention(); -->
+    <select id="attention" resultType="team1.deal.model.vo.RadarMapVO">
+        select coalType,producingArea,sum(supplyQuantity) as count from (select d.coalType,q.producingArea,q.supplyQuantity
+from quoted_price_info as q inner join demand_order as d on q.did = d.id
+where q.producingArea = '沿海城市' or q.producingArea = '内陆城市'
+group by q.producingArea,q.id) as table1 group by producingArea,coalType
     </select>
 
     <!-- public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did); -->
