@@ -37,7 +37,7 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return dataAnalysisDao.countSunUserNumber();
     }
 
-    //需求订单已经通过审核审批的数量统计
+    //需求订单数量统计
     @Override
     public long getContDemand() {
         return dataAnalysisDao.countDemandNumber();
@@ -53,14 +53,11 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
         return 0;
     }
 
-    //总交易额统计
+    //近十天交易额占比
     @Transactional
     @Override
-    public long totalvolume() {
-        if (dataAnalysisDao.countQuotedPriceNumber()!=0){
-            return dataAnalysisDao.totalvolume();
-        }
-        return 0;
+    public BigDecimal totalvolume() {
+        return new BigDecimal(Convert.toStr(dataAnalysisDao.proportion())).setScale(4,BigDecimal.ROUND_HALF_UP);
     }
 
     //折线图,各种煤的总量统计
@@ -81,32 +78,10 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
     @Transactional
     @Override
     public List<CoalInformationVO> regionalCoalDistribution() {
-        List<CoalInformationVO> coalInformationVOList = new ArrayList<>();
-        //先获取一共有哪些地区
-        List<String> producingArealist = dataAnalysisDao.region();
-        for (String producingArea:producingArealist){
-            //查询某个地区有哪些煤种
-            List<String> coalTypeList = dataAnalysisDao.CoallistbyProducingArea(producingArea);
-            for (String coalType:coalTypeList){
-                coalInformationVOList.add(new CoalInformationVO(coalType,producingArea,
-                        dataAnalysisDao.regionalCoalDistribution(producingArea,coalType)));
-            }
-        }
-
-        List<CoalInformationVO> coalInformationVOList2 = new ArrayList<>();
-        for (CoalInformationVO coalInformationVO:coalInformationVOList){
-            if (coalInformationVO.getProducingArea().equals("沿海城市")){
-                coalInformationVOList2.add(coalInformationVO);
-            }else if (coalInformationVO.getProducingArea().equals("内陆城市")){
-                coalInformationVOList2.add(coalInformationVO);
-            }
-        }
-
-
-        return coalInformationVOList2;
+        return dataAnalysisDao.CoalDistribution();
     }
 
-    //关注程度统计
+    //雷达图
     @Transactional
     @Override
     public List<RadarMapVO> attention() {

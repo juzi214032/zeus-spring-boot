@@ -39,7 +39,7 @@ public class DataAnalysisController{
     }
 
     @GetMapping("/totalvolume")
-    @ApiOperation("总交易额统计")
+    @ApiOperation("近十天交易额占比")
     public ResponseVO totalvolume(){
         return new ResponseVO(dataAnalysisService.totalvolume());
     }

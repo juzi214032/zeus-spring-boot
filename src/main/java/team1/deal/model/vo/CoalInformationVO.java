@@ -8,16 +8,16 @@ import lombok.Data;
 @ApiModel(value="CoalInformationVO对象", description="用来接收地区煤炭的相关数据")
 public class CoalInformationVO {
     @ApiModelProperty(value = "煤炭名")
-    private String type;
+    private String coalType;
     @ApiModelProperty(value = "煤炭地区")
     private String producingArea;
     @ApiModelProperty(value = "数量")
-    private long gdp;
+    private long count;
 
-    public CoalInformationVO(String type, String producingArea, long gdp) {
-        this.type = type;
+    public CoalInformationVO(String coalType, String producingArea, long count) {
+        this.coalType = coalType;
         this.producingArea = producingArea;
-        this.gdp = gdp;
+        this.count = count;
     }
 
     public CoalInformationVO() {

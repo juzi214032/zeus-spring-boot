@@ -29,18 +29,10 @@ class DealApplicationTests {
         person.setUsername("账户");
         person.setPassword("123");
         person.setId(12);
-        //String k = UUID.randomUUID() + "";
         redisTemplate.opsForValue().set("k6",person, Duration.ofHours(23L));
         System.out.println(redisTemplate.opsForValue().get("k1"));
     }
 
-    @Test
-    void test2(){
-        List<String> list = dataAnalysisDao.CoallistbyProducingArea("湖南");
-        for (String name:list){
-            System.out.println(name);
-        }
-    }
 
 
 }

@@ -8,19 +8,27 @@
         where user_role.rId=4
     </select>
 
-    <!-- long countDemandNumber(); -->
+    <!-- 需求订单数量统计long countDemandNumber(); -->
     <select id="countDemandNumber" resultType="long">
         select count(*) from demand_order where status = 4
     </select>
 
-    <!-- public long CountDemandProcurement(); -->
+    <!-- 采购数量总量统计public long CountDemandProcurement(); -->
     <select id="countDemandProcurement" resultType="long">
         select sum(coalNumber) from demand_order where status = 4
     </select>
 
-    <!-- public long totalvolume(); -->
-    <select id="totalvolume" resultType="long">
-        select sum(rawCoalPrice * supplyQuantity) from quoted_price_info where status = 3
+    <!-- 近十天交易额占比public BigDecimal proportion(); -->
+    <select id="proportion" resultType="BigDecimal">
+        select table2.RecentlytotallPrice/table2.totallPrice from (
+        select sum(q.rawCoalPrice * q.supplyQuantity) as RecentlytotallPrice,(select sum(q.rawCoalPrice * q.supplyQuantity) as totallPrice
+        from quoted_price_info as q inner join demand_order as d on q.did = d.id
+        where q.status = 3
+        group by q.status) as totallPrice
+        from quoted_price_info as q inner join demand_order as d on q.did = d.id
+        where q.status = 3 and d.deliveryTime between '2020-09-15 00:00:00' and '2020-09-25 00:00:00'
+        group by q.status
+        ) as table2
     </select>
 
     <!-- public long countQuotedPriceNumber(); -->
@@ -66,21 +74,13 @@
         demand_order.transportType
     </select>
 
-    <!-- public long regionalCoalDistribution(String producingArea,String coalType); -->
-    <select id="regionalCoalDistribution" resultType="long">
-        select sum(q.supplyQuantity) from quoted_price_info as q inner join demand_order as d on q.dId=d.id
-        where q.producingArea = #{param1} and d.coalType=#{param2}
-    </select>
-
-    <!-- public List<String> region(); -->
-    <select id="region" resultType="String">
-        select producingArea from quoted_price_info group by producingArea
-    </select>
-
-    <!-- public List<String> CoallistbyProducingArea(String producingArea); -->
-    <select id="CoallistbyProducingArea" resultType="String">
-        select d.coalType from quoted_price_info as q inner join demand_order as d on q.dId=d.id
-        where q.producingArea=#{producingArea} group by d.coalType
+    <!--  地区煤炭分布统计
+    public List<CoalInformationVO> CoalDistribution(); -->
+    <select id="CoalDistribution" resultType="team1.deal.model.vo.CoalInformationVO">
+        select coalType,producingArea,sum(supplyQuantity) as count from (select d.coalType,q.producingArea,q.supplyQuantity
+        from quoted_price_info as q inner join demand_order as d on q.did = d.id
+        where q.producingArea = '沿海城市' or q.producingArea = '内陆城市'
+        group by q.producingArea,q.id) as table1 group by producingArea,coalType
     </select>
 
     <!-- 雷达图public List<RadarMapVO> attention(); -->

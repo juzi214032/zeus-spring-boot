@@ -12,14 +12,14 @@ public interface DataAnalysisService {
     //阳光用户数量统计
     long getSunUserNumber();
 
-    //需求订单已经通过审核审批的数量统计
+    //需求订单数量统计
     public long getContDemand();
 
-    //所有需求订单采购数量总量
+    //采购数量总量统计
     public long contDemandProcurement();
 
-    //总交易额统计
-    public long totalvolume();
+    //近十天交易额占比
+    public BigDecimal totalvolume();
 
     //折线图,各种煤的总量统计
     public List<CoalYearNameGdpVO> aggregateOfAllKindsOfCoal();

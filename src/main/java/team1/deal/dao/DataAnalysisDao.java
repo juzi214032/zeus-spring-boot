@@ -1,10 +1,12 @@
 package team1.deal.dao;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import team1.deal.model.dto.DispatchDestinationDTO;
+import team1.deal.model.vo.CoalInformationVO;
 import team1.deal.model.vo.CoalYearNameGdpVO;
 import team1.deal.model.vo.RadarMapVO;
 import team1.deal.model.vo.TransportInformationVO;
@@ -18,14 +20,14 @@ public interface DataAnalysisDao {
     //状态为3的报价订单总数
     public long countQuotedPriceNumber();
 
-    //需求订单已经通过审核审批的数量
+    //需求订单数量统计
     public long countDemandNumber();
 
-    //所有需求订单采购数量总量
+    //采购数量总量统计
     public long countDemandProcurement();
 
-    //总交易额
-    public long totalvolume();
+    //近十天交易额占比
+    public BigDecimal proportion();
 
     //折线图
     public List<CoalYearNameGdpVO> kindsOfCoal();
@@ -37,15 +39,9 @@ public interface DataAnalysisDao {
     //运输方式统计
     public List<TransportInformationVO> modeOfTransportStatistics();
 
+    //地区煤炭分布统计
+    public List<CoalInformationVO> CoalDistribution();
 
-    //地区煤炭分布统计,根据地区和煤种
-    public long regionalCoalDistribution(String producingArea,String coalType);
-
-    //查询一共有哪些产地
-    public List<String> region();
-
-    //查询某个地区有哪些煤种
-    public List<String> CoallistbyProducingArea(String producingArea);
 
     //雷达图
     public List<RadarMapVO> attention();
