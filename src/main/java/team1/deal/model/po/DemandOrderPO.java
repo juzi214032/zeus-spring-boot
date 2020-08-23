@@ -38,9 +38,7 @@ public class DemandOrderPO implements Serializable {
     @ApiModelProperty(value = "用户id")
     @TableField("uId")
     private Integer uId;
-
-    @NotNull
-    @Range(min = -2,max = 5)
+    
     @ApiModelProperty(value = "状态代码（0：待审核状态，1：电厂一级审核通过状态，2：电厂二级审核通过状态，3：子公司一级审核通过状态，4：子公司二级审核通过状态，5完成状态，-1：待修改状态,-2：未创建状态")
     private Integer status;
 
