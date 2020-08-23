@@ -1,0 +1,16 @@
+{
+        "id": null,
+        "status": 0,
+        "supplyQuantity": 20,
+        "calorificValue": 20,
+        "rawCoalPrice": 20.00,
+        "sulfurContent": 20.00,
+        "producingArea": "zsdf",
+        "itemPrice": 20.00,
+        "volatileQuantity": 20.00,
+        "port": "zsdf",
+        "aad": 20.00,
+        "totalMoisture": 20.00,
+        "uid": 1,
+        "did": 1
+    }

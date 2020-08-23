@@ -27,7 +27,7 @@ public class QuotedPriceInfoVO {
     private Integer supplyQuantity;
 
     @ApiModelProperty(value = "热值")
-    private Integer calorificValue;
+    private BigDecimal calorificValue;
 
     @ApiModelProperty(value = "原煤单价")
     private BigDecimal rawCoalPrice;

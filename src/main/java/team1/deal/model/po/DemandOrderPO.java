@@ -38,31 +38,30 @@ public class DemandOrderPO implements Serializable {
     @ApiModelProperty(value = "用户id")
     @TableField("uId")
     private Integer uId;
-    
+
     @ApiModelProperty(value = "状态代码（0：待审核状态，1：电厂一级审核通过状态，2：电厂二级审核通过状态，3：子公司一级审核通过状态，4：子公司二级审核通过状态，5完成状态，-1：待修改状态,-2：未创建状态")
     private Integer status;
 
     @ApiModelProperty(value = "审核意见")
     private String idea;
 
-    @NotNull
+    @NotNull(message = "报价截止时间八八八八")
     @Future
     @ApiModelProperty(value = "报价截止时间")
     @TableField("lastTime")
     private LocalDateTime lastTime;
 
-    @NotBlank
+    @NotBlank(message = "申请单位八八八八")
     @ApiModelProperty(value = "申请单位")
     @TableField("applyUnit")
     private String applyUnit;
 
-    @NotNull
-    @Future
+    @NotNull(message = "申请日期八八八八")
     @ApiModelProperty(value = "申请日期")
     @TableField("applyTime")
     private LocalDateTime applyTime;
 
-    @NotNull
+    @NotNull(message = "交货日期八八八八")
     @Future
     @ApiModelProperty(value = "交货日期")
     @TableField("deliveryTime")
@@ -73,32 +72,32 @@ public class DemandOrderPO implements Serializable {
     @TableField("coalType")
     private String coalType;
 
-    @NotNull
+    @NotNull(message = "采购数量八八八八")
     @ApiModelProperty(value = "采购数量")
     @TableField("coalNumber")
     private Integer coalNumber;
 
-    @NotBlank
+    @NotBlank(message = "运输方式八八八八")
     @ApiModelProperty(value = "运输方式")
     @TableField("transportType")
     private String transportType;
 
-    @NotBlank
+    @NotBlank@NotBlank(message = "交货地点八八八八")
     @ApiModelProperty(value = "交货地点")
     @TableField("deliveryPlace")
     private String deliveryPlace;
 
-    @NotBlank
+    @NotBlank@NotBlank(message = "结算方式八八八八")
     @ApiModelProperty(value = "结算方式")
     @TableField("paymentType")
     private String paymentType;
 
-    @NotBlank
+    @NotBlank(message = "验收方式八八八八")
     @ApiModelProperty(value = "验收方式")
     @TableField("checkType")
     private String checkType;
 
-    @NotNull
+    @NotNull(message = "最高限价，不能为空八八八八")
     @ApiModelProperty(value = "最高限价，不能为空")
     @TableField("maxPrice")
     private BigDecimal maxPrice;
@@ -107,37 +106,37 @@ public class DemandOrderPO implements Serializable {
     @TableField("minPrice")
     private BigDecimal minPrice;
 
-    @NotBlank
+    @NotBlank(message = "限价说明八八八八")
     @ApiModelProperty(value = "限价说明")
     @TableField("priceDescription")
     private String priceDescription;
 
-    @NotNull
+    @NotNull(message = "每吨煤,报价保证金额八八八八")
     @ApiModelProperty(value = "每吨煤,报价保证金额")
     @TableField("offerMargin")
     private BigDecimal offerMargin;
 
-    @NotNull
+    @NotNull(message = "每吨煤,执行保证金额八八八八")
     @ApiModelProperty(value = "每吨煤,执行保证金额")
     @TableField("performMargin")
     private BigDecimal performMargin;
 
-    @NotNull
+    @NotNull(message = "热值八八八八")
     @ApiModelProperty(value = "热值")
     @TableField("calorificValue")
     private BigDecimal calorificValue;
 
-    @NotNull
+    @NotNull(message = "全硫八八八八")
     @ApiModelProperty(value = "全硫")
     @TableField("sulfurContent")
     private BigDecimal sulfurContent;
 
-    @NotNull
+    @NotNull(message = "挥发分八八八八")
     @ApiModelProperty(value = "挥发分")
     @TableField("volatileQuantity")
     private BigDecimal volatileQuantity;
 
-    @NotNull
+    @NotNull(message = "空干基灰分八八八八")
     @ApiModelProperty(value = "空干基灰分")
     private BigDecimal aad;
 
