@@ -93,8 +93,7 @@ group by q.producingArea,q.id) as table1 group by producingArea,coalType
 
     <!-- public List<DispatchDestinationDTO> getDispatchDestinationDTO(Integer did); -->
     <select id="getDispatchDestinationDTO" resultType="team1.deal.model.dto.DispatchDestinationDTO">
-        select DISTINCT q.port,d.deliveryPlace from quoted_price_info as q inner join demand_order as d
-        on q.did = d.id
+        select d.deliveryPlace,q.`port` from demand_order as d INNER JOIN (select q.dId,q.`port` from quoted_price_info as q) as q on d.id =q.dId GROUP BY d.deliveryPlace,q.`port`
     </select>
 
     <select id="increaseOfDemand" resultType="long">
