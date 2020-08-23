@@ -13,7 +13,7 @@ public interface QuotedPriceInfoDao {
     DemandOrderPO getDemandOrder(@Param("id") Integer id);
 
     //返回简要报价信息
-    IPage<QuotedPriceBriefInfoVO> getQuotedPriceBriefInfo(@Param("page")Page<QuotedPriceBriefInfoVO> page, @Param("id") Integer userId);
+    IPage<QuotedPriceBriefInfoVO> getQuotedPriceBriefInfo(@Param("page")Page<QuotedPriceBriefInfoVO> page, @Param("id") Integer userId,@Param("status")Integer status);
 
     List<CityPO> getDeliveryPlace();
 }

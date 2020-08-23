@@ -20,7 +20,7 @@ public class QuotedPriceInfoVO {
     @ApiModelProperty(value = "供应商类别")
     private String type;
 
-    @ApiModelProperty(value = "状态代码（0：待审核状态，1：电厂一级审核通过状态，2：电厂二级审核通过状态， *3：子公司一级审核通过状态，4：一级审核通过状态，5：完成状态，-1：出局状态")
+    @ApiModelProperty(value = "状态代码（0：待审核状态，1：电厂一级审核通过状态，2：电厂二级审核通过状态， *3：子公司一级审核通过状态，4：完成状态，-1：出局状态")
     private Integer status;
 
     @ApiModelProperty(value = "供货量")

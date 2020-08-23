@@ -4,19 +4,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import team1.deal.model.dto.PageParamDTO;
+import team1.deal.model.po.ContractPO;
 import team1.deal.model.po.UserPO;
-import team1.deal.model.vo.DemandOrderBriefInfoVO;
-import team1.deal.model.vo.DemandOrderInfoVO;
-import team1.deal.model.vo.QuotedPriceBriefInfoVO;
-import team1.deal.model.vo.ResponseVO;
-import team1.deal.service.DemandOrderService;
-import team1.deal.service.EchoService;
-import team1.deal.service.QuotedPriceInfoService;
-import team1.deal.service.UserService;
+import team1.deal.model.vo.*;
+import team1.deal.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -35,6 +31,9 @@ public class EchoController {
     private RedisTemplate<Object, UserPO> redisTemplate;
 
     @Autowired
+    private ContractService contractService;
+
+    @Autowired
     private DemandOrderService demandOrderService;
 
     @Autowired
@@ -46,7 +45,7 @@ public class EchoController {
 
     @ApiOperation("需求订单简要信息回显")
     @GetMapping(value = "/demandEchoBrief")
-    public ResponseVO<IPage<DemandOrderBriefInfoVO>> DemandEchoBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
+    public ResponseVO<IPage<DemandOrderBriefInfoVO>> demandEchoBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
         return new ResponseVO(echoService.getDemandOrderBriefInfo(pageParamDTO,userPO.getId()));
     }
@@ -54,14 +53,14 @@ public class EchoController {
 
     @ApiOperation("需求订单详细信息回显")
     @GetMapping(value = "/demandEchoDetail/{orderId}")
-    public ResponseVO DemandEchoDetail(@ApiParam("需求订单id") @PathVariable Integer orderId){
+    public ResponseVO demandEchoDetail(@ApiParam("需求订单id") @PathVariable Integer orderId){
         return new ResponseVO(demandOrderService.getDemandOrderById(orderId));
     }
 
 
     @ApiOperation("报价阶段需求订单简要信息回显")
     @GetMapping(value = "/demandEchoBrief/quoted")
-    public ResponseVO<IPage<DemandOrderBriefInfoVO>> DemandEchoBriefQuoted(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
+    public ResponseVO<IPage<DemandOrderBriefInfoVO>> demandEchoBriefQuoted(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
         UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
         return new ResponseVO(echoService.getDemandOrderBriefInfoQuoted(pageParamDTO,userPO.getId()));
     }
@@ -93,6 +92,19 @@ public class EchoController {
         return  new ResponseVO<>(map);
     }
 
+    @ApiOperation("合同简要信息")
+    @GetMapping("/contractEchoBrief")
+    public ResponseVO<IPage<ContractBriefVO>> contractBrief(PageParamDTO pageParamDTO, HttpServletRequest httpServletRequest){
+        UserPO userPO = redisTemplate.opsForValue().get(httpServletRequest.getHeader("Token"));
+        return new ResponseVO<>(echoService.getContractBrief(pageParamDTO,userPO.getId()));
+    }
+
+    @ApiOperation("合同详细信息")
+    @GetMapping("/contractEchoDetail/{contractId}")
+    public ResponseVO<ContractVO> contractBrief(@PathVariable Integer contractId){
+        ContractVO contractVO = contractService.getContractVO(contractId);
+        return new ResponseVO<>(contractVO);
+    }
 
     @ApiOperation("保存需求订单回显")
     @PostMapping(value = "/SaveDemandEcho")

@@ -7,7 +7,15 @@
     <select id="getQuotedPriceBriefInfo" resultType="team1.deal.model.vo.QuotedPriceBriefInfoVO">
         select q.id,q.dId,d.coalType,d.coalNumber,u.name,q.status,q.supplyQuantity from demand_order AS d
         INNER JOIN quoted_price_info AS q ON  q.did = d.id
-        INNER JOIN user AS u ON u.id = q.uId where u.id =#{id}
+        INNER JOIN user AS u ON u.id = q.uId
+        <where>
+            <if test="id!=null">
+                u.id = #{id}
+            </if>
+            <if test="status!=null">
+                q.status = #{status}
+            </if>
+        </where>
     </select>
     <select id="getDeliveryPlace" resultType="team1.deal.model.po.CityPO">
         select distinct c.* from city AS c INNER JOIN quoted_price_info AS q where q.port = c.cityName

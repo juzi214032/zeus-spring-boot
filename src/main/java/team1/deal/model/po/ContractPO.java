@@ -39,14 +39,10 @@ public class ContractPO implements Serializable {
     @TableField("signDate")
     private LocalDateTime signDate;
 
-    @NotNull
-    @Range(min = 1)
     @ApiModelProperty(value = "需求表单id")
     @TableField("dId")
     private Integer dId;
 
-    @NotNull
-    @Range(min = 1)
     @ApiModelProperty(value = "报价表单id")
     @TableField("qId")
     private Integer qId;
@@ -60,7 +56,6 @@ public class ContractPO implements Serializable {
     @ApiModelProperty(value = "签约量")
     private Integer amount;
 
-    @Range(min = 0,max = 1)
     @ApiModelProperty(value = "合同状态，0：合同创建状态，1：合同完成状态")
     private Integer status;
 

@@ -3,12 +3,14 @@ package team1.deal.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import team1.deal.dao.ContractDao;
 import team1.deal.mapper.DemandOrderMapper;
 import team1.deal.mapper.QuotedPriceInfoMapper;
 import team1.deal.model.po.ContractPO;
 import team1.deal.mapper.ContractMapper;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.QuotedPriceInfoPO;
+import team1.deal.model.vo.ContractVO;
 import team1.deal.service.ContractService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,8 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
     @Autowired
     private ContractMapper contractMapper;
     @Autowired
+    private ContractDao contractDao;
+    @Autowired
     private DemandOrderMapper demandOrderMapper;
     @Autowired
     private QuotedPriceInfoMapper quotedPriceInfoMapper;
@@ -47,6 +51,8 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
         String path = System.getProperty("user.dir") + "\\ContractFolder";
         //将当前时间转换成时间戳
         long longtime = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        Integer dId = quotedPriceInfoMapper.selectById(contractPO.getQId()).getDId();
+        contractPO.setDId(dId);
         //将时间戳和原名加一起，保证了名字的唯一性
         String fileName = longtime + file.getOriginalFilename();
         //判断路径是否存在，不存在则新创建一个
@@ -79,5 +85,10 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, ContractPO>
         contractPO.setStatus(1);
         //将修改为完毕状态的contractPO在数据库中更新
         contractMapper.updateById(contractPO);
+    }
+
+    @Override
+    public ContractVO getContractVO(Integer contractId) {
+       return  contractDao.getContractVO(contractId);
     }
 }

@@ -56,7 +56,11 @@ public class QuotedPriceInfoServiceImpl extends ServiceImpl<QuotedPriceInfoMappe
         });
         //阳光用户返回所有用户自己提交的报价
         if (authorityList.contains("报价")){
-            return quotedPriceInfoDao.getQuotedPriceBriefInfo(page,userId);
+            return quotedPriceInfoDao.getQuotedPriceBriefInfo(page,userId,null);
+        }
+        //电厂审批用户返回所有已通过的报价
+        if (authorityList.contains("审批")){
+            return quotedPriceInfoDao.getQuotedPriceBriefInfo(page,null,3);
         }
         return null;
     }

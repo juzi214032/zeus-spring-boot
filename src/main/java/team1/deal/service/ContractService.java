@@ -3,6 +3,7 @@ package team1.deal.service;
 import org.springframework.web.multipart.MultipartFile;
 import team1.deal.model.po.ContractPO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import team1.deal.model.vo.ContractVO;
 
 import java.io.IOException;
 
@@ -24,4 +25,6 @@ public interface ContractService extends IService<ContractPO> {
     //合同执行完毕
     public void CompleteContract(ContractPO contractPO);
 
+    //返回合同信息
+    ContractVO getContractVO(Integer contractId);
 }

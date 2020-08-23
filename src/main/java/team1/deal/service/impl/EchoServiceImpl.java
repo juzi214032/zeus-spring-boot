@@ -3,22 +3,28 @@ package team1.deal.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team1.deal.dao.ContractDao;
 import team1.deal.dao.DemandOrderDao;
+import team1.deal.dao.QuotedPriceInfoDao;
 import team1.deal.dao.UserDao;
 import team1.deal.mapper.DemandOrderMapper;
 import team1.deal.mapper.SaveDemandOrderMapper;
 import team1.deal.mapper.SaveQuotedPriceInfoMapper;
 import team1.deal.model.dto.PageParamDTO;
+import team1.deal.model.po.ContractPO;
 import team1.deal.model.po.DemandOrderPO;
 import team1.deal.model.po.SaveDemandOrderPO;
 import team1.deal.model.po.SaveQuotedPriceInfoPO;
+import team1.deal.model.vo.ContractBriefVO;
 import team1.deal.model.vo.DemandOrderBriefInfoVO;
 import team1.deal.model.vo.DemandOrderInfoVO;
 import team1.deal.model.vo.QuotedPriceBriefInfoVO;
+import team1.deal.service.ContractService;
 import team1.deal.service.EchoService;
 
 import java.sql.Wrapper;
@@ -33,6 +39,8 @@ public class EchoServiceImpl implements EchoService {
     private UserDao userDao;
     @Autowired
     private DemandOrderDao demandOrderDao;
+    @Autowired
+    private ContractDao contractDao;
     @Autowired
     private SaveDemandOrderMapper saveDemandOrderMapper;
     @Autowired
@@ -93,6 +101,24 @@ public class EchoServiceImpl implements EchoService {
             return demandOrderDao.getDemandOrderBriefInfoQuoted(page,2);
         }
         return null;
+    }
+
+    //合同简要信息回显
+    @Override
+    public IPage<ContractBriefVO> getContractBrief(PageParamDTO pageParamDTO, Integer userId){
+        Page<ContractPO> page =new Page<>(pageParamDTO.getPageOn(),pageParamDTO.getPageSize());
+        //获取用户所拥有的权限id
+        List<String> authorityList = new ArrayList<>();
+        userDao.getUserAuthority(userId).forEach(s->{
+            authorityList.add(s.getAuthority());
+        });
+        //获取用户所在部门
+        String dept = userDao.getUserDept(userId).getDeptName();
+        if (authorityList.contains("审批")&&dept.equals("电厂")){
+            return contractDao.getContractBrief(page);
+        }
+        return null;
+
     }
 
     //保存需求订单回显
