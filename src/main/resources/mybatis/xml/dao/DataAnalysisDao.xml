@@ -42,14 +42,14 @@
 	demand_order.coalType,
 	sum( demand_order.coalNumber ) AS gdp,
 	DATE_FORMAT( demand_order.deliveryTime, "%Y" ) AS `year`
-    FROM
+FROM
 	demand_order
-    GROUP BY
+GROUP BY
 	demand_order.coalType,
 	DATE_FORMAT(
 		demand_order.deliveryTime,
 	"%Y"
-	)
+	) order by year
     </select>
 
     <!-- public List<String> kindsOfCoallist(LocalDateTime beginYear,LocalDateTime endYear); -->
