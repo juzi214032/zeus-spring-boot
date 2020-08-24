@@ -59,7 +59,6 @@ public class ContractPO implements Serializable {
     @ApiModelProperty(value = "合同状态，0：合同创建状态，1：合同完成状态")
     private Integer status;
 
-    @NotBlank(message = "必须上传合同")
     @ApiModelProperty(value = "合同附件保存的url")
     private String url;
 

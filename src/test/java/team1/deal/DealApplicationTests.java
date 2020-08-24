@@ -28,8 +28,8 @@ class DealApplicationTests {
         person.setName("chen");
         person.setUsername("账户");
         person.setPassword("123");
-        person.setId(5);
-        redisTemplate.opsForValue().set("k4",person, Duration.ofHours(23L));
+        person.setId(12);
+        redisTemplate.opsForValue().set("k6",person, Duration.ofHours(23L));
         System.out.println(redisTemplate.opsForValue().get("k1"));
     }
 
